@@ -19,3 +19,7 @@
 ## 核验
 
 git ls-remote origin refs/heads/main refs/heads/<备份名> 与本地 git rev-parse 对比。认证成功不等于仓库可写；push 后核验才算交付。A/B 哈希见 LOG/HANDOFF 最新记录；B 自身在终端核验，下轮记入日志。
+
+## 2026-09-05 / Phase 1 开工备份
+
+backup/pre-phase1-audit-20260905-0026 → 34fcde23e9bfa9161ff2c4175bd7c2104ac7cfb3（Phase 0 审计 B），已 push 并 ls-remote 核验。覆盖此前完整 Phase 0 交付；两份本轮开工计划在备份创建时未提交，不在此备份内，随本轮审核交付保存。未在备份分支开发，未回滚或覆盖任何用户资料。

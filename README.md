@@ -2,7 +2,7 @@
 
 USB 有线导盲眼镜研究原型：ESP32-S3 采集，电脑验证后迁移骁龙 8 系列 Android。
 
-Phase 0 工程基础已通过检查并交付；尚无可运行的固件、服务或 App。下一阶段为开源底座、依赖与许可审核，真实交付记录见下方进度和交接。
+Phase 0 已交付，Phase 1 来源与风险审核已有成果；尚无可运行的固件、服务或 App。模型使用、实际安装/编译和实机验证仍有未通过项，不能把审核快照当产品验收。
 
 ## 施工入口与基础检查
 
@@ -17,6 +17,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m ruff check .
 .\.venv\Scripts\python.exe -m ruff format --check .
 .\.venv\Scripts\python.exe tools/check_foundation.py
+.\.venv\Scripts\python.exe tools/check_source_audit.py
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 git diff --check
 ```
@@ -24,6 +25,9 @@ git diff --check
 唯一开发依赖锁定为 Ruff 0.12.12，测试使用标准库；未安装模型、固件或前端依赖。基础检查限制 Phase 0 的纯说明目录，后续阶段须随实际合同升级检查，不绕过失败。逐条命令成功后才进行下一条。
 
 ## 现行范围
+
+- [Phase 1 审核入口](docs/dependencies/README.md)：17 条来源快照、逐文件复用、许可及环境关卡。
+- [硬件接口评审](docs/hardware/INTERFACE_REVIEW.md)：设计级模块/电平/引脚及上电前检查，未采购或实测。
 
 - 现行技术基线：[方案 V3](方案V3.md)。
 - 现行执行规则：[施工规范 V3](X-Glasses施工规范V3.md)。

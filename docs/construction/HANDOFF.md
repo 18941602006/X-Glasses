@@ -77,3 +77,19 @@ Phase 0 工程基础完成；下一阶段 Phase 1 尚未开始。Git 身份 Trol
 交付包括规范要求的文档/层说明、隔离环境和最小锁定依赖、45 文件基础检查及 13 项工具单测；lint/format/pip/diff 检查通过，未做业务/硬件测试。记录保留所有故障与复测，详见 LOG。
 
 下一轮先按 AGENTS 必读顺序核查最终 HEAD/remote/status 并补记 B，再写 Phase 1 计划、创建新的远端备份。优先审核固定开源底座和代码/权重许可、USB/硬件模块/供电、手机风险；使用 LocateAnything 权重前确认用途，不把普通个人项目自动等同适用许可。持续按用户要求每完成一部分报备，无需重复确认已解决的 Git 身份。
+
+## 2026-09-05 / 最新：Phase 1 本地审核成果，待 A/B 收尾
+
+用户要求继续，已完成来源/许可/复用/硬件/手机预审并补记 Phase 0 B = 34fcde23e9bfa9161ff2c4175bd7c2104ac7cfb3。开工备份 backup/pre-phase1-audit-20260905-0026 已核验同一哈希，main/SSH origin/身份不变。当前本轮审核文件尚待提交，A/B 未生成，以下方审计为准。
+
+入口：docs/dependencies/README.md → sources.audit.json / REUSE_REVIEW / ENVIRONMENT_GATES，另读 docs/hardware/INTERFACE_REVIEW.md、docs/android-migration/PHASE1_RISKS.md 和本轮 LOG/01 层记录。17 条精确来源/版本是审核快照，不是安装锁/完整 SBOM。Search 检索仅用于发现，最终固定原始来源核验。
+
+检查：45 基础文件、17 来源/6 报告、23 工具单测、lint/format/pip/diff 全通过；首轮格式失败已修复。没有新运行依赖、第三方业务源码、模型权重、固件编译或实机测试。
+
+重要修正：LocateAnything 固定 LICENSE 是研究/评测描述，模型卡更窄，旧根许可路径已失效；按证据保留 blocked_use，先确认用户用途，不重复错误断言只限学术/非营利，也不擅自宣称商用许可。ToF 候选库不是现成 ESP-IDF 驱动；硬件 I²C 电平和整机峰值功耗须核查。
+
+下一步：收尾并核验 A/B 后可单独规划 Phase 2A 的不依赖模型 USB 协议/输入/回放测试，先写计划并建新备份。模型使用前确认项目实际用途与许可差异；固件安装/解析传递锁/编译和硬件到货上电仍待执行。不能把“审核交付”写成所有 Phase 1 运行/许可关卡通过。
+
+### 最新补充：用户已明确非商业测试用途
+
+LocateAnything 当前 evaluation_only（不再 blocked_use），用户非学术/非盈利用于测试，按固定 LICENSE 的评测范围准备。不要重复询问已回答的用途，不默认商用/生产分发；模型卡差异仍留记录。远程代码/第三方条款/隔离环境/手机迁移尚待验证，未下载权重。审核工具和文档已同步，全部测试 25 项通过。下一步仍按 Phase 2A 顺序，不因解除用途等待跳过其他安全门槛。

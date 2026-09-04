@@ -6,7 +6,7 @@
 
 开工依次完整阅读：本文 → 根施工规范 V3 / docs/construction/CODEX_MASTER_REQUIREMENTS.md → docs/product/PRODUCT_REQUIREMENTS.md → DEV_PROGRESS → LOG → GITHUB_ROLLBACK → TEST_METRICS → WORKFLOW → 当前 progress/layers 文件 → HANDOFF（未带路径者均在 docs/construction 下）。按需读 ARCHITECTURE、LAYER_CONTRACT、TOOL_POLICY 和方案 V3。
 
-当前实施范围 Phase 0；是否已交付以及下一步以最新 HANDOFF 为准。Phase 2A 为 USB，2B 为新电脑前端；Android 工程仅 Phase 6 建立。
+当前实施范围 Phase 1 来源/依赖/许可与硬件风险审核；Phase 0 已交付。阶段状态以最新 HANDOFF 为准。Phase 2A 为 USB，2B 为新电脑前端；Android 工程仅 Phase 6 建立。
 
 每轮先记计划，再在安全基线上成功 push 开发前备份并核验，才进入真实施工；明确暂存范围，交付 A/审计 B，不 force push、不覆盖未知改动。测试失败保留原因/修复/复测。记录实际状态、文档漂移和回滚点。
 

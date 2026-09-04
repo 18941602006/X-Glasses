@@ -124,3 +124,41 @@ git init -b main 后添加指定 SSH origin；显式暂存 README/.gitignore 并
 - git push origin main 成功；ls-remote refs/heads/main 与 A 完整哈希比较一致。A 推送后 git status --short 无输出。
 - Phase 0 已完成，备份保持在 76bb6d685a02a833056515350cd0a4eccee5d4fc。无业务/实机验证结论。
 - 此次补写 README 当前状态、MEMORY、进度/层进度、LOG/HANDOFF 构成审计 B。B 自身哈希不写入 B；最终 push/HEAD/remote/status 由终端核验，下一轮补记。未启动长期服务进程；pip 进程已结束。
+
+## 2026-09-05 / Phase 1 / 来源与风险审核
+
+### 开工与备份
+
+用户要求继续下一步。补记上轮 B = 34fcde23e9bfa9161ff2c4175bd7c2104ac7cfb3；本轮核验 main/远端一致、工作区干净、身份 Trollhunter / d.o.n.0907@qq.com、SSH 账号 18941602006、指定 origin 不变。先写 DEV_PROGRESS/01 层计划，再 push backup/pre-phase1-audit-20260905-0026，ls-remote 与 B 一致；两份开工计划当时未提交，明确不在备份覆盖内。
+
+沙箱首次执行仍报 helper_unknown_error: setup refresh had errors，按受控授权沙箱外读取和执行；文件编辑仍用 apply_patch 原生入口，未读取密钥/改变全局设置。
+
+### 研究与实际修改
+
+按 Search 技能读取检索/代码模式/提取/来源质量/综合说明，三组 Exa 查询各 numResults=5，共请求 15 条候选，按实体归并并排除聚合页；不是 15 个独立已验证来源。查询覆盖旧底座、LocateAnything、USB/硬件。Exa fetch 默认结果部分截断，后续官方 raw/API 和 web 定点补读许可/清单/关键源码，不用索引当最终证据。没有用子代理。
+
+新增 docs/dependencies/{sources.audit.json,README.md,REUSE_REVIEW.md,ENVIRONMENT_GATES.md}、docs/hardware/INTERFACE_REVIEW.md、docs/android-migration/PHASE1_RISKS.md、exa-results/phase1-audit-2026-09-05/README.md，新增 tools/check_source_audit.py 和 tests/test_source_audit.py。更新 AGENTS/README、架构/测试/回滚/进度/交接/MEMORY 及工具说明，无业务源码导入。
+
+关键实证：旧 bridge_io/sync_recorder 全文，其余主程序/导航/拿取/音频等仅 imports/结构和选段，明确非整仓审计；旧帧桥丢失源帧/采样时间，录制器固定 FPS 不等于真实同步。ToF 猜测的 STMicroelectronics/vl53l5cx API 请求 404，改核 STM32duino 来源，确认其 Arduino/TwoWire/C++ 类耦合，不能原样用于 ESP-IDF。
+
+模型许可差异：搜索索引曾返回根 LICENSE_MODEL 的旧“academic/non-profit”文本，但固定 Eagle 783f656d127ee498137b5ff52603ce36c292d317 根路径 raw 为 404；Embodied/LICENSE_MODEL 与 HF c32291ca5e996f5a7a485845b4f57a233936bba0/LICENSE 实际均为 research/evaluation，模型卡仍保留更窄描述。已记录冲突，旧历史不删除、不自动解除 blocked_use。HF 只读取 metadata/config/LICENSE/README，未下载权重或执行远程模型代码。
+
+USB 三项候选为 IDF 5.5.4、esp_tinyusb 2.2.1、camera 2.1.7，清单最低 IDF 版本兼容但传递依赖未解析。esp-usb 总仓许可证 API 返回 NOASSERTION，单独核对组件 Apache-2.0，未误判无许可。其余源码按 root license 和 commit 核对，未逐文件或对全部转依赖做法律/CVE 审计。硬件只给设计级模块/电平/引脚/地址表示与上电检查，无采购或电流实测。
+
+### 失败与验证
+
+首次 lint、17 来源/6 报告检查和 23 单测通过；format --check 发现 tools/check_source_audit.py 需格式化，单独记失败，组合终端最后返回 0 不代表格式子项通过。Ruff format 修复后逐项失败即停复测：pip check 成功，Ruff check 成功，4 文件 format 已符合，基础检查 45 文件通过，来源检查 17 条/6 报告通过，23 单测通过（约 0.921 秒），git diff --check 通过。
+
+新 10 测试覆盖正常快照、错误 schema/空条目、重复来源、浮动 revision、许可链接未固定、伪造 runtime_verified、擅自解除模型暂停/移除模型以及缺少关卡。检查不认证许可适用/安装兼容或实机能力。
+
+### 漂移、风险、回滚与交付状态
+
+已将当前阶段更新为 Phase 1 并补来源/环境/硬件合同，保留 USB、无 SLAM/盲道斑马线专项、手部融合、新前端；未改识物模型。当前仅基础 .venv 依赖，未安装新增运行包；全部快照 runtime_verified=false / imported=false。
+
+本地审核成果通过检查，A/B 尚待下方审计记录；不预写本轮 push。无需回滚，未删除用户资料。权重用途/许可差异、传递锁/编译、ToF 平台适配、采购模块/手机和其他权重许可仍为开放关卡；允许后续做不依赖模型的 USB 软件设计，但不以本阶段结论放行全部模型或佩戴测试。
+
+### 用户追加用途确认与复测
+
+用户在本轮施工中明确“LocateAnything为测试使用，不为学术或盈利为目的，所以放心去使用，请继续”。依据固定 LICENSE 的 research/evaluation 范围，将模型从 blocked_use 改 evaluation_only，记录用户原意、日期和许可来源，去掉等待用途确认关卡；保留说明页措辞差异。不得扩大为商业/生产使用，用户陈述不替代版权许可。没有下载/加载模型或执行远程代码。
+
+审核工具相应接受有明确记录的有限评测，不允许无记录评测或伪造商业许可；增加两项授权边界单测，原限制提升测试改为禁止升级无约束候选。格式化后 lint/来源检查通过，25 单测通过（约 0.918 秒）。同步当前权威报告与摘要，旧 blocked_use 日志保留为历史。
