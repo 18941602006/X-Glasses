@@ -1,0 +1,57 @@
+# Local environments and caches
+.venv/
+.venv-*/
+venv/
+__pycache__/
+*.py[cod]
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Credentials and real local configuration
+.env
+.env.*
+!.env.example
+config.local.*
+secrets/
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+.codex/
+.agents/
+
+# Build tools and outputs
+node_modules/
+dist/
+build/
+.pio/
+.gradle/
+.idea/
+.vscode/
+sdkconfig
+sdkconfig.old
+
+# Large or private runtime data
+models/
+weights/
+datasets/
+recordings/
+logs/
+artifacts/
+vendor-cache/
+*.log
+*.pt
+*.pth
+*.onnx
+*.safetensors
+*.gguf
+*.tflite
+*.bin
+
+# OS files
+Thumbs.db
+.DS_Store
