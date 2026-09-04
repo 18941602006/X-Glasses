@@ -162,3 +162,11 @@ USB 三项候选为 IDF 5.5.4、esp_tinyusb 2.2.1、camera 2.1.7，清单最低 
 用户在本轮施工中明确“LocateAnything为测试使用，不为学术或盈利为目的，所以放心去使用，请继续”。依据固定 LICENSE 的 research/evaluation 范围，将模型从 blocked_use 改 evaluation_only，记录用户原意、日期和许可来源，去掉等待用途确认关卡；保留说明页措辞差异。不得扩大为商业/生产使用，用户陈述不替代版权许可。没有下载/加载模型或执行远程代码。
 
 审核工具相应接受有明确记录的有限评测，不允许无记录评测或伪造商业许可；增加两项授权边界单测，原限制提升测试改为禁止升级无约束候选。格式化后 lint/来源检查通过，25 单测通过（约 0.918 秒）。同步当前权威报告与摘要，旧 blocked_use 日志保留为历史。
+
+## 2026-09-05 / Phase 1 / 交付 A 审计
+
+最终显式暂存 21 个审核相关文件，检查体积均小于 1MiB、常见私钥/token/key 模式无命中、变更 Markdown 相对链接均存在；基础结构/来源台账/pip/lint/format/25 单测及工作区/暂存 diff --check 全通过（最后单测约 0.887 秒）。无采集数据、模型、环境或业务源码入库。
+
+A = fb9d88a18ed6efe9acbdca5b397754fe9e43c3c3，21 文件 891 增/8 删（状态摘要更新，未删除历史或用户资料），已 push 指定 origin main，ls-remote 完整哈希一致；A 推送后 git status --short 无输出。开工备份仍为 backup/pre-phase1-audit-20260905-0026 → 34fcde23e9bfa9161ff2c4175bd7c2104ac7cfb3。
+
+交付定义：Phase 1 来源/风险审核成果已交付，LocateAnything 用途明确为 evaluation_only；不是全部运行/硬件关卡通过。下一步可规划 Phase 2A USB 协议/输入/回放，并按实施范围逐项锁依赖与编译验证。此追加记录构成审计 B，不包含 B 自身哈希；终端最终核验 B/remote/status，下一轮补记。没有长期进程需要停止。
