@@ -55,3 +55,15 @@ python/py/python3 在此前 PATH 中未找到；Git 配置查询无身份。不�
 - GitHub：目标 18941602006/X-Glasses，指定 SSH origin 尚未配置；本地未初始化，无分支/基线/备份/A/B/最终提交，无 push。读取成功不代表写权限已验证，所有资料未被远端备份覆盖。
 - 下一步：重读规范和最新记录 → 获得明确提交身份 → 复核远端仍为空及本地文件 → 最小 Bootstrap/公开推送内容审核 → 文档基线与备份 push/核验 → 完整 Phase 0 文档骨架和最小检查。每完成一部分向用户报备。
 - 风险：身份硬门槛不可猜测绕过；Python 可执行不代表 venv/依赖已验证；模型许可、手机部署与硬件实测仍留待对应阶段。
+
+## 2026-09-05 / Foundation 本地验收后（A/B 收尾前）
+
+- 当前：Phase 0 文档、骨架说明、环境和基础检查本地通过，待 A/B 远端核验；不是业务功能完成。
+- 身份已解决：Trollhunter / d.o.n.0907@qq.com，仅仓库级；SSH 账号 18941602006，origin git@github.com:18941602006/X-Glasses.git，main。
+- 备份：backup/pre-phase0-foundation-20260905-0006 → 76bb6d685a02a833056515350cd0a4eccee5d4fc，远端核验；Bootstrap fb23e6fbd1b822db85160e5f641af9b0bff9b02d。备份覆盖准备资料，不包括其后 Foundation 修改。
+- 文件：根 AGENTS/README/空配置/忽略换行/最小依赖、完整规范文档体系、所有层 README 和进度、检查工具/测试。最新入口 AGENTS → CODEX_START_HERE；规范 V3、产品要求、LOG、WORKFLOW、GITHUB_ROLLBACK、TEST_METRICS、00-foundation 均必读。
+- 验证：.venv Python 3.12.14 + Ruff 0.12.12；pip check、lint/format、45 必需文件/配置/忽略探针、13 工具单测、diff --check 通过。首次格式失败已修复并复测；无业务/实机测试。
+- 执行环境：沙箱 helper 启动故障时走受控沙箱外执行；补丁仍经 apply_patch 原生入口。不要把环境故障误报为项目代码测试失败。
+- 当前工作区：Foundation 变更尚待提交；A/B 无可填哈希。收尾后以下方追加审计为准。
+- 下一步：完成 A/B 交付核验后，本阶段结束；Phase 1 首先审核固定开源底座与许可/依赖/硬件 USB 兼容、LocateAnything 手机风险。每次新轮真实施工先建新备份。
+- 未完成和风险：全部固件/模型/前端/手机功能未开始；LocateAnything 权重用途须使用前确认，不能预设本地 Android 已可行，不下载权重、不偷偷换识别模型。没有需执行的回滚。

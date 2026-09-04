@@ -1,0 +1,21 @@
+# GitHub 与回滚
+
+指定 origin：git@github.com:18941602006/X-Glasses.git。提交姓名 Trollhunter，邮箱 d.o.n.0907@qq.com（仓库级）；SSH 账号必须为 18941602006。
+
+## 已核验基线
+
+- Bootstrap：fb23e6fbd1b822db85160e5f641af9b0bff9b02d，仅 README/.gitignore。
+- 准备文档基线：76bb6d685a02a833056515350cd0a4eccee5d4fc。
+- 远端备份：backup/pre-phase0-foundation-20260905-0006，已核验与准备基线相同。
+- 覆盖：Bootstrap + 8 份准备文档和 PREPARATION_BASELINE 哈希清单；不包含本次备份之后新建的 Foundation 文件。
+- 创建备份时本地状态为空、仍在 main；未检出备份分支开发。
+
+## 常规回退
+
+先 git status --short、git log --oneline、git show <目标提交>，确认影响和用户改动。优先在 main 对明确错误提交 git revert <提交>，解决冲突并复测，审查后普通 push。不得默认使用 reset --hard、clean、覆盖式 checkout 或 force push。
+
+备份用于对比/恢复依据，不意味着可以覆盖当前用户文件；恢复某文件或切换工作树须先明确范围与授权。多提交回退检查先后/合并关系，不给未经核查的范围命令。当前没有需要执行的回滚。
+
+## 核验
+
+git ls-remote origin refs/heads/main refs/heads/<备份名> 与本地 git rev-parse 对比。认证成功不等于仓库可写；push 后核验才算交付。A/B 哈希见 LOG/HANDOFF 最新记录；B 自身在终端核验，下轮记入日志。

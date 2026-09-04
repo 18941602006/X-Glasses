@@ -1,0 +1,3 @@
+# Phase 0 lint only; tests use Python standard-library unittest.
+# Source: https://pypi.org/project/ruff/0.12.12/
+ruff==0.12.12

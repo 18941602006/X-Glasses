@@ -22,3 +22,11 @@
 用户指定 Trollhunter，邮箱按规范 d.o.n.0907@qq.com，身份门槛解除。复核指定 SSH 账号和空 refs 后，按最小 Bootstrap → 准备文档审查/哈希/基线 → 唯一远端备份 → Phase 0 文档与层 README → venv/锁定 lint/基础检查与工具测试 → A/B 提交核验推进。
 
 文件范围与验证/回滚见 DEV_PROGRESS 本日计划；不安装感知模型、前端或固件依赖，不产生业务占位模块。此时备份仍未建立，成功 push 并核验前不进入完整骨架施工。
+
+## 2026-09-05 / 本地实现与验收
+
+备份已成功 push 并核验：backup/pre-phase0-foundation-20260905-0006 → 76bb6d685a02a833056515350cd0a4eccee5d4fc；覆盖准备文档，之后在 main 建立 Foundation。
+
+规范要求文档/层说明已齐，新增基础检查/13 项正反例单测，Python 3.12.14 .venv 中仅安装锁定 Ruff 0.12.12。首次 format 检查需修正 1 文件，格式化后 lint/format/依赖/45 必需文件与忽略检查/13 单测/diff --check 通过。无业务代码或实机测试。
+
+本地验收完成，A/B 远端交付待本轮收尾核验；最终哈希和状态见最新 LOG/HANDOFF，不在此虚构 push。
