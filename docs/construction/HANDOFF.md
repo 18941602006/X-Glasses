@@ -67,3 +67,13 @@ python/py/python3 在此前 PATH 中未找到；Git 配置查询无身份。不�
 - 当前工作区：Foundation 变更尚待提交；A/B 无可填哈希。收尾后以下方追加审计为准。
 - 下一步：完成 A/B 交付核验后，本阶段结束；Phase 1 首先审核固定开源底座与许可/依赖/硬件 USB 兼容、LocateAnything 手机风险。每次新轮真实施工先建新备份。
 - 未完成和风险：全部固件/模型/前端/手机功能未开始；LocateAnything 权重用途须使用前确认，不能预设本地 Android 已可行，不下载权重、不偷偷换识别模型。没有需执行的回滚。
+
+## 2026-09-05 / 最新：Phase 0 已交付，审计 B 收尾
+
+Phase 0 工程基础完成；下一阶段 Phase 1 尚未开始。Git 身份 Trollhunter / d.o.n.0907@qq.com，origin 与 main 正确。A = 66dc754444148a818beb5a06af74f6ec2f0902b4，已 push、ls-remote 完整哈希一致，A 推送后工作区干净。
+
+本条属于审计 B，尚不在文档中预写 B 自身哈希/推送成功；最终由终端核验并回复用户，下一轮开工记录 B。备份 backup/pre-phase0-foundation-20260905-0006 仍指向 76bb6d685a02a833056515350cd0a4eccee5d4fc。
+
+交付包括规范要求的文档/层说明、隔离环境和最小锁定依赖、45 文件基础检查及 13 项工具单测；lint/format/pip/diff 检查通过，未做业务/硬件测试。记录保留所有故障与复测，详见 LOG。
+
+下一轮先按 AGENTS 必读顺序核查最终 HEAD/remote/status 并补记 B，再写 Phase 1 计划、创建新的远端备份。优先审核固定开源底座和代码/权重许可、USB/硬件模块/供电、手机风险；使用 LocateAnything 权重前确认用途，不把普通个人项目自动等同适用许可。持续按用户要求每完成一部分报备，无需重复确认已解决的 Git 身份。

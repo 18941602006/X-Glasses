@@ -115,3 +115,12 @@ git init -b main 后添加指定 SSH origin；显式暂存 README/.gitignore 并
 人工对照 V3：USB/供电/断连、无 SLAM/盲道斑马线专项、ToF 时空归属与降级、输出仲裁、2B 新前端/6 Android 均一致；后续层全部未开始。工具不认证语义安全、不访问外链或硬件；Phase 2 前按新范围升级 Phase 0 目录限制。无需回滚，未删除用户资料；备份及回滚方法见 GITHUB_ROLLBACK。
 
 本地验收完成，准备 A/B 交付；此段不宣称尚未执行的最终 push。Phase 1 需审核开源底座、固定依赖/源码许可及 LocateAnything 权重用途；用途、具体手机、模块/供电仍待确认，当前不因此擅自下载或替换模型。
+
+## 2026-09-05 / Phase 0 / 交付 A 审计
+
+- 提交前复核仓库级身份/origin 一致；42 个明确暂存文件均小于 1MiB，暂存常见私钥/token/key 模式无命中；仅 .env.example 空值占位，环境/模型/数据未入库。人工复核代码/配置及文档范围，git diff --cached --check 与 diff --check 通过，结构检查仍为 45 文件通过。
+- 新建 .gitattributes 自身尚未设置 eol=lf，暂存时出现其 LF→CRLF 提示；仅换行提示，非失败，不影响已指定的 Markdown/Python 等规则。未声称所有文件都固定 LF。
+- A = 66dc754444148a818beb5a06af74f6ec2f0902b4，提交信息 chore: establish Phase 0 foundation and verified checks；42 文件，692 增/4 删，删除仅为更新状态摘要，不删除历史记录或用户资料。
+- git push origin main 成功；ls-remote refs/heads/main 与 A 完整哈希比较一致。A 推送后 git status --short 无输出。
+- Phase 0 已完成，备份保持在 76bb6d685a02a833056515350cd0a4eccee5d4fc。无业务/实机验证结论。
+- 此次补写 README 当前状态、MEMORY、进度/层进度、LOG/HANDOFF 构成审计 B。B 自身哈希不写入 B；最终 push/HEAD/remote/status 由终端核验，下一轮补记。未启动长期服务进程；pip 进程已结束。
