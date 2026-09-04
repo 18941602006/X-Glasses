@@ -23,3 +23,7 @@ git ls-remote origin refs/heads/main refs/heads/<备份名> 与本地 git rev-pa
 ## 2026-09-05 / Phase 1 开工备份
 
 backup/pre-phase1-audit-20260905-0026 → 34fcde23e9bfa9161ff2c4175bd7c2104ac7cfb3（Phase 0 审计 B），已 push 并 ls-remote 核验。覆盖此前完整 Phase 0 交付；两份本轮开工计划在备份创建时未提交，不在此备份内，随本轮审核交付保存。未在备份分支开发，未回滚或覆盖任何用户资料。
+
+## 2026-09-05 / Phase 2A 第一部分备份
+
+backup/pre-phase2a-protocol-20260905-0110 → 08aaecc722750e59a5009a19bed8d39a099bf08c（Phase 1 审计 B），已 push 并核验完整哈希。覆盖完整已提交 Phase 0/1；本轮 DEV_PROGRESS 与 02 层开工计划在当时未提交，不被该备份覆盖，随交付 A 保存。始终在 main 开发，无回滚/删除操作。后续如需撤销，先审查本轮 A，再经授权 revert 明确提交，不覆盖用户文件。

@@ -2,11 +2,11 @@
 
 USB 有线导盲眼镜研究原型：ESP32-S3 采集，电脑验证后迁移骁龙 8 系列 Android。
 
-Phase 0 已交付，Phase 1 来源与风险审核已有成果；尚无可运行的固件、服务或 App。模型使用、实际安装/编译和实机验证仍有未通过项，不能把审核快照当产品验收。
+Phase 0/1 审核已交付，Phase 2A 已建立可运行的协议、输入与回放核心；尚无真实 USB 设备接入、固件、HTTP 服务或 App。模型使用、实际安装/编译和实机验证仍有未通过项，不能把模拟测试当产品验收。
 
 ## 施工入口与基础检查
 
-先读 [AGENTS](AGENTS.md) 和[接续入口](docs/construction/CODEX_START_HERE.md)。firmware、server、frontend 只有职责说明；tools/check_foundation.py 和 tests 是可运行的基础检查，不是产品功能。Android 当前仅迁移文档。
+先读 [AGENTS](AGENTS.md) 和[接续入口](docs/construction/CODEX_START_HERE.md)。server/common 与 server/input 有标准库实现；firmware、frontend 和其他业务层仍仅说明。Android 当前仅迁移文档。
 
 Windows PowerShell 使用已有 Python 3.11+ 创建环境（本轮验证 3.12.14）。如果 PATH 无 python，用本机已有解释器绝对路径替换第一条命令的 python，不全局安装依赖。
 
@@ -22,7 +22,15 @@ python -m venv .venv
 git diff --check
 ```
 
-唯一开发依赖锁定为 Ruff 0.12.12，测试使用标准库；未安装模型、固件或前端依赖。基础检查限制 Phase 0 的纯说明目录，后续阶段须随实际合同升级检查，不绕过失败。逐条命令成功后才进行下一条。
+唯一开发依赖锁定为 Ruff 0.12.12，协议/测试使用标准库；未安装模型、串口、固件或前端依赖。基础检查已按 Phase 2A 显式允许 4 个运行文件，不开放其他阶段。逐条命令成功后才进行下一条。
+
+## USB 模拟回放
+
+```powershell
+.\.venv\Scripts\python.exe -m tools.replay_usb --demo
+```
+
+纯内存演示，不打开摄像头/串口、不写录制文件、不输出到硬件；只恢复一个 6 字节模拟标记帧，非可显示的真实 JPEG。输出带 synthetic、replay、unsynchronized 与 hardware_verified=false。协议边界及读取已存在录制文件的方法见 [USB v1 合同](docs/protocol/USB_V1.md)。当前未实现对时、ToF/IMU 语义、命令确认、握手/心跳或 MCU 告警，整个 Phase 2A 仍在施工。
 
 ## 现行范围
 

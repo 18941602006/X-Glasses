@@ -99,3 +99,13 @@ LocateAnything 当前 evaluation_only（不再 blocked_use），用户非学术/
 Phase 1 来源/风险审核已交付。A = fb9d88a18ed6efe9acbdca5b397754fe9e43c3c3 已 push 并核验远端 main 一致，推送后工作区干净。本次追加为 B，B 自身哈希及最终状态在终端核验、下一轮补记，不在文档内预写成功。
 
 下一轮从最终 B 先建新的 Phase 2A 备份，再做不依赖模型的 USB 协议/输入/回放；若要解析/安装固件依赖，先固定传递锁并核验目标工具链。当前 firmware/server/frontend 仍只有说明，不能误报链路已实现。25 工具测试及基础/审核检查通过；所有 runtime_verified 仍 false。LocateAnything 已获明确非商业测试用途，不重复询问；自定义代码/第三方条款/运行环境和设备实测仍待完成。
+
+## 2026-09-05 / 最新：Phase 2A 第一部分与持续施工授权
+
+Phase 0/1 已交付；2A 主机协议/输入/回放核心已实现，待本次最终检查与 A/B。当前输入不连接真实串口，其他业务/固件/UI/Android 未实现。基线 08aaecc722750e59a5009a19bed8d39a099bf08c，backup/pre-phase2a-protocol-20260905-0110 已核验同值；身份/指定 SSH origin/main 不变。工作区为本轮代码与说明变更，未预写干净状态或 A/B。
+
+必读 docs/protocol/USB_V1.md、server/common/protocol.py、server/input/{frames,stream,recording}.py、LOG 和 02 层进度。工具入口 python -m tools.replay_usb --demo；合计 57 单测（26 工具+31 模拟协议回放），最终全量结果以下方审计为准；此前全量 54 和最新 31 子集通过。未新增运行依赖、未下载模型或读取真实采集资料。
+
+下一任务：本子项 A/B 保存后继续完善会话/握手、传感器有效性、对时估计与命令关联/超时合同；再接实际 CDC/ESP-IDF 驱动、基础告警、编译与可进行的实机验证。当前时间字段未对齐、帧仅本地 TTL、JPEG 仅标记检测，不可提前用于安全判断。2B/模型/手机仍依序实施。
+
+用户明确要求连续工作至完整项目、一般问题自行选择。不要在小阶段收尾后发最终答复等待再次“继续”；继续分段报备和可验证的工程任务。权限依平台规则，硬件/手机缺失只标相关实测未验收，不虚报，也不阻塞完全独立的软件任务；不采购/付费/隐私上传，不默认换模型/云端。LocateAnything 非商业测试用途已确认不重复问。

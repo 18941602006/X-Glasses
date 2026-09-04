@@ -1,4 +1,4 @@
-"""Read-only Phase 0 checks; not product or hardware certification."""
+"""Read-only foundation and current runtime-scope checks; not hardware certification."""
 
 from __future__ import annotations
 
@@ -39,6 +39,19 @@ IGNORED = (
     "logs/probe.log node_modules/probe frontend/dist/probe firmware/build/probe "
     "firmware/.pio/probe __pycache__/probe.pyc"
 ).split()
+
+RUNTIME_FILES = {
+    "server/common/protocol.py",
+    "server/input/frames.py",
+    "server/input/stream.py",
+    "server/input/recording.py",
+}
+REQUIRED += sorted(RUNTIME_FILES) + [
+    "docs/protocol/USB_V1.md",
+    "tools/replay_usb.py",
+    "tests/test_usb_protocol.py",
+    "tests/test_usb_recording.py",
+]
 
 
 def check_content(root: Path) -> list[str]:
@@ -87,8 +100,14 @@ def check_content(root: Path) -> list[str]:
             errors.append("Phase 0 dependencies differ from reviewed Ruff-only pin")
     for directory in ("firmware", "server", "frontend"):
         for path in (root / directory).rglob("*"):
-            if path.is_file() and path.name != "README.md":
-                errors.append(f"unexpected Phase 0 runtime file: {path.relative_to(root)}")
+            if not path.is_file() or path.name == "README.md":
+                continue
+            if "__pycache__" in path.parts and path.suffix == ".pyc":
+                continue
+            if path.relative_to(root).as_posix() not in RUNTIME_FILES:
+                errors.append(
+                    f"unexpected runtime file outside current scope: {path.relative_to(root)}"
+                )
     return errors
 
 
@@ -129,7 +148,7 @@ def main() -> int:
         print(f"FAIL: {error}")
     if errors:
         return 1
-    print(f"PASS: {len(REQUIRED)} required files, Phase 0 scope/config, and Git ignore probes")
+    print(f"PASS: {len(REQUIRED)} required files, current scope/config, and Git ignore probes")
     print("Not checked: semantic safety, external URLs, business functions, models, hardware.")
     return 0
 

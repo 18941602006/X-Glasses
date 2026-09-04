@@ -170,3 +170,17 @@ USB 三项候选为 IDF 5.5.4、esp_tinyusb 2.2.1、camera 2.1.7，清单最低 
 A = fb9d88a18ed6efe9acbdca5b397754fe9e43c3c3，21 文件 891 增/8 删（状态摘要更新，未删除历史或用户资料），已 push 指定 origin main，ls-remote 完整哈希一致；A 推送后 git status --short 无输出。开工备份仍为 backup/pre-phase1-audit-20260905-0026 → 34fcde23e9bfa9161ff2c4175bd7c2104ac7cfb3。
 
 交付定义：Phase 1 来源/风险审核成果已交付，LocateAnything 用途明确为 evaluation_only；不是全部运行/硬件关卡通过。下一步可规划 Phase 2A USB 协议/输入/回放，并按实施范围逐项锁依赖与编译验证。此追加记录构成审计 B，不包含 B 自身哈希；终端最终核验 B/remote/status，下一轮补记。没有长期进程需要停止。
+
+## 2026-09-05 / Phase 2A 第一部分 / 实施记录
+
+开工：补记 Phase 1 B = 08aaecc722750e59a5009a19bed8d39a099bf08c，main/指定 origin/本地 Trollhunter 邮箱/SSH 18941602006 核验，无 GIT_AUTHOR/COMMITTER 覆盖，工作区干净，远端 main 一致。DEV_PROGRESS 和 02 层先写计划，backup/pre-phase2a-protocol-20260905-0110 成功 push、ls-remote 完整哈希相同，随后才实施，计划两文件当时不在备份内。
+
+实际修改：server/common/protocol.py、server/input/{frames,stream,recording}.py，tools/replay_usb.py，tests/test_usb_{protocol,recording}.py，docs/protocol/USB_V1.md；升级 check_foundation 与测试的精确阶段白名单，同步入口/层说明/架构/合同/测试/备份/进度/交接/MEMORY。共 4 个运行文件，均标准库，没有依赖安装或第三方代码拷贝。
+
+实现边界：v1 36 字节包头、CRC/4096 负载上限、500ms 部分包/帧本地 TTL、256KiB 最大 JPEG，短读写与会话清理；仅 SOI/EOI 检查、不解码。保留 capture_us，但源时间映射/标定为空；其他包类型原样返回，不假装完成 ToF/IMU/ACK/对时。XGR1 有界 64MiB 原始记录、CRC/时间/截断检查和虚拟时间回放；文件边界 EOF 不证明完整采集。CLI demo 只在内存生成一帧 6 字节标记数据，标 synthetic/replay/unsynchronized/hardware_verified=false。
+
+失败与处理：首次普通终端失败 helper_unknown_error: setup refresh had errors，受控授权沙箱外执行，同一原生 apply_patch 入口编辑。必读文件一次组合读取截断，分批补读；误写 02-usb-link.md 路径后按规范实际 02-glasses-link.md 完整读取，无文件被该错误改变。首次全量 Ruff I001 指出 test_usb_recording 导入排序，停止扩展并 Ruff --fix 修复；之后 format/check、53 文件结构、17 来源、54 测试和 pip check 通过。新增最大帧/读写逾期/虚拟 tick 三测试后 31 项协议回放测试通过。文档补丁 TEST_METRICS 尾行上下文未匹配，前面 10 余文件已落盘；先只读核对，再单独补齐两份未更新文档，未假设整补丁原子性。
+
+漂移：将无业务代码/Phase 1 当前状态更新为 2A 主机软件子项，白名单只开放 4 文件；USB/无 SLAM/盲道斑马线专项/手部融合和前端阶段保持。整个 2A 未通过，固件/实际 CDC/握手/心跳/传感器/对时/ACK/告警/供电和 30 分钟实机仍未测，无硬件安全结论。用户新指令连续推进全项目已记 MEMORY/进度，后续不在小检查点后停工等确认。
+
+当前待最终检查和 A/B，未预写推送成功。没有用户资料删除，无需回滚；若撤销以本次备份及明确提交 revert 为依据。无长期服务或硬件采集进程。

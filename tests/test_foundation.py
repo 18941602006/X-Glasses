@@ -59,6 +59,12 @@ class ContentChecks(unittest.TestCase):
         self.write("server/main.py", "# Premature runtime\n")
         self.assertTrue(any("runtime file" in e for e in check_content(self.root)))
 
+    def test_current_input_files_allowed_but_future_layers_rejected(self):
+        self.write("server/input/__pycache__/protocol.cpython-312.pyc", "fixture")
+        self.assertEqual(check_content(self.root), [])
+        self.write("server/perception/locate/model.py", "# Not in this delivery\n")
+        self.assertTrue(any("runtime file" in e for e in check_content(self.root)))
+
     def test_broken_relative_link(self):
         self.write("README.md", "[missing](docs/missing.md)\n")
         self.assertTrue(any("local link" in e for e in check_content(self.root)))

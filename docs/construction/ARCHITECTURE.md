@@ -1,6 +1,6 @@
 # 架构 / V3
 
-状态：目标架构；Phase 0 不含业务实现。版本选择在 Phase 1 锁定。
+状态：目标架构；Phase 2A 已实现主机分包/组帧/流接口和原始录制回放，均仅模拟验证，其余业务未实现。来源版本见 Phase 1 台账，不等于安装锁。
 
 2026-09-05 Phase 1 补充：来源审核快照见 ../dependencies/sources.audit.json（不是传递依赖安装锁）。ESP-IDF 5.5.4 / esp_tinyusb 2.2.1 / esp32-camera 2.1.7 进入编译候选，实际解析/编译尚未进行。旧底座只能逐模块适配；LocateAnything 许可描述差异、独立推理环境及手机关卡见 ../dependencies/ENVIRONMENT_GATES.md。硬件电平/引脚见 ../hardware/INTERFACE_REVIEW.md。
 
@@ -18,4 +18,4 @@
 
 复用来源候选：OpenAIglasses_for_Navigation 后端通用模块、LocateAnything、PaddleSeg/PP-LiteSeg、MediaPipe、PaddleOCR、usb-serial-for-android。现在没有 vendor 源码或权重；Phase 1 固定来源 commit、代码/模型许可证、依赖兼容、可抽取模块与禁用旧功能耦合清单。
 
-USB 合同与分层约束见 LAYER_CONTRACT；测试记录见 TEST_METRICS。地图/对话可依赖互联网，但绝不进入即时风险判断。具体二进制布局、阈值及传感器引脚仍待 Phase 1/2 冻结。
+USB 实施合同见 [USB_V1](../protocol/USB_V1.md)，分层约束见 LAYER_CONTRACT；测试记录见 TEST_METRICS。地图/对话可依赖互联网，但绝不进入即时风险判断。消息头/JPEG/XGR1 已冻结主机布局，传感器语义、握手/ACK/对时、告警阈值、固件及供电实测仍待 2A 后续。当前帧未对时/未标定，不进入安全相关融合。
