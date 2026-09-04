@@ -191,3 +191,16 @@ A = fb9d88a18ed6efe9acbdca5b397754fe9e43c3c3，21 文件 891 增/8 删（状态�
 A = 31577ff742ca0cd66cd8f0828b9af9ef0ac71009，27 文件 1187 增/17 删（状态摘要调整，历史保留），已 push 指定 origin main，ls-remote 完整哈希一致，A 后工作区干净。最终 Ruff check/format（11 文件）、53 必需文件、17 来源台账、57 单测（约 1.257 秒）、纯内存 demo、pip check、diff/cached diff 均通过。明确暂存清单、小于 1MiB 和常见凭据模式检查通过；这不是通用秘密审计或实机认证。
 
 此追加为审计 B，B 不记录自身哈希，终端核验后继续下一子任务；不在此停止等待用户。下一步仍 Phase 2A 会话/传感器语义/对时/ACK，完整实机链路未验收。备份 backup/pre-phase2a-protocol-20260905-0110 仍指向 08aaecc722750e59a5009a19bed8d39a099bf08c。
+
+
+## 2026-09-05 / Phase 2A 第二部分 / 连续施工记录
+
+基线 B = a7bb773726bb6ab5a9a22bfbba9c726ee7ae933a 已核验；先写计划并 push backup/pre-phase2a-control-20260905-0200，远端哈希同值，再实施。两份开工计划未包含在该备份中。main/身份/指定 origin 不变，用户持续施工授权有效，不等重复确认。
+
+新增 common/{sensors,clock,control}.py、input/{link,serial_port}.py，CONTROL_V1 合同、可选 requirements-input.txt、usb_probe CLI 和测试。归一化未知 ToF= None，IMU 非有限值拒绝；握手/心跳清理、四时间戳/误差/5s 过期/跳变清估计、命令 request/session/ACK/500ms 截止，所有队列有界。原 InputSession 回放保持未对时，HostLink 只输出新鲜估计帧并携带误差，不等于标定或安全认证。
+
+pyserial 3.5 官方 wheel SHA256 固定并安装到项目 venv，内存 loop:// 回环测试通过；只读枚举端口结果 []，未打开实际设备。官方 v3.5 BSD-3-Clause 与 wheel 源码 SPDX 已核对，wheel 无独立许可证文件；运行台账 docs/dependencies/INPUT_RUNTIME.md，Phase 1 快照保留历史。Node 22.17.1/npm10.9.2、RTX4090 Laptop 16376MiB/驱动595.79 已读；PATH/常见目录未发现 JDK/IDF/Android SDK，不断言全盘不存在。
+
+验证：控制首轮 18 项与串口 2 项通过；全量 77 项、64 必需文件/9 运行白名单、17 来源、Ruff check/format（19 文件）、pip check 通过；追加时钟跳变回归后控制 19 项通过，最终全量现为 78 项，收尾复测另记。格式化前自动修正新测试 1 处导入排序；时钟保护补丁一次上下文不匹配、未落盘，读实际行后成功重试。许可证先猜 LICENSE.txt/rst 不存在，rg 实际枚举后改查 metadata/SPDX 与官方原文，无依赖代码修改。代码审查另修复 idle 重同步丢包、结果缺会话标签和缺对时误差字段。
+
+当前本部分 A/B 尚待提交，不预写 push/干净状态；无需回滚、无文件删除、无长期采集进程。阶段未放行实机：固件、晶振预算、传感器归一化、实际 USB/供电/30 分钟链路都未验证。下一步保存此检查点后继续 ESP-IDF 固件与跨语言协议/编译，不因无硬件停止独立软件工作。

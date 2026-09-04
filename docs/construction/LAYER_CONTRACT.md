@@ -1,6 +1,6 @@
 # 分层与数据合同 / 设计级
 
-当前 server/common 与 server/input 已实现协议/组帧/生命周期/流适配接口和录制回放。具体布局见 [USB_V1](../protocol/USB_V1.md)；后续层仍为目标责任合同，不能把结构字段当作实际能力。对时、传感器有效性、命令执行/ACK 尚未实现。
+当前 server/common 与 server/input 已实现协议/组帧/回放，以及 [CONTROL_V1](../protocol/CONTROL_V1.md) 的主机握手/心跳/对时/传感器/ACK 状态机和可选串口驱动。固件执行/实际传感器/对时误差/USB 未验证；后续层仍为目标责任合同，不能把结构字段当作实际能力。底层布局见 [USB_V1](../protocol/USB_V1.md)。
 
 | 层 | 输入/输出 | 禁止 |
 | --- | --- | --- |

@@ -41,8 +41,13 @@ IGNORED = (
 ).split()
 
 RUNTIME_FILES = {
+    "server/common/clock.py",
+    "server/common/control.py",
     "server/common/protocol.py",
+    "server/common/sensors.py",
     "server/input/frames.py",
+    "server/input/link.py",
+    "server/input/serial_port.py",
     "server/input/stream.py",
     "server/input/recording.py",
 }
@@ -51,6 +56,12 @@ REQUIRED += sorted(RUNTIME_FILES) + [
     "tools/replay_usb.py",
     "tests/test_usb_protocol.py",
     "tests/test_usb_recording.py",
+    "tests/test_usb_control.py",
+    "docs/protocol/CONTROL_V1.md",
+    "requirements-input.txt",
+    "tools/usb_probe.py",
+    "tests/test_serial_port.py",
+    "docs/dependencies/INPUT_RUNTIME.md",
 ]
 
 

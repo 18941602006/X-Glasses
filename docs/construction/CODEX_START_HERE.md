@@ -8,4 +8,4 @@
 4. 按 CONSTRUCTION_PLAN 当前阶段实施，执行 TEST_METRICS 的检查，记录失败复测。
 5. 同步 LOG、HANDOFF、层进度、MEMORY；审查后交付 A/审计 B 并核验。
 
-当前有协议/输入/回放核心及检查工具；运行入口见根 README 与 docs/protocol/USB_V1.md。不要寻找不存在的固件/HTTP 服务/App。Phase 2A 下一子任务先完善会话/传感器/对时/命令合同，再接实际 CDC 与固件。LocateAnything 非商业测试用途已确认，其他代码/环境关卡未自动解除。
+当前有协议/回放、主机控制和串口适配；入口见根 README、docs/protocol/{USB_V1,CONTROL_V1}.md、docs/dependencies/INPUT_RUNTIME.md。下一子任务 ESP-IDF 固件/互通与编译；尚无固件/HTTP 服务/App。用户要求连续全项目施工，不在小检查点停等，硬件缺失单独标未测。LocateAnything 非商业测试用途已确认，其他代码/环境关卡未自动解除。

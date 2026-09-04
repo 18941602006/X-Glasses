@@ -26,6 +26,7 @@ class Frame:
     mapped_capture_ns: int | None = None
     timing_status: str = "unsynchronized"
     calibration_id: str | None = None
+    time_uncertainty_ns: int | None = None
 
 
 class FrameAssembler:

@@ -2,7 +2,7 @@
 
 USB 有线导盲眼镜研究原型：ESP32-S3 采集，电脑验证后迁移骁龙 8 系列 Android。
 
-Phase 0/1 审核已交付，Phase 2A 已建立可运行的协议、输入与回放核心；尚无真实 USB 设备接入、固件、HTTP 服务或 App。模型使用、实际安装/编译和实机验证仍有未通过项，不能把模拟测试当产品验收。
+Phase 0/1 审核已交付，Phase 2A 已有协议/回放、主机握手/心跳/对时/ACK/传感器和可选串口适配；没有连接到实际眼镜，固件/HTTP 服务/App 尚未实现。模型使用、编译和实机验证仍有未通过项，不能把模拟测试当产品验收。
 
 ## 施工入口与基础检查
 
@@ -22,7 +22,7 @@ python -m venv .venv
 git diff --check
 ```
 
-唯一开发依赖锁定为 Ruff 0.12.12，协议/测试使用标准库；未安装模型、串口、固件或前端依赖。基础检查已按 Phase 2A 显式允许 4 个运行文件，不开放其他阶段。逐条命令成功后才进行下一条。
+开发依赖 Ruff 0.12.12，核心协议使用标准库；可选 pyserial 3.5 已以 SHA256 wheel 锁在项目 venv 验证。基础检查按 Phase 2A 显式允许 9 个运行文件，不开放其他阶段。未安装模型/固件/前端依赖。逐条命令成功后才进行下一条。
 
 ## USB 模拟回放
 
@@ -30,7 +30,7 @@ git diff --check
 .\.venv\Scripts\python.exe -m tools.replay_usb --demo
 ```
 
-纯内存演示，不打开摄像头/串口、不写录制文件、不输出到硬件；只恢复一个 6 字节模拟标记帧，非可显示的真实 JPEG。输出带 synthetic、replay、unsynchronized 与 hardware_verified=false。协议边界及读取已存在录制文件的方法见 [USB v1 合同](docs/protocol/USB_V1.md)。当前未实现对时、ToF/IMU 语义、命令确认、握手/心跳或 MCU 告警，整个 Phase 2A 仍在施工。
+纯内存演示，不打开摄像头/串口、不写录制文件、不输出到硬件；只恢复一个 6 字节模拟标记帧，非可显示的真实 JPEG。输出带 synthetic、replay、unsynchronized 与 hardware_verified=false。协议见 [USB v1](docs/protocol/USB_V1.md)，新增主机控制见 [CONTROL v1](docs/protocol/CONTROL_V1.md)。串口安装/显式端口探针见 [输入运行台账](docs/dependencies/INPUT_RUNTIME.md)；本机枚举 []，仅软件 loopback 已测。固件、MCU 告警、真实对时误差/USB/电流未验收，Phase 2A 仍在施工。
 
 ## 现行范围
 
