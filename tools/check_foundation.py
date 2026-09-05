@@ -76,6 +76,8 @@ RUNTIME_FILES = {
     "frontend/src/vite-env.d.ts",
     "frontend/src/test/setup.ts",
     "frontend/src/App.test.tsx",
+    "server/perception/navigation/contracts.py",
+    "server/perception/navigation/fusion.py",
 }
 REQUIRED += sorted(RUNTIME_FILES) + [
     "docs/protocol/USB_V1.md",
@@ -94,6 +96,8 @@ REQUIRED += sorted(RUNTIME_FILES) + [
     "docs/protocol/LOCAL_API_V1.md",
     "tests/test_local_api.py",
     "docs/dependencies/FRONTEND_RUNTIME.md",
+    "docs/protocol/NAVIGATION_CORE_V1.md",
+    "tests/test_navigation_core.py",
 ]
 
 

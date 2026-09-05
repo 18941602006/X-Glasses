@@ -1,5 +1,13 @@
 # X-Glasses 施工日志（追加记录）
 
+## 2026-09-05 / Phase 3 道路候选与 ToF 融合核心
+
+基线 B = 642d69550152df27550ee444645d06fbe0ae9718，backup/pre-phase3-navigation-core-20260905 已 push 核验同值。新增 WalkableMask/TimedTof/FusionProfile/NavigationConfig/Event 和融合函数，无新依赖/模型/权重。大补丁在 README 旧文本上下文不匹配前已部分落盘 contracts/fusion；只读核实后补齐 README/协议/测试/白名单，没有重复覆盖。
+
+首轮 8 项逻辑测试通过，format 要求两文件重排；格式化并增加未来接收时间门槛后，一项期望因判定先返回 future_receive 而失败，调整为先判源采样未来、再判接收未来，8 项通过。安全复核发现全局 ToF 有效率会掩盖中央局部未知，新增逐走廊有效率和第 9 项回归；中央底部两区未知时不再选择 forward。阈值只由测试显式配置，不作为实机值。
+
+未做：模型推理、真实道路、日光/头动、外参标定、USB/ToF 实机、性能与安全评测。完整全量复测以下一交付记录为准。
+
 ## 2026-09-05 / Phase 2B 开发分支交付 A 审计
 
 切换并新建 development/continuous-build-20260905，将已暂存成果连同 main 拒绝记录提交为 A = daa4e91020bb0313829f0529f7d50af07bf92de1，提交信息 feat: add local dashboard and control API；32 文件 3358 增/4 删。push -u 成功且 ls-remote 哈希一致，A 后工作区干净。main 未变更；此记录为 B，后续仍在开发分支。

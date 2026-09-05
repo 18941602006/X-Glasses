@@ -1,5 +1,9 @@
 # X-Glasses 交接记录（追加）
 
+## 2026-09-05 / 最新：Phase 3 融合核心待交付
+
+开发分支新增 server/perception/navigation/contracts.py、fusion.py、NAVIGATION_CORE_V1 和 9 项 synthetic 测试。核心严格拒绝标定/时间/质量/有效性错误，局部中央 ToF 未知不前进。没有真实模型/权重或硬件，下一步保存 A/B 后实现受审核分割模型适配器。
+
 ## 2026-09-05 / Phase 2B 已交付开发分支
 
 A = daa4e91020bb0313829f0529f7d50af07bf92de1 已推送 development/continuous-build-20260905 并核验，main 保持 776a04a6f405b76c6a9d129a3523c3e4264ae640。下一步补审计 B 后在同一开发分支实施 Phase 3 纯核心与适配合同。

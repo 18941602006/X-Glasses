@@ -281,3 +281,7 @@ Phase 2B 已实现 localhost API 与 React/TS/Vite 调试台。当前验证为 P
 平台自动审查拒绝将 Phase 2B 的 32 文件批量变更直接提交并推送 main，命令未执行。按审查建议转独立 development/continuous-build-20260905 分支保存并继续施工，不拆分命令绕过；最终合入 main 需用户之后明确批准。
 
 Phase 2B A = daa4e91020bb0313829f0529f7d50af07bf92de1，已推送 development/continuous-build-20260905 且远端一致，A 后干净；main 未改。继续 Phase 3，不停等合并批准。
+
+Phase 2B 审计 B = 642d69550152df27550ee444645d06fbe0ae9718，开发分支远端一致。Phase 3 先做模型无关道路候选掩码与标定 ToF 融合核心；未下载权重前只用合成数据，不把算法合同测试冒充真实道路识别。
+
+Phase 3 融合核心已实现，9 项 synthetic 测试通过；安全复核新增逐走廊 ToF 有效率，中央局部未知不得输出前进候选。仍无真实分割模型、标定或实机结论，继续模型适配。
