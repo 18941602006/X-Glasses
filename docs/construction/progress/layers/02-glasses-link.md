@@ -1,5 +1,13 @@
 # Phase 2 / USB 与调试前端
 
+## 2026-09-05 / Phase 2B 本地结果
+
+localhost API 和新电脑调试台已实现并通过 92 项 Python、3 项前端交互、类型与生产构建检查。状态显式区分 offline/live/replay、未知/过期与 pending/终态；默认无设备 dispatcher。用户决定不做截图，视觉/屏幕阅读器人工验收未完成；真实 USB 仍未接通，因此 Phase 2 的硬件验收不标完成。
+
+## 2026-09-05 / Phase 2B 开工计划
+
+从 B = 776a04a6f405b76c6a9d129a3523c3e4264ae640 建备份后，实现 localhost API 与 React/TS/Vite 新调试台。UI 只提交后端请求并显示 request_id/ACK，提供链路、帧龄、ToF/IMU、capability、回放/标定/日志和急停状态；不恢复盲道/斑马线页面，不宣称桌面 UI 可复用为 Android UI。
+
 ## 2026-09-05 / 固件协议基线结果
 
 CDC 协议与控制状态机源码、精确组件清单和 VS Code 团队说明已完成；默认能力只有 CLOCK。86 项主机/工具/静态合同测试通过。当前施工机依用户决定跳过 ESP-IDF 编译，团队侧 build/flash/枚举及所有外设实测仍未验收。该结果只收口 2A 的可静态验证固件基线，2B 前端尚待实施。

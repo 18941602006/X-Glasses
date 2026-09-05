@@ -1,5 +1,21 @@
 # 施工进度（追加记录）
 
+## 2026-09-05 / 分支策略临时调整
+
+Phase 2B 批量变更 push main 被平台自动审查在执行前拒绝。为不中断施工且降低共享分支风险，当前成果和后续阶段转入 `development/continuous-build-20260905`；不会用其他命令间接推 main。现行 main/Phase 2B 备份仍保持 B = 776a04a6f405b76c6a9d129a3523c3e4264ae640，最终合并需用户明确批准。
+
+## 2026-09-05 / Phase 2B 前端与本地 API / 本地验收
+
+完成标准库 localhost-only API、离线安全初始快照、有限日志/命令账本、严格动作入口和 uint64 字符串合同；完成 React/TS/Vite 高对比调试台，显示来源/时效/未知、链路/能力、ToF/IMU、标定、命令 ACK 与日志。页面不直连串口、不含盲道/斑马线入口、不复用为 Android UI。
+
+最终 92 项 Python 测试、3 项前端交互、类型检查、生产构建、96 文件范围、Ruff、来源/固件合同、pip/diff 全通过；官方 npm audit 生产依赖 0 漏洞。用户决定省略浏览器截图，视觉/真实屏幕阅读器未人工验收。依赖/测试失败与修复见 LOG；当前准备 A/B 交付。
+
+## 2026-09-05 / Phase 2B 前端与本地 API / 开工计划
+
+基线 B = 776a04a6f405b76c6a9d129a3523c3e4264ae640，拟建立 backup/pre-phase2b-frontend-20260905 并核验。实现 localhost-only Python API 状态快照/安全命令请求层，以及 React/TypeScript/Vite 新调试台；前端不接串口、不直控硬件，不将 pending 当 applied。
+
+界面包含链路与时钟、画面和帧龄、ToF/IMU 有效性、capability、命令 ACK/错误、回放/实机来源、标定占位状态与日志；使用高对比、大点击区、键盘焦点和语义 live region。测试覆盖 API 输入边界/绑定策略/状态序列化及 UI 的未知、断连、过期、pending/rejected 展示和安全停止请求。依赖按官方现行稳定版本与 lockfile 固定；不启动长期外网服务，不记录真实画面。
+
 ## 2026-09-05 / Phase 2A 固件协议基线 / 交付 A
 
 A = 47174622f6a42cc818365796bf5851a7156bc9cd，24 文件 757 增/9 删，已 push 指定 origin main，ls-remote 完整哈希一致，A 后工作区干净。86 项测试和静态检查结果见本文件下一条；交付不包含本机编译或实机验收。本追加属于审计 B，不在内容中预写 B 自身哈希。

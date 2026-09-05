@@ -1,5 +1,19 @@
 # X-Glasses 施工日志（追加记录）
 
+## 2026-09-05 / Phase 2B 默认分支推送受限
+
+32 文件 Phase 2B 交付前检查全通过后，尝试提交并 push 指定 main；平台自动风险审查以“大批量变更直接推送默认分支、需明确批准”为由在进程创建前拒绝，故没有生成提交或远端变更。遵守审查，不以拆命令等方式绕过；改在独立 `development/continuous-build-20260905` 分支提交并推送，后续连续施工沿该分支进行。最终合入 main 留待用户明确批准。
+
+## 2026-09-05 / Phase 2B localhost API 与新前端
+
+从 B = 776a04a6f405b76c6a9d129a3523c3e4264ae640 建并核验 backup/pre-phase2b-frontend-20260905 同值。官方资料确认 React 当前 19.2、Vite Node 要求与 Testing Library/Vitest 清理方式；npm view 固定实际 patch 版本。新增 server/api、LOCAL_API_V1、6 项 Python 测试；API 只绑定数值回环、校验 Host/JSON/大小/动作、默认无 dispatcher，uint64/纳秒用十进制字符串，账本有界。
+
+新增 React/TS/Vite 前端、3 项交互测试和响应式高对比样式；无外部字体/CDN，命令只显示 pending/ACK 终态。首次 jsdom 30.0.1 engine 不兼容 Node 22.17.1，改锁 29.1.1。一次 apply_patch 在 frontend 工作目录导致重复路径失败；两次 npm --prefix 在本环境没有切换目录，改在 frontend 直接执行。首次 Vitest 因未清理 DOM 造成重复按钮，按官方 setupFiles afterEach cleanup 修复；首次 TypeScript 7 因缺 Vite CSS 声明失败，增加 vite-env.d.ts 后通过。
+
+浏览器视觉尝试临时启动回环 API/Vite，但命令重复追加 host 参数使多余参数被当作 root，页面 GET 404、API GET 200。用户明确该步骤价值不大可省略；停止两个服务并删除未完成截图，不再重试，视觉/屏幕阅读器人工验收列未测。构建/交互测试不受该 404 影响。
+
+npm audit 首次因系统 npmmirror 不实现 audit endpoint 失败；单次指定官方 registry 后生产依赖 0 vulnerabilities。尝试让 package-lock resolved 从镜像切至官方，npm 因复用已有/隐藏锁未改，安全恢复原锁；保留 integrity 和镜像来源并入台账，不手工改哈希。最终 Python 92 项、前端 3 项、typecheck/build、Ruff、96+ 必需文件、来源/固件合同、pip/diff 复测结果以交付前最终轮为准。
+
 ## 2026-09-05 / 固件协议基线交付 A 审计
 
 A = 47174622f6a42cc818365796bf5851a7156bc9cd，提交信息 feat: add ESP32-S3 protocol firmware baseline；已 push 指定 main 且远端哈希相同，A 后工作区干净。暂存 24 文件均小于 1MiB；显式常见私钥/token 模式复扫无命中，首次扫描脚本错误沿用外部退出码并误报 2，改用结果变量后成功。LF→CRLF 为工作区换行提示，不是测试失败。此追加为审计 B，完成后继续 2B。

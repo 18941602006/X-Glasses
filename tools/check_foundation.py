@@ -17,7 +17,7 @@ LAYERS = (
     "04-locate-grasp 05-assist-functions 06-android-migration"
 ).split()
 DIRECTORIES = (
-    "firmware server server/input server/common server/perception/navigation "
+    "firmware server server/input server/common server/api server/perception/navigation "
     "server/perception/locate server/perception/assist server/arbitration server/output "
     "frontend tools tests docs/android-migration"
 ).split()
@@ -59,6 +59,23 @@ RUNTIME_FILES = {
     "server/input/serial_port.py",
     "server/input/stream.py",
     "server/input/recording.py",
+    "server/api/__init__.py",
+    "server/api/__main__.py",
+    "server/api/http.py",
+    "server/api/state.py",
+    "frontend/index.html",
+    "frontend/package.json",
+    "frontend/package-lock.json",
+    "frontend/tsconfig.json",
+    "frontend/vite.config.ts",
+    "frontend/src/App.tsx",
+    "frontend/src/api.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/styles.css",
+    "frontend/src/types.ts",
+    "frontend/src/vite-env.d.ts",
+    "frontend/src/test/setup.ts",
+    "frontend/src/App.test.tsx",
 }
 REQUIRED += sorted(RUNTIME_FILES) + [
     "docs/protocol/USB_V1.md",
@@ -74,6 +91,9 @@ REQUIRED += sorted(RUNTIME_FILES) + [
     "docs/construction/VSCODE.md",
     "tools/check_firmware_contract.py",
     "tests/test_firmware_contract.py",
+    "docs/protocol/LOCAL_API_V1.md",
+    "tests/test_local_api.py",
+    "docs/dependencies/FRONTEND_RUNTIME.md",
 ]
 
 
@@ -124,6 +144,8 @@ def check_content(root: Path) -> list[str]:
     for directory in ("firmware", "server", "frontend"):
         for path in (root / directory).rglob("*"):
             if not path.is_file() or path.name == "README.md":
+                continue
+            if any(part in {"node_modules", "dist"} for part in path.parts):
                 continue
             if "__pycache__" in path.parts and path.suffix == ".pyc":
                 continue

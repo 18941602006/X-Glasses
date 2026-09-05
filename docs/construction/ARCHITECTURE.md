@@ -1,5 +1,7 @@
 # 架构 / V3
 
+Phase 2B 新增 `server/api` 标准库回环服务和独立 React/TS/Vite 调试台。API 默认 offline 且无命令 dispatcher；uint64 标识以十进制字符串跨 JSON，命令先记 pending，只有后端收到 ACK 才转终态。前端无串口依赖、不提供任意震动入口、不加载远程资源。Android UI 仍独立实现。
+
 第二部分最新实现：common 增加 sensors/clock/control，input 增加 HostLink 与可选 SerialPort。主机可做握手/心跳/源时间估计与误差/ACK，但未与 MCU 互通；详细合同 CONTROL_V1、INPUT_RUNTIME。此前“尚未实现”小节保留第一部分历史，当前以本条及最新 HANDOFF 为准。
 
 状态：目标架构；Phase 2A 已实现主机分包/组帧/流接口和原始录制回放，均仅模拟验证，其余业务未实现。来源版本见 Phase 1 台账，不等于安装锁。
