@@ -307,3 +307,5 @@ Phase 5 软件核心已实现：供应商无关的灯/地图/OCR/对话事件、
 Phase 6 第一软件检查点已实现：独立 Android 工程、五任务 reducer/Compose、UsbManager 用户选择/授权/拔线与 bulk 上限、XG03 Kotlin codec及黄金向量源码测试、静态 checker 和团队验收文档。修正黄金 header CRC 为 Python 冻结向量 26184fbc；新增 TRANSPORT_OPEN，端点打开不冒充握手 READY。Android 静态 17 文件/6 回归、全仓 145 项、122 文件/来源/compileall/Ruff/diff 通过。无 JDK/SDK，未运行 Kotlin测试/Gradle/APK/真机/模型；继续协议会话，不将本检查点称为 Phase 6 完成。
 
 Phase 6 第一检查点 A = a3fc152384cd20a453fd19256468ac039d128de2 已推送。第二检查点新增随机 session/nonce、HELLO/WELCOME、能力/boot/序号、2s 握手/1.5s 心跳、短写/读线程和 READY 唯一来源；当前 CLOCK-only 固件不会 READY。修复 HELLO 同步失败状态覆盖竞态，补重复提示/TalkBack大按钮。静态20文件/7回归、全仓146项通过；12项Kotlin测试未运行。后续必须由团队Android工具链及具体手机/固件/模型提供证据，Phase 6 未完成。
+
+用户询问 Phase 6 后续自己需要做什么、如何操作、助手还能完成什么。现行分工：用户/团队在具备 Android Studio/JDK17/SDK35 的机器检出 development/continuous-build-20260905，执行 Gradle Sync、Kotlin 单测与 debug APK 构建并提供完整日志；随后在明确的骁龙 8 手机上做 USB 授权/安装/连接。固件团队需编译并让固件至少真实声明 CLOCK+TOF+CAMERA 后才能通过 Android READY。助手可继续分析构建日志、修复 Kotlin/Gradle、补协议与 UI、生成验收表并依据实际模型文件设计移动推理接入；不能代替用户插拔硬件、授权手机、提供模型/地图密钥或伪造真机性能。
