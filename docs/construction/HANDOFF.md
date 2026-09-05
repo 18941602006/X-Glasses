@@ -8,6 +8,8 @@
 
 团队下一步：按 `android/README.md` 在高德控制台配置包名及 debug/release SHA1，把 Android Key 写入用户级 Gradle 属性，完成隐私政策复核后 Sync；执行 `:app:testDebugUnitTest`、`:app:assembleDebug`，再按 `TEAM_ACCEPTANCE.md` 在目标骁龙 8 手机测试拒绝/同意/撤回、POI、步行路线、定位偏移、偏航和弱网。不得把 Key、签名文件或包含 Key 的日志提交/发送。
 
+交付 A = `bfbd865b7300adb95b6c9aa21fe0af709feeb9aa`，已推送并核验开发分支一致；A 后仅未知 `.workbuddy/`。当前追加为审计 B，不在 B 内容中写 B 自身哈希；main 未合并，仍需用户明确批准。
+
 ## 2026-09-05 / 最新：Phase 6 地图导航第一检查点待交付
 
 基线 `4ec873a796e77a45e421fb1efd20f1af438a9a72`，远端备份 `backup/pre-phase6-map-navigation-20260905` 已核验同值。开发分支工作区包含地图导航 Kotlin 核心、Photon/Valhalla 可配置 provider、前台定位、Compose 导航页、任务/断线降级、19 项 Kotlin 测试源码及文档/静态检查；未知 `.workbuddy/` 未触碰、不得暂存。

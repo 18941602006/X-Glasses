@@ -323,3 +323,4 @@ Phase 6 第一检查点 A = a3fc152384cd20a453fd19256468ac039d128de2 已推送�
 - 前端增加高德服务、配置与隐私授权状态；不恢复 SLAM、盲道或斑马线功能，未知 `.workbuddy/` 不纳入施工。
 - 已实现源码检查点：高德 POI/步行路线、逐位置 GCJ-02 转换、同意持久化/拒绝/撤回、官方政策入口、本机 Key 注入及前端状态；开放地图仅保留测试后备。
 - 备份 `backup/pre-phase6-amap-navigation-20260905-1531` 已核验。全仓 149 项和静态检查通过；Kotlin/Gradle/APK/真实高德 Key、GPS/路线/坐标/隐私与目标手机仍未验收，不能宣称 Phase 6 或实机导航完成。
+- 本轮交付 A `bfbd865b7300adb95b6c9aa21fe0af709feeb9aa` 已推送开发分支并核验；main 尚未合并，`.workbuddy/` 未纳入。

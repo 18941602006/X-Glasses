@@ -52,3 +52,5 @@
 已完成 `AmapNavigationProvider`、`AmapPrivacyConsent`、provider 延迟配置和前端授权/撤回流程；坐标归一化发生在 coordinator 接收每个系统 fix 后，路线、目的地和偏航比较保持 GCJ-02。Key 使用 Manifest 占位符与本机 Gradle 属性，仓库无真实值。高德固定候选包已做临时文件存在、哈希和公开 API 名核验，未纳入仓库。
 
 本机静态/全仓验证通过，第一次新增回归因断言插入了错误测试方法而失败，调整测试结构后复测通过；官方示例固定版本下载 404 后改用 Central 可用的 10.1.300 并记录差异。真实 Android 编译及手机验收仍为硬门槛，不把源码检查点写成地图功能已实机完成。
+
+高德源码交付 A = `bfbd865b7300adb95b6c9aa21fe0af709feeb9aa`，已推送开发分支并核验。Phase 6 继续处于“源码检查点完成、团队 Android/真机验收未完成”。

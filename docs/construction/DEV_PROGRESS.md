@@ -268,3 +268,5 @@ A = 2c45a4839d3fd266d6bb899995601db8d0f15290，30 文件 1013 增/10 删，已 p
 远端备份 `backup/pre-phase6-amap-navigation-20260905-1531` 已核验为基线 `868e1ef8adcd865273abe6a88752b6518d96cf19`。完成高德 POI/步行路线 provider、逐 fix WGS84→GCJ-02、隐私同意持久化/拒绝/撤回、官方政策入口、本机 Key 注入、ARM ABI/混淆和服务状态 UI；开放 provider 只保留为测试后备。
 
 Maven Central 已实际下载 `10.1.300_loc6.4.9_sea9.7.4` 到系统临时目录并核验公开类/方法及 SHA256；官方示例 `10.1.200...` 直接请求返回 404，故改用可解析候选。全仓 149 项 Python 测试、30 文件 Android 静态合同、124 文件基础、17 来源/6 报告、pip/compileall/Ruff/diff 均通过。Kotlin 测试源码 21 项未运行；Gradle/APK、真实 Key/路线/GPS/坐标偏移、隐私合规和真机无障碍仍未验收，Phase 6 未完成。
+
+交付 A = `bfbd865b7300adb95b6c9aa21fe0af709feeb9aa`，27 文件、570 增/24 删，已 push 至 `development/continuous-build-20260905` 并由 `ls-remote` 核验一致。A 后仅剩未知 `.workbuddy/`；本条随审计 B 保存，B 不记录自身哈希。
