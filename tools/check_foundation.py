@@ -78,6 +78,7 @@ RUNTIME_FILES = {
     "frontend/src/App.test.tsx",
     "server/perception/navigation/contracts.py",
     "server/perception/navigation/fusion.py",
+    "server/perception/navigation/worker.py",
 }
 REQUIRED += sorted(RUNTIME_FILES) + [
     "docs/protocol/USB_V1.md",
@@ -98,6 +99,9 @@ REQUIRED += sorted(RUNTIME_FILES) + [
     "docs/dependencies/FRONTEND_RUNTIME.md",
     "docs/protocol/NAVIGATION_CORE_V1.md",
     "tests/test_navigation_core.py",
+    "docs/protocol/SEGMENTATION_WORKER_V1.md",
+    "docs/dependencies/SEGMENTATION_RUNTIME.md",
+    "tests/test_segmentation_worker.py",
 ]
 
 

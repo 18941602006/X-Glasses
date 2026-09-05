@@ -1,5 +1,9 @@
 # 施工进度（追加记录）
 
+## 2026-09-05 / Phase 3 分割模型适配合同 / 本地结果
+
+基于官方固定 PaddleSeg/Cityscapes 条款复核，决定不直接下载 PP-LiteSeg 权重；新增无运行时依赖的 IsolatedSegmentationAdapter，最大 JPEG/像素、严格身份/模型/RLE/质量/超时合同及 6 项测试。实际 worker 进程、checkpoint SHA256、Paddle/CUDA 和眼镜视角评测仍未完成，模型状态 not_installed。
+
 ## 2026-09-05 / Phase 3 融合核心 / 本地结果
 
 新增 navigation contracts/fusion、协议说明和 9 项 synthetic 测试。必须匹配 session/profile，检查两路源时间/接收时间/误差/TTL，执行全局及逐走廊 ToF 有效率、分割质量、候选区覆盖和近障门槛。中央局部 ToF 未知不会给 forward。当前无真实分割模型/权重；完成全量检查和开发分支 A/B 后继续模型适配。

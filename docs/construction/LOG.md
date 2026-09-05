@@ -1,5 +1,11 @@
 # X-Glasses 施工日志（追加记录）
 
+## 2026-09-05 / Phase 3 分割 worker 与模型关卡
+
+在核心 A = 1e6fdb44017f233cb58d685df4855f16435b3d9d 后继续。官方固定 PP-LiteSeg 文档给出 Cityscapes checkpoint/export/Paddle Inference/Paddle Lite；Cityscapes 现行条款允许非商业个人实验但有注册/引用/禁止数据再分发与商业用途限制，且车载视角不等于眼镜视角。未下载或接受权重，新增 SEGMENTATION_RUNTIME 记录状态 not_installed。
+
+实现 worker adapter：256KiB JPEG、1920×1080 mask、严格 schema/回显/model_id、二值 RLE、250ms 可配超时与 host-only 时间/标定。6 项测试逻辑先通过，format 要求测试文件重排；复核后又增加 FrameRequest 发送前身份/时间/来源校验，格式化后 6 项复测通过。没有实际进程 transport/Paddle 推理，下一步全量检查并保存软件检查点。
+
 ## 2026-09-05 / Phase 3 道路候选与 ToF 融合核心
 
 基线 B = 642d69550152df27550ee444645d06fbe0ae9718，backup/pre-phase3-navigation-core-20260905 已 push 核验同值。新增 WalkableMask/TimedTof/FusionProfile/NavigationConfig/Event 和融合函数，无新依赖/模型/权重。大补丁在 README 旧文本上下文不匹配前已部分落盘 contracts/fusion；只读核实后补齐 README/协议/测试/白名单，没有重复覆盖。

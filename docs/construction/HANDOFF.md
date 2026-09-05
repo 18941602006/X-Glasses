@@ -1,5 +1,9 @@
 # X-Glasses 交接记录（追加）
 
+## 2026-09-05 / 最新：Phase 3 软件合同待检查点
+
+融合核心 A = 1e6fdb44017f233cb58d685df4855f16435b3d9d；其后新增分割 worker adapter、SEGMENTATION_WORKER_V1、模型关卡和 6 项测试。PP-LiteSeg 权重未下载，模型 not_installed。完成 107 项全量后提交开发分支；随后可进入 Phase 4 找物/拿取纯核心，不把缺权重误写为 Phase 3 实机完成。
+
 ## 2026-09-05 / 最新：Phase 3 融合核心待交付
 
 开发分支新增 server/perception/navigation/contracts.py、fusion.py、NAVIGATION_CORE_V1 和 9 项 synthetic 测试。核心严格拒绝标定/时间/质量/有效性错误，局部中央 ToF 未知不前进。没有真实模型/权重或硬件，下一步保存 A/B 后实现受审核分割模型适配器。
