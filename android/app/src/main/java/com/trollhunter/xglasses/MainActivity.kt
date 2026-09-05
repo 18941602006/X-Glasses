@@ -10,16 +10,18 @@ import com.trollhunter.xglasses.domain.AppAction
 import com.trollhunter.xglasses.domain.AppReducer
 import com.trollhunter.xglasses.domain.AppState
 import com.trollhunter.xglasses.domain.UsbState
+import com.trollhunter.xglasses.protocol.ControlSnapshot
+import com.trollhunter.xglasses.protocol.ControlState
 import com.trollhunter.xglasses.runtime.ModelRuntimeRegistry
 import com.trollhunter.xglasses.ui.XGlassesApp
-import com.trollhunter.xglasses.usb.UsbSessionManager
+import com.trollhunter.xglasses.usb.AndroidHostLink
 import com.trollhunter.xglasses.usb.UsbSessionResult
-import com.trollhunter.xglasses.usb.UsbBulkTransport
+import com.trollhunter.xglasses.usb.UsbSessionManager
 
 class MainActivity : ComponentActivity() {
     private var state by mutableStateOf(AppState())
     private lateinit var usbSessions: UsbSessionManager
-    private var usbTransport: UsbBulkTransport? = null
+    private var hostLink: AndroidHostLink? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,8 @@ class MainActivity : ComponentActivity() {
             },
             onDetached = { deviceId ->
                 if (state.usbDeviceId == deviceId) {
-                    usbTransport = null
+                    hostLink?.close()
+                    hostLink = null
                     dispatch(AppAction.UsbChanged(UsbState.DISCONNECTED))
                 }
                 refreshUsbDevices()
@@ -57,6 +60,8 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onStop() {
+        hostLink?.close()
+        hostLink = null
         dispatch(AppAction.ForegroundChanged(false))
         super.onStop()
     }
@@ -85,15 +90,30 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun handleUsbResult(result: UsbSessionResult, deviceId: Int) {
-        val usbState = when (result) {
-            is UsbSessionResult.PermissionRequired -> UsbState.PERMISSION_REQUIRED
-            is UsbSessionResult.Ready -> {
-                usbTransport = result.transport
-                UsbState.TRANSPORT_OPEN
+        when (result) {
+            is UsbSessionResult.PermissionRequired -> {
+                dispatch(AppAction.UsbChanged(UsbState.PERMISSION_REQUIRED, deviceId))
             }
-            is UsbSessionResult.Failed -> UsbState.FAILED
+            is UsbSessionResult.Ready -> {
+                hostLink?.close()
+                hostLink = AndroidHostLink(result.transport) { snapshot ->
+                    runOnUiThread { onControlState(snapshot, deviceId) }
+                }.also { it.start() }
+            }
+            is UsbSessionResult.Failed -> {
+                dispatch(AppAction.UsbChanged(UsbState.FAILED))
+            }
         }
-        dispatch(AppAction.UsbChanged(usbState, deviceId))
+    }
+
+    private fun onControlState(snapshot: ControlSnapshot, deviceId: Int) {
+        val state = when (snapshot.state) {
+            ControlState.DISCONNECTED -> UsbState.DISCONNECTED
+            ControlState.HANDSHAKING -> UsbState.TRANSPORT_OPEN
+            ControlState.READY -> UsbState.READY
+            ControlState.FAILED -> UsbState.FAILED
+        }
+        dispatch(AppAction.UsbChanged(state, deviceId))
     }
 
     private fun dispatch(action: AppAction) {

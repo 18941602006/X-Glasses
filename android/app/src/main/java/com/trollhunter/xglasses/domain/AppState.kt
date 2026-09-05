@@ -35,6 +35,7 @@ data class AppState(
     val activeTask: TaskKind? = null,
     val nextRequestId: Long = 1,
     val announcement: String = "眼镜未连接",
+    val announcementRevision: Long = 0,
     val isForeground: Boolean = true,
     val hasAudioFocus: Boolean = false,
 ) {
@@ -48,6 +49,7 @@ sealed interface AppAction {
     data class RuntimeChanged(val task: TaskKind, val state: RuntimeState) : AppAction
     data class StartTask(val task: TaskKind) : AppAction
     data object CancelCurrentTask : AppAction
+    data object RepeatLastOutput : AppAction
     data class TaskFailed(val requestId: Long, val reason: String) : AppAction
     data class ForegroundChanged(val foreground: Boolean) : AppAction
     data class AudioFocusChanged(val held: Boolean) : AppAction

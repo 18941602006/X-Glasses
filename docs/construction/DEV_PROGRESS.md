@@ -1,5 +1,11 @@
 # 施工进度（追加记录）
 
+## 2026-09-05 / Phase 6 Android 协议会话 / 本地结果
+
+第一检查点 a3fc152384cd20a453fd19256468ac039d128de2 已推送。继续接通 Android bulk/XG03 控制会话，READY 由匹配 nonce、boot、必需能力和有效心跳决定；短写失败、握手/心跳超时和拔线均失败关闭。补充重复提示但不重启任务。
+
+静态 20 文件、7 项 Android checker 回归及全仓 146 项通过。当前可独立静态施工已到真实工具链边界：下一步需要团队用 JDK17/SDK35/Android Studio 解析候选依赖、执行 12 项 Kotlin 测试并返回日志，再接具体手机/固件和本地模型。未收到证据前 Phase 6 保持未完成。
+
 ## 2026-09-05 / Phase 6 Android 迁移 / 恢复开工
 
 用户取消电脑摄像头测试后明确要求继续 Phase 6。当前开发分支基线 B = a3e2e315d5f821256fdcbb908e9323ee84fc3fb3，拟建 backup/pre-phase6-android-20260905；工作区干净、身份 Trollhunter。本机没有 Java/Gradle/ADB/Android SDK，不能执行 Gradle 解析、APK 构建或模拟器/真机测试。

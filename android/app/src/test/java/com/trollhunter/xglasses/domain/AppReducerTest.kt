@@ -14,6 +14,14 @@ class AppReducerTest {
     }
 
     @Test
+    fun repeatChangesAnnouncementRevisionWithoutRestartingTask() {
+        val state = AppReducer.reduce(AppState(), AppAction.RepeatLastOutput)
+        assertEquals(1, state.announcementRevision)
+        assertNull(state.activeTask)
+        assertFalse(state.safetyMonitoringActive)
+    }
+
+    @Test
     fun unavailableRuntimeCannotStart() {
         val connected = AppReducer.reduce(AppState(), AppAction.UsbChanged(UsbState.READY, 3))
         val result = AppReducer.reduce(connected, AppAction.StartTask(TaskKind.DIALOGUE))

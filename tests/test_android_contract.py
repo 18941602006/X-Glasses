@@ -70,6 +70,32 @@ class AndroidContractTests(unittest.TestCase):
             check(self.root),
         )
 
+    def test_ready_repeat_and_golden_contracts_are_required(self):
+        main = self.root / "app/src/main/java/com/trollhunter/xglasses/MainActivity.kt"
+        main.write_text(
+            main.read_text(encoding="utf-8").replace(
+                "ControlState.READY -> UsbState.READY",
+                "ControlState.READY -> UsbState.FAILED",
+            ),
+            encoding="utf-8",
+        )
+        state = self.root / "app/src/main/java/com/trollhunter/xglasses/domain/AppState.kt"
+        state.write_text(
+            state.read_text(encoding="utf-8").replace("RepeatLastOutput", "RepeatRemoved"),
+            encoding="utf-8",
+        )
+        golden = self.root / "app/src/test/java/com/trollhunter/xglasses/protocol/XgProtocolTest.kt"
+        golden.write_text(
+            golden.read_text(encoding="utf-8").replace(
+                "26184fbc616263c2412435", "00000000616263c2412435"
+            ),
+            encoding="utf-8",
+        )
+        errors = check(self.root)
+        self.assertIn("Android READY must come from the control session", errors)
+        self.assertIn("repeat action missing", errors)
+        self.assertIn("Python/firmware golden packet suffix missing", errors)
+
 
 if __name__ == "__main__":
     unittest.main()

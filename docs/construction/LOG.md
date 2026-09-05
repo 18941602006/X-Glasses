@@ -279,3 +279,9 @@ A = 2c45a4839d3fd266d6bb899995601db8d0f15290，30 文件 1013 增/10 删，已 p
 新增独立 Android 工程、任务 reducer、Compose UI、UsbSessionManager、XgProtocol、Kotlin 测试源码、Android 静态 checker/测试、依赖候选和团队验收文档。超长首批补丁在进程执行前因 Windows 206 拒绝，确认 android 目录不存在后拆为五批。黄金向量首写 header CRC 错为 7960e3e7，Python 冻结实现生成真实完整向量后修正为 26184fbc；静态检查要求显式 XG03 同步修正。
 
 审查另发现 bulk endpoint 打开不能等同握手 READY，新增 TRANSPORT_OPEN，当前不会启用风险监测。最终 Android 静态 17 文件、6 项回归、全仓 145 项、122 文件、来源、compileall、Ruff/diff 通过。未执行 Kotlin/Gradle/APK/真机，Kotlin 测试源码不计入已运行数字。
+
+### Phase 6 第二软件检查点
+
+第一检查点 A = a3fc152384cd20a453fd19256468ac039d128de2 已推送远端一致。新增 ControlSession/AndroidHostLink 和 Kotlin 测试，接入随机会话、nonce、必需能力、boot、序号与握手/心跳 deadline；当前固件只有 CLOCK，按设计不能 READY。人工审查修复 HELLO 当场写失败后外层状态覆盖竞态。
+
+重复提示首个补丁因 hunk 分隔格式错误被拒绝、未落盘，拆分两次成功。新增 checker 对 READY 来源、repeat、TalkBack触点和 Python/固件黄金后缀的破坏性测试。最终静态 20 文件、7 项回归、全仓 146 项、Ruff/diff 通过；12 项 Kotlin 测试仍只是源码。

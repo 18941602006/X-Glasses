@@ -13,6 +13,9 @@ object AppReducer {
         )
         is AppAction.StartTask -> startTask(state, action.task)
         AppAction.CancelCurrentTask -> cancelCurrent(state)
+        AppAction.RepeatLastOutput -> state.copy(
+            announcementRevision = state.announcementRevision + 1,
+        )
         is AppAction.TaskFailed -> failTask(state, action)
         is AppAction.ForegroundChanged -> state.copy(
             isForeground = action.foreground,

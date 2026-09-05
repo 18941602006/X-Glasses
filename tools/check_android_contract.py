@@ -21,11 +21,14 @@ REQUIRED = (
     "app/src/main/java/com/trollhunter/xglasses/domain/AppState.kt",
     "app/src/main/java/com/trollhunter/xglasses/domain/AppReducer.kt",
     "app/src/main/java/com/trollhunter/xglasses/protocol/XgProtocol.kt",
+    "app/src/main/java/com/trollhunter/xglasses/protocol/ControlSession.kt",
     "app/src/main/java/com/trollhunter/xglasses/runtime/ModelRuntimeRegistry.kt",
     "app/src/main/java/com/trollhunter/xglasses/ui/XGlassesApp.kt",
     "app/src/main/java/com/trollhunter/xglasses/usb/UsbSessionManager.kt",
+    "app/src/main/java/com/trollhunter/xglasses/usb/AndroidHostLink.kt",
     "app/src/test/java/com/trollhunter/xglasses/domain/AppReducerTest.kt",
     "app/src/test/java/com/trollhunter/xglasses/protocol/XgProtocolTest.kt",
+    "app/src/test/java/com/trollhunter/xglasses/protocol/ControlSessionTest.kt",
 )
 
 
@@ -53,6 +56,8 @@ def check(root: Path = ANDROID) -> list[str]:
         or "TRANSPORT_OPEN" not in state
     ):
         errors.append("safe default runtime/monitoring state missing")
+    if "RepeatLastOutput" not in state:
+        errors.append("repeat action missing")
     sources = "\n".join(path.read_text(encoding="utf-8") for path in root.rglob("*.kt"))
     for forbidden in ("可以过街", "盲道", "斑马线", "http://", "https://"):
         if forbidden in sources:
@@ -77,6 +82,33 @@ def check(root: Path = ANDROID) -> list[str]:
     for required in ("XG03", "XG_HEADER_SIZE = 36", "XG_MAX_PAYLOAD = 4096", "CRC32"):
         if required not in protocol:
             errors.append(f"protocol contract token missing: {required}")
+    control = (
+        root / "app/src/main/java/com/trollhunter/xglasses/protocol/ControlSession.kt"
+    ).read_text(encoding="utf-8")
+    for required in (
+        "HANDSHAKE_TIMEOUT_NS = 2_000_000_000L",
+        "HEARTBEAT_TIMEOUT_NS = 1_500_000_000L",
+        "REQUIRED_SAFETY_CAPABILITIES",
+        "required_capability_missing",
+    ):
+        if required not in control:
+            errors.append(f"control contract token missing: {required}")
+    main = (root / "app/src/main/java/com/trollhunter/xglasses/MainActivity.kt").read_text(
+        encoding="utf-8"
+    )
+    if "ControlState.READY -> UsbState.READY" not in main:
+        errors.append("Android READY must come from the control session")
+    ui = (root / "app/src/main/java/com/trollhunter/xglasses/ui/XGlassesApp.kt").read_text(
+        encoding="utf-8"
+    )
+    for required in ("重复上一条提示", "heightIn(min = 64.dp)", "liveRegion"):
+        if required not in ui:
+            errors.append(f"accessibility contract token missing: {required}")
+    golden = (
+        root / "app/src/test/java/com/trollhunter/xglasses/protocol/XgProtocolTest.kt"
+    ).read_text(encoding="utf-8")
+    if "26184fbc616263c2412435" not in golden:
+        errors.append("Python/firmware golden packet suffix missing")
     gradle = (root / "build.gradle.kts").read_text(encoding="utf-8")
     gradle += (root / "app/build.gradle.kts").read_text(encoding="utf-8")
     if re.search(r'version\s+"(?:latest|\+)|:[^"\n]*\+"', gradle, re.IGNORECASE):

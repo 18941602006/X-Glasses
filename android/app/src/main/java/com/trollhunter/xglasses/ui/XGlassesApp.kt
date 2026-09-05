@@ -66,6 +66,14 @@ fun XGlassesApp(
                     }
                 }
                 item {
+                    Button(
+                        onClick = { dispatch(AppAction.RepeatLastOutput) },
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp),
+                    ) {
+                        Text("重复上一条提示", fontSize = 20.sp)
+                    }
+                }
+                item {
                     Text(
                         "绿灯识别不是过街许可。原型测试请保留盲杖并由他人陪同。",
                         fontSize = 16.sp,
@@ -118,7 +126,13 @@ private fun StatusCard(state: AppState) {
             if (state.safetyMonitoringActive) "基础风险监测：运行中" else "基础风险监测：未运行",
             fontSize = 18.sp,
         )
-        Text(state.announcement, fontSize = 16.sp)
+        Text(
+            state.announcement,
+            fontSize = 16.sp,
+            modifier = Modifier.semantics {
+                contentDescription = "${state.announcement}；提示序号${state.announcementRevision}"
+            },
+        )
     }
 }
 
