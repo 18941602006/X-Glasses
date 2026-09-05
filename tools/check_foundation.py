@@ -41,6 +41,15 @@ IGNORED = (
 ).split()
 
 RUNTIME_FILES = {
+    "firmware/CMakeLists.txt",
+    "firmware/sdkconfig.defaults",
+    "firmware/main/CMakeLists.txt",
+    "firmware/main/idf_component.yml",
+    "firmware/main/main.c",
+    "firmware/main/xg_protocol.h",
+    "firmware/main/xg_protocol.c",
+    "firmware/main/xg_controller.h",
+    "firmware/main/xg_controller.c",
     "server/common/clock.py",
     "server/common/control.py",
     "server/common/protocol.py",
@@ -62,6 +71,9 @@ REQUIRED += sorted(RUNTIME_FILES) + [
     "tools/usb_probe.py",
     "tests/test_serial_port.py",
     "docs/dependencies/INPUT_RUNTIME.md",
+    "docs/construction/VSCODE.md",
+    "tools/check_firmware_contract.py",
+    "tests/test_firmware_contract.py",
 ]
 
 

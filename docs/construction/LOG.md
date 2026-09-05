@@ -1,5 +1,15 @@
 # X-Glasses 施工日志（追加记录）
 
+## 2026-09-05 / Phase 2A 固件协议基线
+
+从已核验 B = 5201b13b530350f3e9bf5161cb6cfedd24d7894d 开工，远端备份 backup/pre-phase2a-firmware-20260905-0300 指向同一基线。实现 firmware 下 ESP-IDF 工程、C 协议和控制器，主机增加 capability 拒绝规则；默认固件只声明 CLOCK，相机/ToF/IMU/按键/震动没有伪装为已启用。增加固件静态合同、7 项负面/正面测试、VS Code 和固件说明。
+
+工具链尝试：固定 ESP-IDF 5.5.4 浅克隆和所需工具安装到临时隔离路径；首次 export.ps1 因错误 Python/平台识别失败，随后用户决定由已有环境的团队成员承担编译和烧录，停止把本机 IDF 配置作为前置。没有刷写设备。固件 README 已修正为团队复制至短 ASCII 路径构建，不声称仓库存在自动复制工具。
+
+首次组合验收中 86 项测试与固件合同通过，但 Ruff 报 server/input/link.py 导入顺序，且命令误用了不存在的 tools/check_sources.py；由于组合命令最后退出码为 0，该轮不能算通过。用锁定 Ruff 修复导入顺序，改用实际 tools/check_source_audit.py，并为每个外部命令显式检查退出码。最终 86 项约 1.8 秒通过，固件合同、76 必需文件、17 来源/6 报告、Ruff check/format、pip check、git diff --check 均通过。
+
+未验收：ESP-IDF 交叉编译、CDC 枚举、任何外设、供电、时序和佩戴安全。当前准备检查点 A/B，之后继续 Phase 2B，不等待固件环境。
+
 ## 2026-09-04 / Phase 0 前置检查 / 用户中断前记录
 
 ### 本轮计划回放

@@ -12,6 +12,13 @@ CLOCK_RESPONSE = Struct("<QQQQ")  # request id, host send ns, device rx us, devi
 COMMAND = Struct("<QBQHB")  # request id, opcode, device deadline us, duration ms, intensity
 ACK = Struct("<QBB")  # request id, opcode, result
 
+CAP_CLOCK = 1 << 0
+CAP_TOF = 1 << 1
+CAP_IMU = 1 << 2
+CAP_BUTTON = 1 << 3
+CAP_CAMERA = 1 << 4
+CAP_HAPTIC = 1 << 5
+
 
 class Opcode(IntEnum):
     START_STREAM = 1

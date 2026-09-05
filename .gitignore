@@ -25,6 +25,8 @@ id_ed25519*
 .agents/
 
 # Build tools and outputs
+managed_components/
+dependencies.lock.local
 node_modules/
 dist/
 build/

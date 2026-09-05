@@ -115,7 +115,7 @@ class LinkTests(unittest.TestCase):
         self.sequence += 1
 
     def ready(self):
-        self.send(Kind.STATUS, WELCOME.pack(2, 123, 99, 0xF))
+        self.send(Kind.STATUS, WELCOME.pack(2, 123, 99, 0x3F))
         self.assertEqual(self.link.state, "ready")
 
     def sync(self):
@@ -125,9 +125,9 @@ class LinkTests(unittest.TestCase):
         self.send(Kind.CLOCK, CLOCK_RESPONSE.pack(req_id, 1_000_000, 1000, 1100), 1_200_000)
 
     def test_handshake_nonce_and_session(self):
-        self.send(Kind.STATUS, WELCOME.pack(2, 456, 99, 0xF))
+        self.send(Kind.STATUS, WELCOME.pack(2, 456, 99, 0x3F))
         self.assertEqual(self.link.state, "handshaking")
-        self.send(Kind.STATUS, WELCOME.pack(2, 123, 99, 0xF), session=8)
+        self.send(Kind.STATUS, WELCOME.pack(2, 123, 99, 0x3F), session=8)
         self.assertEqual(self.link.state, "handshaking")
         self.ready()
 
@@ -136,6 +136,18 @@ class LinkTests(unittest.TestCase):
         self.assertEqual(self.link.reason, "handshake_timeout")
         with self.assertRaises(RuntimeError):
             self.link.command(Opcode.STOP_STREAM, HANDSHAKE_NS)
+
+    def test_undeclared_sensor_clock_and_actuator_are_rejected(self):
+        self.send(Kind.STATUS, WELCOME.pack(2, 123, 99, 0))
+        with self.assertRaises(RuntimeError):
+            self.link.request_clock(2)
+        with self.assertRaises(RuntimeError):
+            self.link.command(Opcode.HAPTIC, 2, 100, 10)
+        with self.assertRaises(RuntimeError):
+            self.link.command(Opcode.START_STREAM, 2)
+        self.send(Kind.TOF, tof_payload(), 3, 1)
+        self.assertEqual(self.link.malformed, 1)
+        self.assertIsNone(self.link.sensor(Kind.TOF, 3))
 
     def test_heartbeat_timeout_and_reboot_clear_state(self):
         self.ready()
@@ -146,7 +158,7 @@ class LinkTests(unittest.TestCase):
         self.assertEqual(self.link.sensors, {})
         self.assertEqual(len(self.link.clock.samples), 0)
         self.link.begin(8, 5, 2_000_000)
-        self.send(Kind.STATUS, WELCOME.pack(2, 5, 100, 0xF), 2_000_001, session=8)
+        self.send(Kind.STATUS, WELCOME.pack(2, 5, 100, 0x3F), 2_000_001, session=8)
         self.link.tick(2_000_001 + HEARTBEAT_NS)
         self.assertEqual(self.link.reason, "heartbeat_timeout")
 
@@ -230,7 +242,7 @@ class LinkTests(unittest.TestCase):
 
     def test_idle_resync_does_not_lose_handshake_packet(self):
         header = HEADER.pack(b"XG03", 1, Kind.STATUS, 0, 7, 0, 0, MAX_PAYLOAD)
-        good = encode(Packet(Kind.STATUS, 7, 1, 0, WELCOME.pack(2, 123, 99, 0xF)))
+        good = encode(Packet(Kind.STATUS, 7, 1, 0, WELCOME.pack(2, 123, 99, 0x3F)))
         self.link.feed(header + U32.pack(crc32(header)) + good, 0)
         self.link.tick(500_000_000)
         self.assertEqual(self.link.state, "ready")

@@ -6,6 +6,12 @@ from dataclasses import replace
 from server.common.clock import ClockMapper
 from server.common.control import (
     ACK,
+    CAP_BUTTON,
+    CAP_CAMERA,
+    CAP_CLOCK,
+    CAP_HAPTIC,
+    CAP_IMU,
+    CAP_TOF,
     CLOCK_REQUEST,
     CLOCK_RESPONSE,
     HEARTBEAT,
@@ -157,14 +163,23 @@ class HostLink:
                 CommandResult(request, Opcode(opcode), result.name.lower(), packet.session_id)
             )
         elif packet.kind in (Kind.TOF, Kind.IMU):
+            required = CAP_TOF if packet.kind == Kind.TOF else CAP_IMU
+            if not self.capabilities & required:
+                raise ValueError("sensor type not declared by device")
             decoder = decode_tof if packet.kind == Kind.TOF else decode_imu
             self.sensors[packet.kind] = (decoder(packet.payload), packet.capture_us, now_ns)
         elif packet.kind == Kind.BUTTON:
+            if not self.capabilities & CAP_BUTTON:
+                raise ValueError("buttons not declared by device")
             self.buttons.append((decode_button(packet.payload), packet.capture_us, now_ns))
 
     def request_clock(self, now_ns):
         self.tick(now_ns)
-        if self.state != "ready" or self.clock_request is not None:
+        if (
+            self.state != "ready"
+            or self.clock_request is not None
+            or not self.capabilities & CAP_CLOCK
+        ):
             raise RuntimeError("ready link with no outstanding clock request required")
         request = self._request_id()
         self.clock_request = (request, now_ns)
@@ -175,6 +190,10 @@ class HostLink:
         if self.state != "ready" or len(self.pending) >= MAX_PENDING:
             raise RuntimeError("link unavailable or command queue full")
         opcode = Opcode(opcode)
+        if opcode == Opcode.HAPTIC and not self.capabilities & CAP_HAPTIC:
+            raise RuntimeError("device does not declare haptic capability")
+        if opcode == Opcode.START_STREAM and not self.capabilities & CAP_CAMERA:
+            raise RuntimeError("device does not declare camera capability")
         deadline_us = 0
         if opcode not in (Opcode.STOP_STREAM, Opcode.CANCEL_HAPTIC):
             deadline_us = self.clock.device_deadline(now_ns, COMMAND_TTL_NS)
