@@ -271,3 +271,11 @@ A = 2c45a4839d3fd266d6bb899995601db8d0f15290，30 文件 1013 增/10 删，已 p
 首批 13 项合同/仲裁测试通过，Ruff 提示 2 文件格式差异；审查发现仲裁跨层导入私有校验函数且自由文本可能绕过过街限制，改为公开严格校验并在 OutputCandidate 全局拒绝常见中英文授权短语，新增类型/空白测试。再补 worker 超时/请求上限、输出执行回执及道路/拿取/辅助映射，阶段测试增至 23 项。
 
 最终 139 项全仓测试、117 文件范围、17 来源/6 报告、compileall、Ruff 全仓 check/format、diff check 通过。没有新增依赖、真实网络调用、密钥、模型、地图、TTS 或硬件执行；fake transport 只验证边界，不验证识别/导航/对话质量。
+
+## 2026-09-05 / Phase 6 Android 第一软件检查点
+
+用户取消电脑摄像头测试后恢复 Phase 6。基线 a3e2e315d5f821256fdcbb908e9323ee84fc3fb3，backup/pre-phase6-android-20260905 已推送核验同值。本机 Java/Gradle/ADB/SDK 均未发现；公开版本网页检索无可审计正文，固定版本标 candidate_unresolved，不安装工具链。
+
+新增独立 Android 工程、任务 reducer、Compose UI、UsbSessionManager、XgProtocol、Kotlin 测试源码、Android 静态 checker/测试、依赖候选和团队验收文档。超长首批补丁在进程执行前因 Windows 206 拒绝，确认 android 目录不存在后拆为五批。黄金向量首写 header CRC 错为 7960e3e7，Python 冻结实现生成真实完整向量后修正为 26184fbc；静态检查要求显式 XG03 同步修正。
+
+审查另发现 bulk endpoint 打开不能等同握手 READY，新增 TRANSPORT_OPEN，当前不会启用风险监测。最终 Android 静态 17 文件、6 项回归、全仓 145 项、122 文件、来源、compileall、Ruff/diff 通过。未执行 Kotlin/Gradle/APK/真机，Kotlin 测试源码不计入已运行数字。

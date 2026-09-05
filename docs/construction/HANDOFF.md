@@ -176,3 +176,9 @@ A = 2c45a4839d3fd266d6bb899995601db8d0f15290，30 文件 1013 增/10 删，已 p
 基线 9455b7c783fefcb1f265cde659456107384689b4，backup/pre-phase5-assist-arbitration-20260905 已核验同值。辅助事件、worker、统一候选映射、输出仲裁和执行边界已实现；23 项阶段测试与 139 项全仓测试通过，117 文件/来源/compileall/Ruff/diff 检查通过。
 
 当前不具备真实信号灯/OCR/对话模型、地图 provider、TTS/震动 transport 或 Android 构建环境。交付检查点后进入 Phase 6 静态 Android 工程与 USB/任务状态合同；没有 SDK/JDK 时只做可验证的纯 Kotlin/文档边界，不虚报 APK。真实 provider 的地区、条款和密钥仍需后续用户/部署决策，不能擅自选云服务或上传数据。
+
+## 2026-09-05 / 最新：Phase 6 第一软件检查点待交付
+
+Android 独立工程已创建，入口见 `android/README.md`；UsbManager 用户选择/权限/拔线、XG03 codec、五任务 reducer/Compose 和安全默认已实现。端点只到 TRANSPORT_OPEN，握手未实现，不能进入 READY。候选依赖见 ANDROID_RUNTIME，团队验收见 TEAM_ACCEPTANCE。
+
+本机无 Android 工具链，只有 Python 静态合同 6 项及全仓 145 项已运行通过；Kotlin 单测、Gradle sync、APK、USB、TalkBack、生命周期、模型和骁龙指标全部未测。第一检查点保存后继续可独立完成的协议会话/接口工作，真机构建需团队环境。

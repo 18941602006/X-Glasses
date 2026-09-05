@@ -1,5 +1,11 @@
 # 测试与指标
 
+## Phase 6 Android 第一软件检查点 / 2026-09-05
+
+新增 6 项 Python 静态合同回归，全仓 145 项通过；Android checker 校验 17 个工程文件、五任务、模型安全默认、USB Host/权限/拔线/上限、TRANSPORT_OPEN 与 READY 分离、XG03 常量、禁止过街/旧功能/网络 URL/浮动依赖。122 文件、来源、compileall、Ruff 全仓和 diff 检查通过。
+
+Kotlin 源码另含 4 项 reducer 测试和 3 项协议黄金/分割/损坏测试，但因本机无 JDK/SDK/Gradle而未执行，不能计入 145 项。没有 Gradle 解析、APK、Android instrumentation、USB/手机/模型/性能/功耗/温升或 TalkBack 实测。
+
 ## Phase 5 辅助功能与输出仲裁 / 2026-09-05
 
 新增 23 项标准库 synthetic/fake 测试，全仓 139 项通过。覆盖信号灯方向/状态且禁止过街许可、OCR 原文顺序/上限、地图与对话 provenance、worker JPEG/问题/超时/失败关闭、固定安全优先级、过期/未来/错会话、同类替换、取消/清会话/限频、感知与拿取映射、长文本分块门，以及输出期限/幂等/失败回执。

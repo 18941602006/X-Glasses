@@ -4,6 +4,8 @@
 
 后续真实安装单独追加：[Phase 2A 输入运行依赖](INPUT_RUNTIME.md)；pyserial 3.5 已以官方 wheel 哈希安装并通过内存回环。下文“本轮未安装”指 Phase 1 历史审核，不抹去当时事实。
 
+Phase 6 Android 精确候选及未解析状态见 [ANDROID_RUNTIME](ANDROID_RUNTIME.md)。该台账不是 Gradle lock、许可证放行或 APK 构建记录。
+
 - [机器可读快照](sources.audit.json)：17 条来源，记录精确 Git/HF revision 或 PyPI 版本、许可证据、复用状态和未通过项。
 - [底座复用评审](REUSE_REVIEW.md)：具体文件的可复用内容和必须改造处。
 - [环境与许可关卡](ENVIRONMENT_GATES.md)：隔离环境、许可差异和放行边界。

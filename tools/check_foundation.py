@@ -114,6 +114,11 @@ REQUIRED += sorted(RUNTIME_FILES) + [
     "docs/protocol/ASSIST_OUTPUT_V1.md",
     "tests/test_locate_grasp.py",
     "tests/test_assist_arbitration.py",
+    "tools/check_android_contract.py",
+    "tests/test_android_contract.py",
+    "android/README.md",
+    "docs/dependencies/ANDROID_RUNTIME.md",
+    "docs/android-migration/TEAM_ACCEPTANCE.md",
 ]
 
 

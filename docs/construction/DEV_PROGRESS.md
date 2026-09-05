@@ -1,5 +1,11 @@
 # 施工进度（追加记录）
 
+## 2026-09-05 / Phase 6 Android 迁移 / 恢复开工
+
+用户取消电脑摄像头测试后明确要求继续 Phase 6。当前开发分支基线 B = a3e2e315d5f821256fdcbb908e9323ee84fc3fb3，拟建 backup/pre-phase6-android-20260905；工作区干净、身份 Trollhunter。本机没有 Java/Gradle/ADB/Android SDK，不能执行 Gradle 解析、APK 构建或模拟器/真机测试。
+
+实施独立 Android Kotlin/Compose 工程：官方 UsbManager Host 权限/枚举/会话清理，五任务入口、TalkBack 语义、大触控、取消/重复、前后台/音频焦点状态；业务 reducer 复用 V3 的 session/期限/未知安全语义，不复用 React UI。依赖版本精确写入但标 candidate_unresolved，团队环境首次解析后提交 lock、构建日志与许可证据。LocateAnything/道路/OCR/灯模型不移植权重，先建立运行时接口和明确 unavailable 状态；不默认云端或换模型。
+
 ## 2026-09-05 / Phase 5 辅助功能与输出仲裁 / 本地结果
 
 完成四类辅助事件、隔离 worker、统一事件映射、固定安全优先级仲裁和 deadline-aware 输出执行边界。主动修正公共校验私有导入并在仲裁层增加过街许可短语拒绝，避免上层自由文本绕过信号灯合同。23 项阶段测试及 139 项全仓回归通过。

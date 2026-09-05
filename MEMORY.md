@@ -301,3 +301,7 @@ Phase 5 软件核心已实现：供应商无关的灯/地图/OCR/对话事件、
 用户确认前五阶段后询问是否只差 Android，并指示若是则暂停 Android、先用电脑摄像头测试前五步最终效果。Phase 6 已暂停，未创建 Android 文件。检测到 Integrated Camera 状态 OK；本机无 ffmpeg，项目 venv 无 cv2/PIL。当前改为在现有 React 调试台增加用户主动启用的浏览器本机摄像头预览，明确不保存、不上传、不冒充眼镜帧，也不进入算法。真实模型/ToF 未安装，摄像头联调只能验证取流/UI/接口，不能宣称识别避障最终效果。
 
 用户随后取消电脑测试，要求返回之前项目进度。未提交的摄像头前端、样式和测试改动已撤销；中断的 npm 测试没有发现遗留项目进程。当前恢复为 Phase 5 已交付、Phase 6 尚未开始且按用户指令暂停，等待下一步指令。
+
+用户最新要求继续 Phase 6。已恢复 Android 迁移施工；基线 a3e2e315d5f821256fdcbb908e9323ee84fc3fb3、工作区干净、Trollhunter 身份不变。本机未检测到 Java/Gradle/ADB/Android SDK。计划建立独立 Kotlin/Compose 工程、官方 UsbManager Host 会话、五任务无障碍 UI 与状态/取消合同；依赖候选未在本机解析，模型权重、APK 和骁龙 8 真机指标不虚报，不默认云端/换 LocateAnything。
+
+Phase 6 第一软件检查点已实现：独立 Android 工程、五任务 reducer/Compose、UsbManager 用户选择/授权/拔线与 bulk 上限、XG03 Kotlin codec及黄金向量源码测试、静态 checker 和团队验收文档。修正黄金 header CRC 为 Python 冻结向量 26184fbc；新增 TRANSPORT_OPEN，端点打开不冒充握手 READY。Android 静态 17 文件/6 回归、全仓 145 项、122 文件/来源/compileall/Ruff/diff 通过。无 JDK/SDK，未运行 Kotlin测试/Gradle/APK/真机/模型；继续协议会话，不将本检查点称为 Phase 6 完成。
