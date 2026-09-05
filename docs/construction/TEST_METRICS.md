@@ -1,5 +1,11 @@
 # 测试与指标
 
+## Phase 4 Locate/拿取软件核心 / 2026-09-05
+
+新增 9 项 synthetic 测试，Python 全量 116 项通过、1 项可选 pyserial 测试跳过；基础结构 110 项通过，compileall 通过。覆盖 Locate worker 的 JPEG/查询/数量/字段/session/frame/model 上限，手/物/ToF 的身份、标定、时间、质量、遮挡、同区和无效距离降级，以及二维重叠后一次性 button/voice 显式确认。
+
+首测暴露 ToF 网格边界双重归属，改为左闭右开并调整夹具后通过。系统 Python 没有 Ruff，改用仓库固定 `.venv` Ruff 0.12.12，修复 1 处导入排序并格式化 2 个文件后 check/format 通过。未安装模型或运行 worker，也没有真实手部/物体、标定、成功率、时延或误确认数据。
+
 ## Phase 3 分割 worker 合同 / 2026-09-05
 
 新增 6 项隔离 worker 测试，Python 全量预期 107 项。覆盖可信主机元数据保留、JPEG/timeout 上限、超时、session/frame/model 回显、额外字段、二值 RLE 精确像素与上限、非有限质量。transport 为 fake，没有启动 Paddle 或加载权重，不能形成模型准确率/速度结论。

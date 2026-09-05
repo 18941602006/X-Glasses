@@ -1,5 +1,17 @@
 # 施工进度（追加记录）
 
+## 2026-09-05 / Phase 4 LocateAnything 与拿取辅助核心 / 本地结果
+
+完成有界 LocateAnything 隔离合同、共享归一化几何、手/物/ToF 保守融合和一次性 button/voice 确认门。修复 ToF 网格边界双归属后，9 项本阶段测试和 116 项全量回归通过（1 项可选 pyserial 跳过）；基础结构 110 项及 Python 编译检查通过。
+
+本结果不包含 LocateAnything/手部权重、worker 进程、外参标定或实物抓取。浏览器截图步骤已按用户意见省略，不影响本阶段无 UI 的合同验收。完成开发分支检查点后继续 Phase 5 辅助功能，不等待普通选型确认。
+
+## 2026-09-05 / Phase 4 LocateAnything 与拿取辅助核心 / 开工计划
+
+开发分支基线 B = 66eeb8ab8d95f1b8157260730067eed3b0b4a566，拟建 backup/pre-phase4-locate-grasp-core-20260905。实现 evaluation_only LocateAnything 的有界 worker 合同、源 session/frame/model 回显和晚到结果拒绝；实现目标框、手部观测、ToF zone 外参和统一时钟融合，输出有限期横向/纵向/深度候选。
+
+同 zone、遮挡、手物重叠、标定错配、过期/不同步、无效 ToF 均停止数值深度指导；重叠仅请求用户按键/语音确认，不使用握拳或二维重叠自动完成。没有机械臂，不下载 LocateAnything 权重、不执行 remote code；合成测试不能替代真实手部/物体成功率。
+
 ## 2026-09-05 / Phase 3 分割模型适配合同 / 本地结果
 
 基于官方固定 PaddleSeg/Cityscapes 条款复核，决定不直接下载 PP-LiteSeg 权重；新增无运行时依赖的 IsolatedSegmentationAdapter，最大 JPEG/像素、严格身份/模型/RLE/质量/超时合同及 6 项测试。实际 worker 进程、checkpoint SHA256、Paddle/CUDA 和眼镜视角评测仍未完成，模型状态 not_installed。

@@ -51,6 +51,7 @@ RUNTIME_FILES = {
     "firmware/main/xg_controller.h",
     "firmware/main/xg_controller.c",
     "server/common/clock.py",
+    "server/common/geometry.py",
     "server/common/control.py",
     "server/common/protocol.py",
     "server/common/sensors.py",
@@ -79,6 +80,8 @@ RUNTIME_FILES = {
     "server/perception/navigation/contracts.py",
     "server/perception/navigation/fusion.py",
     "server/perception/navigation/worker.py",
+    "server/perception/locate/contracts.py",
+    "server/perception/locate/grasp.py",
 }
 REQUIRED += sorted(RUNTIME_FILES) + [
     "docs/protocol/USB_V1.md",
@@ -102,6 +105,8 @@ REQUIRED += sorted(RUNTIME_FILES) + [
     "docs/protocol/SEGMENTATION_WORKER_V1.md",
     "docs/dependencies/SEGMENTATION_RUNTIME.md",
     "tests/test_segmentation_worker.py",
+    "docs/protocol/LOCATE_GRASP_V1.md",
+    "tests/test_locate_grasp.py",
 ]
 
 

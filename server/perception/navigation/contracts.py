@@ -6,6 +6,7 @@ import math
 from dataclasses import dataclass
 from typing import Literal, Protocol
 
+from server.common.geometry import NormalizedRect
 from server.common.sensors import TofSample
 
 Direction = Literal["none", "left", "forward", "right"]
@@ -58,24 +59,6 @@ class TimedTof:
             raise ValueError("invalid ToF timing")
         if not self.calibration_id:
             raise ValueError("ToF calibration id required")
-
-
-@dataclass(frozen=True)
-class NormalizedRect:
-    left: float
-    top: float
-    right: float
-    bottom: float
-
-    def __post_init__(self):
-        values = (self.left, self.top, self.right, self.bottom)
-        if not all(math.isfinite(value) for value in values):
-            raise ValueError("nonfinite projection")
-        if not 0 <= self.left < self.right <= 1 or not 0 <= self.top < self.bottom <= 1:
-            raise ValueError("projection outside normalized image")
-
-    def overlaps(self, left: float, top: float, right: float, bottom: float) -> bool:
-        return self.left < right and self.right > left and self.top < bottom and self.bottom > top
 
 
 @dataclass(frozen=True)

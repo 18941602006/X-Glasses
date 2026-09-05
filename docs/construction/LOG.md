@@ -255,3 +255,11 @@ pyserial 3.5 官方 wheel SHA256 固定并安装到项目 venv，内存 loop:// 
 ### 第二部分交付 A 审计
 
 A = 2c45a4839d3fd266d6bb899995601db8d0f15290，30 文件 1013 增/10 删，已 push 指定 main 且 ls-remote 完整哈希一致，A 后工作区干净。最终 78 测试（约1.532秒）、64 文件、17 来源、Ruff19文件、pip/diff/cached diff 通过，显式文件体积及常见凭据模式检查无命中。第二部分软件检查点通过，实机仍未验收。本追加为 B，自身哈希终端核验后继续固件，不停等用户。
+
+## 2026-09-05 / Phase 4 LocateAnything 与拿取辅助核心
+
+从开发分支 B = 66eeb8ab8d95f1b8157260730067eed3b0b4a566 创建并核验 backup/pre-phase4-locate-grasp-core-20260905 后施工。新增 common/geometry、locate/contracts、locate/grasp、LOCATE_GRASP_V1 和 9 项合成测试；navigation 复用共享矩形类型，基础白名单同步扩展。
+
+首条 unittest 模块路径因 tests 非包而失败，改用 discover。首轮业务测试发现 ToF 投影矩形在边界包含同一点，修复为左闭右开确定归属；第二轮一项无效深度夹具仍指向旧 zone，改为目标实际 zone。随后 116 项全量测试通过，1 项可选 pyserial 跳过；110 文件基础检查及 compileall 通过。系统 Python 未安装 Ruff，随后找到仓库固定 `.venv` Ruff 0.12.12，修复 1 处导入排序并格式化 2 文件后 check/format 通过；未安装新工具。
+
+安全边界：LocateAnything 仍为 evaluation_only，未下载权重、未执行 remote code；host 保留时间和标定元数据，worker 只能返回目标框。无效/过期/错会话/错标定/低质量/遮挡/同区深度全部降级，二维重叠不自动完成，只有有效期内一次性 button/voice 确认可完成。无真实模型、标定或硬件结果。
