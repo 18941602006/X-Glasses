@@ -82,6 +82,11 @@ RUNTIME_FILES = {
     "server/perception/navigation/worker.py",
     "server/perception/locate/contracts.py",
     "server/perception/locate/grasp.py",
+    "server/perception/assist/contracts.py",
+    "server/perception/assist/worker.py",
+    "server/arbitration/core.py",
+    "server/arbitration/adapters.py",
+    "server/output/executor.py",
 }
 REQUIRED += sorted(RUNTIME_FILES) + [
     "docs/protocol/USB_V1.md",
@@ -106,7 +111,9 @@ REQUIRED += sorted(RUNTIME_FILES) + [
     "docs/dependencies/SEGMENTATION_RUNTIME.md",
     "tests/test_segmentation_worker.py",
     "docs/protocol/LOCATE_GRASP_V1.md",
+    "docs/protocol/ASSIST_OUTPUT_V1.md",
     "tests/test_locate_grasp.py",
+    "tests/test_assist_arbitration.py",
 ]
 
 

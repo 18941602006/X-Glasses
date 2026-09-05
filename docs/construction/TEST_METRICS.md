@@ -1,5 +1,11 @@
 # 测试与指标
 
+## Phase 5 辅助功能与输出仲裁 / 2026-09-05
+
+新增 23 项标准库 synthetic/fake 测试，全仓 139 项通过。覆盖信号灯方向/状态且禁止过街许可、OCR 原文顺序/上限、地图与对话 provenance、worker JPEG/问题/超时/失败关闭、固定安全优先级、过期/未来/错会话、同类替换、取消/清会话/限频、感知与拿取映射、长文本分块门，以及输出期限/幂等/失败回执。
+
+117 必需文件、17 固定来源/6 报告、compileall、Ruff 全仓 check/format 和 diff 检查通过。transport 全是 fake；没有模型准确率、地图定位误差、网络恢复、TTS 时延、震动 ACK 或实际过街测试，且不以合成 green 样例形成任何安全结论。
+
 ## Phase 4 Locate/拿取软件核心 / 2026-09-05
 
 新增 9 项 synthetic 测试，Python 全量 116 项通过、1 项可选 pyserial 测试跳过；基础结构 110 项通过，compileall 通过。覆盖 Locate worker 的 JPEG/查询/数量/字段/session/frame/model 上限，手/物/ToF 的身份、标定、时间、质量、遮挡、同区和无效距离降级，以及二维重叠后一次性 button/voice 显式确认。

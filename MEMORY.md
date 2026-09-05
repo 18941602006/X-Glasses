@@ -293,3 +293,7 @@ Phase 3 worker 检查点 B = 66eeb8ab8d95f1b8157260730067eed3b0b4a566，已推�
 用户补充认为上一轮浏览器截图/人工视觉步骤价值不大，可以省略并要求继续。该步骤已跳过，不再作为后续核心施工前置条件；自动测试、协议和安全合同验证继续执行。
 
 Phase 4 已实现 LocateAnything 有界隔离合同、共享归一化几何、手/物/ToF 保守引导和一次性 button/voice 显式确认。修复 ToF 网格边界双归属后，9 项阶段测试及 116 项全量回归通过（1 项可选 pyserial 跳过），110 文件结构、compileall 和仓库 `.venv` Ruff check/format 通过。模型、worker、手部模型、标定和实物拿取均未验收。完成开发分支检查点后连续进入 Phase 5。
+
+Phase 4 A = 9455b7c783fefcb1f265cde659456107384689b4，已推送 development/continuous-build-20260905 且远端一致，工作区干净。连续进入 Phase 5：实现红绿灯、外部导航、OCR、AI 对话的隔离事件合同和风险优先输出仲裁；不配置真实密钥、不上传数据，信号灯不发过街许可，地图/对话不能覆盖近障停止。
+
+Phase 5 软件核心已实现：供应商无关的灯/地图/OCR/对话事件、显式 worker 边界、道路/拿取/辅助到输出候选映射、固定八级仲裁和期限/会话感知执行回执。自由文本层也拒绝常见中英文过街许可，长 OCR/对话须分块。23 项阶段测试与 139 项全仓回归、117 文件、来源、compileall、Ruff 和 diff 通过。所有 transport 为 fake，无真实模型/provider/密钥/TTS/震动；检查点后连续进入 Phase 6，不将静态 Android 工程冒充 APK。

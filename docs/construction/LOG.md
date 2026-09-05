@@ -263,3 +263,11 @@ A = 2c45a4839d3fd266d6bb899995601db8d0f15290，30 文件 1013 增/10 删，已 p
 首条 unittest 模块路径因 tests 非包而失败，改用 discover。首轮业务测试发现 ToF 投影矩形在边界包含同一点，修复为左闭右开确定归属；第二轮一项无效深度夹具仍指向旧 zone，改为目标实际 zone。随后 116 项全量测试通过，1 项可选 pyserial 跳过；110 文件基础检查及 compileall 通过。系统 Python 未安装 Ruff，随后找到仓库固定 `.venv` Ruff 0.12.12，修复 1 处导入排序并格式化 2 文件后 check/format 通过；未安装新工具。
 
 安全边界：LocateAnything 仍为 evaluation_only，未下载权重、未执行 remote code；host 保留时间和标定元数据，worker 只能返回目标框。无效/过期/错会话/错标定/低质量/遮挡/同区深度全部降级，二维重叠不自动完成，只有有效期内一次性 button/voice 确认可完成。无真实模型、标定或硬件结果。
+
+## 2026-09-05 / Phase 5 辅助功能与输出仲裁
+
+从 B = 9455b7c783fefcb1f265cde659456107384689b4 建立并核验 backup/pre-phase5-assist-arbitration-20260905。新增 assist contracts/worker、arbitration core/adapters、output executor、ASSIST_OUTPUT_V1 和 23 项测试，扩展基础范围及对应 README/架构/进度。
+
+首批 13 项合同/仲裁测试通过，Ruff 提示 2 文件格式差异；审查发现仲裁跨层导入私有校验函数且自由文本可能绕过过街限制，改为公开严格校验并在 OutputCandidate 全局拒绝常见中英文授权短语，新增类型/空白测试。再补 worker 超时/请求上限、输出执行回执及道路/拿取/辅助映射，阶段测试增至 23 项。
+
+最终 139 项全仓测试、117 文件范围、17 来源/6 报告、compileall、Ruff 全仓 check/format、diff check 通过。没有新增依赖、真实网络调用、密钥、模型、地图、TTS 或硬件执行；fake transport 只验证边界，不验证识别/导航/对话质量。

@@ -170,3 +170,9 @@ A = 2c45a4839d3fd266d6bb899995601db8d0f15290，30 文件 1013 增/10 删，已 p
 当前开发分支基于 66eeb8ab8d95f1b8157260730067eed3b0b4a566，备份 backup/pre-phase4-locate-grasp-core-20260905 已核验。Locate worker 合同、共享矩形、手物 ToF 引导及显式确认门已实现；116 项全量测试通过、1 项可选 pyserial 跳过，110 文件基础检查、compileall 及仓库 `.venv` Ruff check/format 通过。
 
 恢复时先核验本阶段开发分支提交/远端状态；然后进入 Phase 5 的红绿灯、导航、OCR、对话和输出仲裁软件合同。LocateAnything 与手部模型均未安装，外参和实物拿取未测；不要把合同实现写成模型或硬件完成。用户认为此前浏览器截图步骤价值不大，已省略，不要重新阻塞施工。
+
+## 2026-09-05 / 最新：Phase 5 软件核心待交付
+
+基线 9455b7c783fefcb1f265cde659456107384689b4，backup/pre-phase5-assist-arbitration-20260905 已核验同值。辅助事件、worker、统一候选映射、输出仲裁和执行边界已实现；23 项阶段测试与 139 项全仓测试通过，117 文件/来源/compileall/Ruff/diff 检查通过。
+
+当前不具备真实信号灯/OCR/对话模型、地图 provider、TTS/震动 transport 或 Android 构建环境。交付检查点后进入 Phase 6 静态 Android 工程与 USB/任务状态合同；没有 SDK/JDK 时只做可验证的纯 Kotlin/文档边界，不虚报 APK。真实 provider 的地区、条款和密钥仍需后续用户/部署决策，不能擅自选云服务或上传数据。

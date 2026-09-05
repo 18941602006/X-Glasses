@@ -1,5 +1,7 @@
 # 架构 / V3
 
+Phase 5 新增供应商无关 assist 事件、隔离 worker 边界、感知到候选的显式映射、固定八级输出仲裁和期限/会话感知的执行回执。未知/紧急/局部方向优先于信号灯、地图、拿取/阅读与对话；任何自由文本均不能重新引入常见过街许可。当前 transport 均未接真实 provider 或硬件。
+
 Phase 2B 新增 `server/api` 标准库回环服务和独立 React/TS/Vite 调试台。API 默认 offline 且无命令 dispatcher；uint64 标识以十进制字符串跨 JSON，命令先记 pending，只有后端收到 ACK 才转终态。前端无串口依赖、不提供任意震动入口、不加载远程资源。Android UI 仍独立实现。
 
 第二部分最新实现：common 增加 sensors/clock/control，input 增加 HostLink 与可选 SerialPort。主机可做握手/心跳/源时间估计与误差/ACK，但未与 MCU 互通；详细合同 CONTROL_V1、INPUT_RUNTIME。此前“尚未实现”小节保留第一部分历史，当前以本条及最新 HANDOFF 为准。
