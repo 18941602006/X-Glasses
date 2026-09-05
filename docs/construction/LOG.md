@@ -12,6 +12,8 @@
 
 验证最终为 Android checker 27 文件通过、破坏性 Python 回归增至 9 项、全仓 148 项通过、Ruff 43 文件、compileall、124 文件基础范围和 diff 检查通过。Kotlin 测试源码 19 项（新增路线推进/到达、过期/低精度、偏航、失败安全文案、HTTPS、polyline6、任务完成），因 java/gradle/kotlinc/adb/Android Studio/SDK 均未找到而未运行。本轮没有连接公共 demo、真实 provider、GPS、USB 或硬件。
 
+交付 A = `f0ac3596df5142a2e56142172ef9eaf9e4c6f3e3`，31 文件、1225 增/16 删，已推送 `development/continuous-build-20260905` 并以 `ls-remote` 核验远端一致；A 后只有未知 `.workbuddy/` 未跟踪。本条及 HANDOFF 追加组成审计 B，不预写 B 自身哈希。
+
 ## 2026-09-05 / Phase 3 分割 worker 与模型关卡
 
 在核心 A = 1e6fdb44017f233cb58d685df4855f16435b3d9d 后继续。官方固定 PP-LiteSeg 文档给出 Cityscapes checkpoint/export/Paddle Inference/Paddle Lite；Cityscapes 现行条款允许非商业个人实验但有注册/引用/禁止数据再分发与商业用途限制，且车载视角不等于眼镜视角。未下载或接受权重，新增 SEGMENTATION_RUNTIME 记录状态 not_installed。

@@ -313,3 +313,5 @@ Phase 6 第一检查点 A = a3fc152384cd20a453fd19256468ac039d128de2 已推送�
 用户要求新增设定目的地后的地图步行指引，并参考 GitHub 开源项目、适配整体工程及调整 Android 前端。决定在 Phase 5 已有低优先级 MapInstructionEvent/仲裁合同之上补 Phase 6 手机导航：地点搜索、候选确认、步行路线、前台 GPS、逐步提示、到达、偏航重算、取消和无障碍导航页。参考 MapLibre Navigation Android/Native、Valhalla、GraphHopper、Organic Maps、Photon/Pelias；使用 provider 可替换架构，不硬编码服务/密钥，不将地图路线当安全判断，不恢复 SLAM、盲道或斑马线识别。
 
 本轮地图导航第一软件检查点完成：Android 新增纯 Kotlin 导航引擎、Photon/Valhalla 可配置 HTTPS provider、polyline6、前台 LocationManager、连续偏航重算、到达/失败/取消/USB断线任务闭环，以及目的地搜索与 TalkBack 友好 Compose 页面；不配置服务时不联网也不索取位置。124 文件结构、27 Android 静态合同、148 项 Python 回归、Ruff/compileall/diff 通过；Kotlin 源码测试共 19 项未运行，因为本机仍无 JDK/Gradle/Android SDK/ADB。真实地图地区/坐标系、服务许可、APK、GPS、TalkBack、统一 TTS/震动和真机仍待团队验收。
+
+地图导航交付 A `f0ac3596df5142a2e56142172ef9eaf9e4c6f3e3` 已推送并核验 `development/continuous-build-20260905`；main 未合并。未知 `.workbuddy/` 未读取、修改或提交。

@@ -6,6 +6,8 @@
 
 本机 124 文件基础检查、27 文件 Android 静态合同、148 项 Python 全量、Ruff/compileall/diff 通过。无 Java/Gradle/kotlinc/adb/Android Studio/SDK，故 Kotlin/Gradle/APK 均未运行；无真实服务、手机定位、地图渲染、USB、TalkBack 或硬件实测。团队下一步按 `android/README.md` 配置合规 geocoder/router，执行 `:app:testDebugUnitTest`、`:app:assembleDebug` 并提供日志；中国大陆使用前必须确定地图服务、坐标系和数据合规。
 
+交付 A = `f0ac3596df5142a2e56142172ef9eaf9e4c6f3e3`，已推送并核验开发分支远端一致。审计 B 仅记录 A 和交接状态；最终 B 由终端核验后报告，下一轮再补记其哈希。main 未合并，仍需用户明确批准；`.workbuddy/` 不属于本轮交付。
+
 ## 2026-09-05 / 最新：Phase 3 软件合同待检查点
 
 融合核心 A = 1e6fdb44017f233cb58d685df4855f16435b3d9d；其后新增分割 worker adapter、SEGMENTATION_WORKER_V1、模型关卡和 6 项测试。PP-LiteSeg 权重未下载，模型 not_installed。完成 107 项全量后提交开发分支；随后可进入 Phase 4 找物/拿取纯核心，不把缺权重误写为 Phase 3 实机完成。
