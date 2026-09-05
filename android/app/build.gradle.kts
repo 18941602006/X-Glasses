@@ -4,6 +4,11 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
+fun String.asBuildConfigString(): String = "\"" + replace("\\", "\\\\").replace("\"", "\\\"") + "\""
+
+val xgGeocoderBaseUrl = providers.gradleProperty("XG_GEOCODER_BASE_URL").orElse("")
+val xgRouterBaseUrl = providers.gradleProperty("XG_ROUTER_BASE_URL").orElse("")
+
 android {
     namespace = "com.trollhunter.xglasses"
     compileSdk = 35
@@ -14,6 +19,8 @@ android {
         versionCode = 1
         versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "XG_GEOCODER_BASE_URL", xgGeocoderBaseUrl.get().asBuildConfigString())
+        buildConfigField("String", "XG_ROUTER_BASE_URL", xgRouterBaseUrl.get().asBuildConfigString())
     }
     buildTypes {
         release {
@@ -26,7 +33,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions { jvmTarget = "17" }
-    buildFeatures { compose = true }
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
 }
 
 dependencies {

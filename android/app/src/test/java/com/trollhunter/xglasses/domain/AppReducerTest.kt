@@ -66,4 +66,19 @@ class AppReducerTest {
         assertNull(state.activeTask)
         assertEquals(TaskState.Cancelled, state.tasks[TaskKind.NAVIGATION])
     }
+
+    @Test
+    fun matchingTaskCompletionClearsActiveNavigation() {
+        var state = AppReducer.reduce(AppState(), AppAction.UsbChanged(UsbState.READY, 3))
+        state = AppReducer.reduce(
+            state,
+            AppAction.RuntimeChanged(TaskKind.NAVIGATION, RuntimeState.AVAILABLE),
+        )
+        state = AppReducer.reduce(state, AppAction.StartTask(TaskKind.NAVIGATION))
+        val requestId = (state.tasks[TaskKind.NAVIGATION] as TaskState.Running).requestId
+        state = AppReducer.reduce(state, AppAction.TaskCompleted(requestId))
+        assertNull(state.activeTask)
+        assertEquals(TaskState.Completed, state.tasks[TaskKind.NAVIGATION])
+        assertTrue(state.safetyMonitoringActive)
+    }
 }

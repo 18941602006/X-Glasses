@@ -23,12 +23,19 @@ REQUIRED = (
     "app/src/main/java/com/trollhunter/xglasses/protocol/XgProtocol.kt",
     "app/src/main/java/com/trollhunter/xglasses/protocol/ControlSession.kt",
     "app/src/main/java/com/trollhunter/xglasses/runtime/ModelRuntimeRegistry.kt",
+    "app/src/main/java/com/trollhunter/xglasses/navigation/NavigationContracts.kt",
+    "app/src/main/java/com/trollhunter/xglasses/navigation/NavigationEngine.kt",
+    "app/src/main/java/com/trollhunter/xglasses/navigation/OpenNavigationProvider.kt",
+    "app/src/main/java/com/trollhunter/xglasses/navigation/NavigationProviderFactory.kt",
+    "app/src/main/java/com/trollhunter/xglasses/navigation/AndroidLocationSource.kt",
+    "app/src/main/java/com/trollhunter/xglasses/navigation/NavigationCoordinator.kt",
     "app/src/main/java/com/trollhunter/xglasses/ui/XGlassesApp.kt",
     "app/src/main/java/com/trollhunter/xglasses/usb/UsbSessionManager.kt",
     "app/src/main/java/com/trollhunter/xglasses/usb/AndroidHostLink.kt",
     "app/src/test/java/com/trollhunter/xglasses/domain/AppReducerTest.kt",
     "app/src/test/java/com/trollhunter/xglasses/protocol/XgProtocolTest.kt",
     "app/src/test/java/com/trollhunter/xglasses/protocol/ControlSessionTest.kt",
+    "app/src/test/java/com/trollhunter/xglasses/navigation/NavigationEngineTest.kt",
 )
 
 
@@ -41,7 +48,10 @@ def check(root: Path = ANDROID) -> list[str]:
     manifest = (root / "app/src/main/AndroidManifest.xml").read_text(encoding="utf-8")
     if "android.hardware.usb.host" not in manifest:
         errors.append("USB Host feature missing")
-    for permission in ("INTERNET", "CAMERA", "RECORD_AUDIO"):
+    for permission in ("INTERNET", "ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"):
+        if f"android.permission.{permission}" not in manifest:
+            errors.append(f"required navigation permission missing: {permission}")
+    for permission in ("CAMERA", "RECORD_AUDIO", "ACCESS_BACKGROUND_LOCATION"):
         if f"android.permission.{permission}" in manifest:
             errors.append(f"unexpected permission: {permission}")
     state = (root / "app/src/main/java/com/trollhunter/xglasses/domain/AppState.kt").read_text(
@@ -98,12 +108,46 @@ def check(root: Path = ANDROID) -> list[str]:
     )
     if "ControlState.READY -> UsbState.READY" not in main:
         errors.append("Android READY must come from the control session")
+    for required in (
+        "NavigationCoordinator",
+        "RequestMultiplePermissions",
+        "startNavigation",
+        "navigationMustStop",
+        "!navigationState.providerConfigured",
+    ):
+        if required not in main:
+            errors.append(f"navigation activity token missing: {required}")
     ui = (root / "app/src/main/java/com/trollhunter/xglasses/ui/XGlassesApp.kt").read_text(
         encoding="utf-8"
     )
-    for required in ("重复上一条提示", "heightIn(min = 64.dp)", "liveRegion"):
+    for required in (
+        "重复上一条提示",
+        "heightIn(min = 64.dp)",
+        "liveRegion",
+        "搜索目的地",
+        "开始步行导航",
+        "地图路线不是道路安全证明",
+    ):
         if required not in ui:
             errors.append(f"accessibility contract token missing: {required}")
+    navigation = (
+        root / "app/src/main/java/com/trollhunter/xglasses/navigation/NavigationEngine.kt"
+    ).read_text(encoding="utf-8")
+    for required in ("REROUTE_REQUIRED", "location_unusable", "offRouteConfirmations"):
+        if required not in navigation:
+            errors.append(f"navigation safety token missing: {required}")
+    provider = (
+        root / "app/src/main/java/com/trollhunter/xglasses/navigation/OpenNavigationProvider.kt"
+    ).read_text(encoding="utf-8")
+    for required in (
+        'uri.scheme == "https"',
+        "1_048_576",
+        '"pedestrian"',
+        '"non-pedestrian route rejected"',
+        '"route provider reported failure"',
+    ):
+        if required not in provider:
+            errors.append(f"navigation provider token missing: {required}")
     golden = (
         root / "app/src/test/java/com/trollhunter/xglasses/protocol/XgProtocolTest.kt"
     ).read_text(encoding="utf-8")

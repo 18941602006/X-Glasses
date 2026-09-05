@@ -1,5 +1,11 @@
 # X-Glasses 交接记录（追加）
 
+## 2026-09-05 / 最新：Phase 6 地图导航第一检查点待交付
+
+基线 `4ec873a796e77a45e421fb1efd20f1af438a9a72`，远端备份 `backup/pre-phase6-map-navigation-20260905` 已核验同值。开发分支工作区包含地图导航 Kotlin 核心、Photon/Valhalla 可配置 provider、前台定位、Compose 导航页、任务/断线降级、19 项 Kotlin 测试源码及文档/静态检查；未知 `.workbuddy/` 未触碰、不得暂存。
+
+本机 124 文件基础检查、27 文件 Android 静态合同、148 项 Python 全量、Ruff/compileall/diff 通过。无 Java/Gradle/kotlinc/adb/Android Studio/SDK，故 Kotlin/Gradle/APK 均未运行；无真实服务、手机定位、地图渲染、USB、TalkBack 或硬件实测。团队下一步按 `android/README.md` 配置合规 geocoder/router，执行 `:app:testDebugUnitTest`、`:app:assembleDebug` 并提供日志；中国大陆使用前必须确定地图服务、坐标系和数据合规。
+
 ## 2026-09-05 / 最新：Phase 3 软件合同待检查点
 
 融合核心 A = 1e6fdb44017f233cb58d685df4855f16435b3d9d；其后新增分割 worker adapter、SEGMENTATION_WORKER_V1、模型关卡和 6 项测试。PP-LiteSeg 权重未下载，模型 not_installed。完成 107 项全量后提交开发分支；随后可进入 Phase 4 找物/拿取纯核心，不把缺权重误写为 Phase 3 实机完成。

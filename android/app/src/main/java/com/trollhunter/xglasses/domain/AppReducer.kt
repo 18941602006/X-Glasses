@@ -17,6 +17,7 @@ object AppReducer {
             announcementRevision = state.announcementRevision + 1,
         )
         is AppAction.TaskFailed -> failTask(state, action)
+        is AppAction.TaskCompleted -> completeTask(state, action)
         is AppAction.ForegroundChanged -> state.copy(
             isForeground = action.foreground,
             announcement = if (action.foreground) "应用已回到前台" else "应用进入后台，停止任务输出",
@@ -84,6 +85,17 @@ object AppReducer {
             activeTask = null,
             tasks = state.tasks + (task to TaskState.Failed(action.reason.take(160))),
             announcement = "${task.title}失败；基础风险监测保持独立运行",
+        )
+    }
+
+    private fun completeTask(state: AppState, action: AppAction.TaskCompleted): AppState {
+        val task = state.activeTask ?: return state
+        val running = state.tasks[task] as? TaskState.Running ?: return state
+        if (running.requestId != action.requestId) return state
+        return state.copy(
+            activeTask = null,
+            tasks = state.tasks + (task to TaskState.Completed),
+            announcement = "${task.title}已完成；基础风险监测保持独立运行",
         )
     }
 

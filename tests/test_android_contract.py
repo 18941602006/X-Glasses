@@ -22,16 +22,46 @@ class AndroidContractTests(unittest.TestCase):
         (self.root / "settings.gradle.kts").unlink()
         self.assertIn("missing Android file: settings.gradle.kts", check(self.root))
 
-    def test_privacy_permissions_are_rejected(self):
+    def test_background_location_permission_is_rejected(self):
         manifest = self.root / "app/src/main/AndroidManifest.xml"
         manifest.write_text(
             manifest.read_text(encoding="utf-8").replace(
                 "<application",
-                '<uses-permission android:name="android.permission.INTERNET" />\n<application',
+                '<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />\n<application',
             ),
             encoding="utf-8",
         )
-        self.assertIn("unexpected permission: INTERNET", check(self.root))
+        self.assertIn("unexpected permission: ACCESS_BACKGROUND_LOCATION", check(self.root))
+
+    def test_navigation_permissions_and_safety_contract_are_required(self):
+        manifest = self.root / "app/src/main/AndroidManifest.xml"
+        manifest.write_text(
+            manifest.read_text(encoding="utf-8").replace(
+                '<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />\n', ""
+            ),
+            encoding="utf-8",
+        )
+        engine = (
+            self.root / "app/src/main/java/com/trollhunter/xglasses/navigation/NavigationEngine.kt"
+        )
+        engine.write_text(
+            engine.read_text(encoding="utf-8").replace("location_unusable", "location_removed"),
+            encoding="utf-8",
+        )
+        errors = check(self.root)
+        self.assertIn("required navigation permission missing: ACCESS_FINE_LOCATION", errors)
+        self.assertIn("navigation safety token missing: location_unusable", errors)
+
+    def test_navigation_stops_on_link_loss(self):
+        main = self.root / "app/src/main/java/com/trollhunter/xglasses/MainActivity.kt"
+        main.write_text(
+            main.read_text(encoding="utf-8").replace("navigationMustStop", "stopRuleRemoved"),
+            encoding="utf-8",
+        )
+        self.assertIn(
+            "navigation activity token missing: navigationMustStop",
+            check(self.root),
+        )
 
     def test_removed_task_and_installed_default_are_rejected(self):
         state = self.root / "app/src/main/java/com/trollhunter/xglasses/domain/AppState.kt"

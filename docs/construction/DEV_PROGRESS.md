@@ -1,5 +1,19 @@
 # 施工进度（追加记录）
 
+## 2026-09-05 / Phase 6 地图步行导航 / 开工计划
+
+用户要求补齐设定目的地后的地图指引并同步调整手机前端。基线为开发分支 `4ec873a796e77a45e421fb1efd20f1af438a9a72`；仅有未知未跟踪目录 `.workbuddy/`，本轮不读取、不修改、不暂存。调研选择 MapLibre Navigation Android 的核心思路作为参考，但不直接拷贝源码或立即引入未解析依赖；Organic Maps 体量过大，GraphHopper/Valhalla 更适合作为可替换的路线服务，地图显示与路线/地点搜索保持解耦。
+
+本轮先交付可独立测试的 Kotlin 导航领域核心、可配置地点搜索/步行路线 provider 边界、Android 前台定位适配、目的地搜索/候选确认/开始与结束导航界面，以及位置/网络权限的显式处理。地图指令继续进入既有低优先级地图事件语义，不覆盖 ToF/道路感知；不做 SLAM，不把 GPS 或地图路线写成道路安全证明。真实瓦片、路线服务器、地区数据质量、API 密钥、后台定位、APK 和真机仍由团队环境验收。
+
+拟改 `android/`、地图协议/依赖审核、Android checker/测试及施工记录。验证纯 Kotlin 状态机的目的地、步进、到达、偏航、过期/低精度降级，运行现有 Python 静态/全仓检查；本机无 JDK/SDK，仍不虚报 Gradle/APK。计划从当前已提交基线创建并核验唯一备份 `backup/pre-phase6-map-navigation-20260905`，回滚优先 revert 明确交付提交。
+
+### 第一软件检查点结果
+
+完成纯 Kotlin 导航合同/引擎、Photon+Valhalla 可配置 HTTPS provider、polyline6、Android 前台位置源、异步协调器、任务完成/失败/断线关闭，以及 Compose 目的地搜索/选择/开始/结束/剩余距离/下一指令页面。服务未配置时不请求位置且运行时保持不可用；不申请后台位置。路线失败、低精度/过期、连续偏航和非步行响应均保守降级。
+
+本机验证：124 个结构必需文件、27 个 Android 静态合同文件、148 项 Python 回归、Ruff 和 Python compileall/diff 通过；Android 现有 Kotlin 测试源码增至 19 项但仍未编译运行。没有 APK、真实地图服务、GPS、TalkBack、地图数据质量或骁龙 8 真机结论，Phase 6 继续未完成。
+
 ## 2026-09-05 / Phase 6 Android 协议会话 / 本地结果
 
 第一检查点 a3fc152384cd20a453fd19256468ac039d128de2 已推送。继续接通 Android bulk/XG03 控制会话，READY 由匹配 nonce、boot、必需能力和有效心跳决定；短写失败、握手/心跳超时和拔线均失败关闭。补充重复提示但不重启任务。

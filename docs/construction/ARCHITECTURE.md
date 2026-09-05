@@ -1,5 +1,7 @@
 # 架构 / V3
 
+Phase 6 地图第一检查点在既有低优先级地图事件语义上增加 Android provider/位置/状态/UI：Photon 兼容地点搜索、Valhalla pedestrian 路线与 polyline6、前台 `LocationManager`、定位质量门、到达附近和连续偏航重算。provider URL 构建时注入且只允许 HTTPS，无默认公共服务或后台位置；真实输出仍需接入 Android 统一 TTS/震动仲裁，不能绕过 ToF/局部风险优先级。
+
 Phase 5 新增供应商无关 assist 事件、隔离 worker 边界、感知到候选的显式映射、固定八级输出仲裁和期限/会话感知的执行回执。未知/紧急/局部方向优先于信号灯、地图、拿取/阅读与对话；任何自由文本均不能重新引入常见过街许可。当前 transport 均未接真实 provider 或硬件。
 
 Phase 2B 新增 `server/api` 标准库回环服务和独立 React/TS/Vite 调试台。API 默认 offline 且无命令 dispatcher；uint64 标识以十进制字符串跨 JSON，命令先记 pending，只有后端收到 ACK 才转终态。前端无串口依赖、不提供任意震动入口、不加载远程资源。Android UI 仍独立实现。

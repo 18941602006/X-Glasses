@@ -1,5 +1,17 @@
 # X-Glasses 施工日志（追加记录）
 
+## 2026-09-05 / Phase 6 地图导航开工
+
+用户明确要求加入设定目标地点后的指引和前端调整。只读核对开发分支、Android 五任务骨架及 Phase 5 `MapInstructionEvent`：现有代码只有外部地图事件解析/仲裁，没有目的地搜索、路线请求、手机定位、偏航重算或专用界面。GitHub 原始项目调研候选包括 MapLibre Navigation Android（MIT、无内置 UI、可对接自有 Directions）、MapLibre Native（BSD-2-Clause、仅地图渲染）、Valhalla（MIT、支持 pedestrian）、GraphHopper（Apache-2.0）和 Organic Maps（Apache-2.0，但地图数据另有许可且完整应用集成过重）。地点搜索候选 Photon（Apache-2.0）/Pelias（MIT）；公共演示服务不作为生产 SLA。
+
+决定实现 provider 可替换架构，不硬编码供应商、密钥或公共服务 URL。首个代码检查点以无额外第三方依赖的纯 Kotlin 合同和 Android SDK 定位为主，路线/搜索通过受限 HTTPS JSON provider 注入；之后由团队根据目标地区选择自托管 Valhalla/Photon 或合规国内服务适配器。导航提示优先级低于传感失效、紧急停止和局部避障。
+
+### 地图导航第一检查点实现与验证
+
+新增 7 个 navigation Kotlin 主文件和 1 个测试文件，修改 Manifest/BuildConfig/运行时/Activity/reducer/Compose。人工复核中主动修正：未配置 provider 不再索取位置；退后台、USB 非 READY 或全局取消立即停止路线；到达/失败回写统一任务状态；TalkBack live region 只包围稳定指令而非每秒距离；Valhalla 拒绝 status 失败与非 pedestrian 响应，并补 type 2/3 起步左右转和 verbal 指令优先。高对比 Material3 深色配色覆盖目的地输入框。
+
+验证最终为 Android checker 27 文件通过、破坏性 Python 回归增至 9 项、全仓 148 项通过、Ruff 43 文件、compileall、124 文件基础范围和 diff 检查通过。Kotlin 测试源码 19 项（新增路线推进/到达、过期/低精度、偏航、失败安全文案、HTTPS、polyline6、任务完成），因 java/gradle/kotlinc/adb/Android Studio/SDK 均未找到而未运行。本轮没有连接公共 demo、真实 provider、GPS、USB 或硬件。
+
 ## 2026-09-05 / Phase 3 分割 worker 与模型关卡
 
 在核心 A = 1e6fdb44017f233cb58d685df4855f16435b3d9d 后继续。官方固定 PP-LiteSeg 文档给出 Cityscapes checkpoint/export/Paddle Inference/Paddle Lite；Cityscapes 现行条款允许非商业个人实验但有注册/引用/禁止数据再分发与商业用途限制，且车载视角不等于眼镜视角。未下载或接受权重，新增 SEGMENTATION_RUNTIME 记录状态 not_installed。

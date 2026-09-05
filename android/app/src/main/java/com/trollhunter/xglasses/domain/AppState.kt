@@ -1,7 +1,7 @@
 package com.trollhunter.xglasses.domain
 
 enum class TaskKind(val title: String, val description: String) {
-    NAVIGATION("行进导航", "道路候选与近距避障"),
+    NAVIGATION("行进导航", "地图步行指引、道路候选与近距避障"),
     LOCATE_GRASP("找物拿取", "定位目标并辅助用户拿取"),
     READ_TEXT("读文字", "按原始顺序朗读识别文字"),
     SIGNAL("看信号灯", "只报告灯态，不提供过街许可"),
@@ -22,6 +22,7 @@ sealed interface TaskState {
     data object Idle : TaskState
     data class Running(val requestId: Long) : TaskState
     data class Failed(val reason: String) : TaskState
+    data object Completed : TaskState
     data object Cancelled : TaskState
 }
 
@@ -51,6 +52,7 @@ sealed interface AppAction {
     data object CancelCurrentTask : AppAction
     data object RepeatLastOutput : AppAction
     data class TaskFailed(val requestId: Long, val reason: String) : AppAction
+    data class TaskCompleted(val requestId: Long) : AppAction
     data class ForegroundChanged(val foreground: Boolean) : AppAction
     data class AudioFocusChanged(val held: Boolean) : AppAction
 }

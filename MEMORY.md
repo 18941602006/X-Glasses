@@ -309,3 +309,7 @@ Phase 6 第一软件检查点已实现：独立 Android 工程、五任务 reduc
 Phase 6 第一检查点 A = a3fc152384cd20a453fd19256468ac039d128de2 已推送。第二检查点新增随机 session/nonce、HELLO/WELCOME、能力/boot/序号、2s 握手/1.5s 心跳、短写/读线程和 READY 唯一来源；当前 CLOCK-only 固件不会 READY。修复 HELLO 同步失败状态覆盖竞态，补重复提示/TalkBack大按钮。静态20文件/7回归、全仓146项通过；12项Kotlin测试未运行。后续必须由团队Android工具链及具体手机/固件/模型提供证据，Phase 6 未完成。
 
 用户询问 Phase 6 后续自己需要做什么、如何操作、助手还能完成什么。现行分工：用户/团队在具备 Android Studio/JDK17/SDK35 的机器检出 development/continuous-build-20260905，执行 Gradle Sync、Kotlin 单测与 debug APK 构建并提供完整日志；随后在明确的骁龙 8 手机上做 USB 授权/安装/连接。固件团队需编译并让固件至少真实声明 CLOCK+TOF+CAMERA 后才能通过 Android READY。助手可继续分析构建日志、修复 Kotlin/Gradle、补协议与 UI、生成验收表并依据实际模型文件设计移动推理接入；不能代替用户插拔硬件、授权手机、提供模型/地图密钥或伪造真机性能。
+
+用户要求新增设定目的地后的地图步行指引，并参考 GitHub 开源项目、适配整体工程及调整 Android 前端。决定在 Phase 5 已有低优先级 MapInstructionEvent/仲裁合同之上补 Phase 6 手机导航：地点搜索、候选确认、步行路线、前台 GPS、逐步提示、到达、偏航重算、取消和无障碍导航页。参考 MapLibre Navigation Android/Native、Valhalla、GraphHopper、Organic Maps、Photon/Pelias；使用 provider 可替换架构，不硬编码服务/密钥，不将地图路线当安全判断，不恢复 SLAM、盲道或斑马线识别。
+
+本轮地图导航第一软件检查点完成：Android 新增纯 Kotlin 导航引擎、Photon/Valhalla 可配置 HTTPS provider、polyline6、前台 LocationManager、连续偏航重算、到达/失败/取消/USB断线任务闭环，以及目的地搜索与 TalkBack 友好 Compose 页面；不配置服务时不联网也不索取位置。124 文件结构、27 Android 静态合同、148 项 Python 回归、Ruff/compileall/diff 通过；Kotlin 源码测试共 19 项未运行，因为本机仍无 JDK/Gradle/Android SDK/ADB。真实地图地区/坐标系、服务许可、APK、GPS、TalkBack、统一 TTS/震动和真机仍待团队验收。

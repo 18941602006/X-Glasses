@@ -1,5 +1,11 @@
 # 测试与指标
 
+## 2026-09-05 / Phase 6 地图导航第一检查点
+
+- 已运行：`tools.check_foundation`（124 必需文件）、`tools.check_android_contract`（27 Android 文件）、Python 全仓 148 项、Ruff check/format、compileall、git diff check，均通过。
+- 已编写未运行：Android/Kotlin 共 19 项源码测试，其中地图导航 6 项、任务完成 1 项；施工机没有 Android/JVM 工具链。
+- 未测：Gradle 解析、APK、真实 Photon/Valhalla、GPS 精度、偏航阈值、目标地区路线质量、TalkBack、TTS/震动仲裁、后台/断网、功耗/温升和实机安全指标。
+
 ## Phase 6 Android 第一软件检查点 / 2026-09-05
 
 新增 6 项 Python 静态合同回归，全仓 145 项通过；Android checker 校验 17 个工程文件、五任务、模型安全默认、USB Host/权限/拔线/上限、TRANSPORT_OPEN 与 READY 分离、XG03 常量、禁止过街/旧功能/网络 URL/浮动依赖。122 文件、来源、compileall、Ruff 全仓和 diff 检查通过。
