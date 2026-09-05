@@ -1,5 +1,9 @@
 # X-Glasses 交接记录（追加）
 
+## 2026-09-05 / Phase 2B 已交付开发分支
+
+A = daa4e91020bb0313829f0529f7d50af07bf92de1 已推送 development/continuous-build-20260905 并核验，main 保持 776a04a6f405b76c6a9d129a3523c3e4264ae640。下一步补审计 B 后在同一开发分支实施 Phase 3 纯核心与适配合同。
+
 ## 2026-09-05 / 分支阻塞与安全替代
 
 平台拒绝把 Phase 2B 的 32 文件批量变更直接 push main，命令未执行。成果改存 `development/continuous-build-20260905` 并在该分支继续，不绕过 main 审查。需要用户之后明确批准合入 main；这不影响本地测试或后续独立开发。
