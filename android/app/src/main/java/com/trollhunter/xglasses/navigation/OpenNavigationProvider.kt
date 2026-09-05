@@ -25,6 +25,8 @@ data class NavigationProviderConfig(
 
 interface NavigationProvider {
     val providerId: String
+    val displayName: String
+    fun normalizeLocation(point: GeoPoint): GeoPoint = point
     fun search(query: String, near: GeoPoint?): List<PlaceCandidate>
     fun walkingRoute(origin: GeoPoint, destination: PlaceCandidate): WalkingRoute
 }
@@ -32,6 +34,7 @@ interface NavigationProvider {
 /** Photon-compatible search plus Valhalla-compatible pedestrian routing. No public URL is hard-coded. */
 class OpenNavigationProvider(private val config: NavigationProviderConfig) : NavigationProvider {
     override val providerId = "photon-valhalla"
+    override val displayName = "开放地图测试服务"
 
     override fun search(query: String, near: GeoPoint?): List<PlaceCandidate> {
         require(query == query.trim() && query.length in 2..120) { "invalid destination query" }

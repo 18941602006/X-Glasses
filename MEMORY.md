@@ -315,3 +315,11 @@ Phase 6 第一检查点 A = a3fc152384cd20a453fd19256468ac039d128de2 已推送�
 本轮地图导航第一软件检查点完成：Android 新增纯 Kotlin 导航引擎、Photon/Valhalla 可配置 HTTPS provider、polyline6、前台 LocationManager、连续偏航重算、到达/失败/取消/USB断线任务闭环，以及目的地搜索与 TalkBack 友好 Compose 页面；不配置服务时不联网也不索取位置。124 文件结构、27 Android 静态合同、148 项 Python 回归、Ruff/compileall/diff 通过；Kotlin 源码测试共 19 项未运行，因为本机仍无 JDK/Gradle/Android SDK/ADB。真实地图地区/坐标系、服务许可、APK、GPS、TalkBack、统一 TTS/震动和真机仍待团队验收。
 
 地图导航交付 A `f0ac3596df5142a2e56142172ef9eaf9e4c6f3e3` 已推送并核验 `development/continuous-build-20260905`；main 未合并。未知 `.workbuddy/` 未读取、修改或提交。
+## 2026-09-05 / 用户确定国内地图使用高德
+
+- 用户要求地图导航连接高德。
+- 方案：Android 端以高德 POI 搜索和步行路线为国内主 provider；手机系统定位进入高德会话前统一从 WGS84 转 GCJ-02，继续复用既有保守导航引擎。
+- 高德 SDK 必须在用户明确隐私同意后初始化；Key 不入库，只通过团队成员本机 Gradle 属性配置并绑定应用包名与 debug/release SHA1。
+- 前端增加高德服务、配置与隐私授权状态；不恢复 SLAM、盲道或斑马线功能，未知 `.workbuddy/` 不纳入施工。
+- 已实现源码检查点：高德 POI/步行路线、逐位置 GCJ-02 转换、同意持久化/拒绝/撤回、官方政策入口、本机 Key 注入及前端状态；开放地图仅保留测试后备。
+- 备份 `backup/pre-phase6-amap-navigation-20260905-1531` 已核验。全仓 149 项和静态检查通过；Kotlin/Gradle/APK/真实高德 Key、GPS/路线/坐标/隐私与目标手机仍未验收，不能宣称 Phase 6 或实机导航完成。

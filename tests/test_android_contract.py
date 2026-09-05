@@ -63,6 +63,28 @@ class AndroidContractTests(unittest.TestCase):
             check(self.root),
         )
 
+    def test_amap_key_and_privacy_gate_are_required(self):
+        manifest = self.root / "app/src/main/AndroidManifest.xml"
+        manifest.write_text(
+            manifest.read_text(encoding="utf-8").replace(
+                "${AMAP_ANDROID_KEY}", "hardcoded-test-key"
+            ),
+            encoding="utf-8",
+        )
+        privacy = (
+            self.root
+            / "app/src/main/java/com/trollhunter/xglasses/navigation/AmapPrivacyConsent.kt"
+        )
+        privacy.write_text(
+            privacy.read_text(encoding="utf-8").replace(
+                "ServiceSettings.updatePrivacyAgree", "privacyAgreeRemoved"
+            ),
+            encoding="utf-8",
+        )
+        errors = check(self.root)
+        self.assertIn("hardcoded AMap key", errors)
+        self.assertIn("AMap privacy token missing: ServiceSettings.updatePrivacyAgree", errors)
+
     def test_removed_task_and_installed_default_are_rejected(self):
         state = self.root / "app/src/main/java/com/trollhunter/xglasses/domain/AppState.kt"
         text = state.read_text(encoding="utf-8").replace("LOCATE_GRASP", "LOCATE_REMOVED")

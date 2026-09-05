@@ -2,6 +2,8 @@ package com.trollhunter.xglasses
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,6 +19,7 @@ import com.trollhunter.xglasses.domain.UsbState
 import com.trollhunter.xglasses.domain.TaskKind
 import com.trollhunter.xglasses.domain.TaskState
 import com.trollhunter.xglasses.navigation.NavigationCoordinator
+import com.trollhunter.xglasses.navigation.AmapPrivacyConsent
 import com.trollhunter.xglasses.navigation.NavigationProviderFactory
 import com.trollhunter.xglasses.navigation.NavigationUiState
 import com.trollhunter.xglasses.protocol.ControlSnapshot
@@ -47,9 +50,19 @@ class MainActivity : ComponentActivity() {
         ModelRuntimeRegistry().inspect().forEach { (task, runtime) ->
             dispatch(AppAction.RuntimeChanged(task, runtime))
         }
+        val amapConfigured = NavigationProviderFactory.isAmapConfigured()
+        val amapConsentGranted = amapConfigured && AmapPrivacyConsent.applyStoredConsent(applicationContext)
+        val initialProvider = if (amapConfigured) {
+            if (amapConsentGranted) NavigationProviderFactory.createAmap(applicationContext) else null
+        } else {
+            NavigationProviderFactory.createOpenOrNull()
+        }
         navigation = NavigationCoordinator(
             applicationContext,
-            NavigationProviderFactory.createOrNull(),
+            initialProvider,
+            if (amapConfigured) "高德地图" else initialProvider?.displayName ?: "未配置",
+            amapConfigured,
+            amapConsentGranted,
             { next -> runOnUiThread { navigationState = next } },
             { reason -> runOnUiThread { failNavigationTask(reason) } },
             { runOnUiThread { completeNavigationTask() } },
@@ -86,6 +99,9 @@ class MainActivity : ComponentActivity() {
                 selectDestination = navigation::select,
                 startNavigation = ::startMapNavigation,
                 stopNavigation = ::stopMapNavigation,
+                acceptMapPrivacy = ::acceptMapPrivacy,
+                declineMapPrivacy = ::declineMapPrivacy,
+                openMapPrivacyPolicy = ::openMapPrivacyPolicy,
             )
         }
     }
@@ -192,6 +208,44 @@ class MainActivity : ComponentActivity() {
     private fun openNavigation() {
         navigationVisible = true
         if (!navigationState.providerConfigured) return
+        requestNavigationLocation()
+    }
+
+    private fun acceptMapPrivacy() {
+        runCatching {
+            AmapPrivacyConsent.accept(applicationContext)
+            requireNotNull(NavigationProviderFactory.createAmap(applicationContext)) {
+                "高德 Android Key 尚未配置"
+            }
+        }.onSuccess { provider ->
+            navigation.configureProvider(provider, true)
+            requestNavigationLocation()
+        }.onFailure { error ->
+            navigation.rejectPrivacyConsent()
+            failNavigationTask(error.message ?: "amap_initialization_failure")
+        }
+    }
+
+    private fun declineMapPrivacy() {
+        stopMapNavigation()
+        AmapPrivacyConsent.decline(applicationContext)
+        navigation.rejectPrivacyConsent()
+    }
+
+    private fun openMapPrivacyPolicy() {
+        runCatching {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(getString(R.string.amap_privacy_policy_url)),
+                ),
+            )
+        }.onFailure {
+            navigation.reportError("无法打开高德隐私政策，请检查浏览器设置")
+        }
+    }
+
+    private fun requestNavigationLocation() {
         val granted = ContextCompat.checkSelfPermission(
             this,
             Manifest.permission.ACCESS_FINE_LOCATION,

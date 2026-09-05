@@ -1,6 +1,6 @@
 # 架构 / V3
 
-Phase 6 地图第一检查点在既有低优先级地图事件语义上增加 Android provider/位置/状态/UI：Photon 兼容地点搜索、Valhalla pedestrian 路线与 polyline6、前台 `LocationManager`、定位质量门、到达附近和连续偏航重算。provider URL 构建时注入且只允许 HTTPS，无默认公共服务或后台位置；真实输出仍需接入 Android 统一 TTS/震动仲裁，不能绕过 ToF/局部风险优先级。
+Phase 6 国内地图以高德 Android SDK 为主 provider：POI 搜索、步行路线和 GCJ-02 路线几何在适配层完成；前台系统 `LocationManager` 的 WGS84 位置先由高德坐标转换器归一化，再进入定位质量门、到达和连续偏航重算。SDK 只在已保存的显式隐私同意后初始化，Android Key 由本机 Gradle 属性注入。Photon/Valhalla 保留为可替换测试后备。真实输出仍需接入 Android 统一 TTS/震动仲裁，不能绕过 ToF/局部风险优先级。
 
 Phase 5 新增供应商无关 assist 事件、隔离 worker 边界、感知到候选的显式映射、固定八级输出仲裁和期限/会话感知的执行回执。未知/紧急/局部方向优先于信号灯、地图、拿取/阅读与对话；任何自由文本均不能重新引入常见过街许可。当前 transport 均未接真实 provider 或硬件。
 

@@ -1,1 +1,4 @@
-<resources><string name="app_name">X-Glasses</string></resources>
+<resources>
+    <string name="app_name">X-Glasses</string>
+    <string name="amap_privacy_policy_url">https://lbs.amap.com/pages/privacy/</string>
+</resources>

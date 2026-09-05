@@ -7,7 +7,10 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class NavigationCoordinator(
     context: android.content.Context,
-    private val provider: NavigationProvider?,
+    initialProvider: NavigationProvider?,
+    providerName: String,
+    privacyConsentRequired: Boolean,
+    privacyConsentGranted: Boolean,
     private val publish: (NavigationUiState) -> Unit,
     private val onTaskFailed: (String) -> Unit,
     private val onArrived: () -> Unit,
@@ -17,12 +20,52 @@ class NavigationCoordinator(
     private val closed = AtomicBoolean(false)
     private val locationSource = AndroidLocationSource(context, ::onFix, ::onLocationUnavailable)
     @Volatile
-    private var state = NavigationUiState(providerConfigured = provider != null)
+    private var provider: NavigationProvider? = initialProvider
+    @Volatile
+    private var state = NavigationUiState(
+        providerConfigured = initialProvider != null,
+        providerName = providerName,
+        privacyConsentRequired = privacyConsentRequired,
+        privacyConsentGranted = privacyConsentGranted,
+    )
+    private var lastRawFix: LocationFix? = null
     private var lastFix: LocationFix? = null
     private var rerouteInFlight = false
     private var arrivalReported = false
 
     fun state(): NavigationUiState = state
+
+    fun configureProvider(nextProvider: NavigationProvider, privacyGranted: Boolean) {
+        provider = nextProvider
+        lastFix = lastRawFix?.let { it.copy(point = nextProvider.normalizeLocation(it.point)) }
+        update(
+            state.copy(
+                providerConfigured = true,
+                providerName = nextProvider.displayName,
+                privacyConsentGranted = privacyGranted,
+                error = null,
+            ),
+        )
+    }
+
+    fun rejectPrivacyConsent() {
+        locationSource.stop()
+        rerouteInFlight = false
+        provider = null
+        lastRawFix = null
+        lastFix = null
+        update(
+            state.copy(
+                providerConfigured = false,
+                privacyConsentGranted = false,
+                routeLoading = false,
+                guidance = engine.stop(),
+                error = "未同意地图服务隐私条款，导航保持关闭",
+            ),
+        )
+    }
+
+    fun reportError(message: String) = update(state.copy(error = message.take(120)))
 
     fun setPermission(granted: Boolean) {
         update(state.copy(locationPermissionGranted = granted, error = if (granted) null else "需要位置权限才能导航"))
@@ -88,16 +131,18 @@ class NavigationCoordinator(
     }
 
     private fun onFix(fix: LocationFix) {
-        lastFix = fix
+        lastRawFix = fix
+        val normalized = provider?.let { fix.copy(point = it.normalizeLocation(fix.point)) } ?: fix
+        lastFix = normalized
         val now = SystemClock.elapsedRealtime()
-        val guidance = engine.update(fix, now)
+        val guidance = engine.update(normalized, now)
         update(state.copy(guidance = guidance, error = if (guidance.status == GuidanceStatus.PAUSED) guidance.instruction else state.error))
         if (guidance.status == GuidanceStatus.REROUTE_REQUIRED && !rerouteInFlight) {
             val activeProvider = provider ?: return
             val destination = state.selected ?: return
             rerouteInFlight = true
             update(state.copy(routeLoading = true))
-            requestRoute(activeProvider, fix.point, destination)
+            requestRoute(activeProvider, normalized.point, destination)
         }
         if (guidance.status == GuidanceStatus.ARRIVED && !arrivalReported) {
             arrivalReported = true

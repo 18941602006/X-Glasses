@@ -255,3 +255,16 @@ pyserial 3.5 官方 wheel SHA256 固定并安装到项目 venv，内存 loop:// 
 ### 第二部分交付 A 审计
 
 A = 2c45a4839d3fd266d6bb899995601db8d0f15290，30 文件 1013 增/10 删，已 push 指定 main 且 ls-remote 完整哈希一致，A 后工作区干净。最终 78 测试（约1.532秒）、64 文件、17 来源、Ruff19文件、pip/diff/cached diff 通过，显式文件体积及常见凭据模式检查无命中。第二部分软件检查点通过，实机仍未验收。本追加为 B，自身哈希终端核验后继续固件，不停等用户。
+## 2026-09-05 / Phase 6 高德地图接入开工计划
+
+目标：将国内地图导航主适配器切换为高德 Android SDK，完成 POI 搜索、步行路线、WGS84→GCJ-02 定位归一化、显式隐私授权和手机导航页服务状态；保留现有导航安全状态机与可替换开放服务适配器，不加入 SLAM、盲道或斑马线功能。
+
+当前基线为 `868e1ef8adcd865273abe6a88752b6518d96cf19`，分支 `development/continuous-build-20260905`；工作区仅有未知未跟踪 `.workbuddy/`，本轮不读取、不修改、不暂存。拟修改 Android Gradle/Manifest、navigation provider/coordinator/contracts、MainActivity/Compose UI、静态合同测试及 Phase 6 文档。高德 Key 只从团队成员本机 Gradle 属性注入，不写入仓库。
+
+真实施工前从当前已提交基线建立唯一远端备份并核验。验证计划：Android 静态合同、导航 Python/Kotlin 源码测试、全仓 unittest、Ruff、compileall、foundation/source audit、`git diff --check` 与敏感信息审查；本机无 JDK/Android SDK，Gradle 解析、APK、真机定位/路线/TalkBack/隐私弹窗继续交由团队环境验证。回滚优先对本轮交付提交执行经审查的 `git revert`，不覆盖用户文件。
+
+## 2026-09-05 / Phase 6 高德地图接入本地结果
+
+远端备份 `backup/pre-phase6-amap-navigation-20260905-1531` 已核验为基线 `868e1ef8adcd865273abe6a88752b6518d96cf19`。完成高德 POI/步行路线 provider、逐 fix WGS84→GCJ-02、隐私同意持久化/拒绝/撤回、官方政策入口、本机 Key 注入、ARM ABI/混淆和服务状态 UI；开放 provider 只保留为测试后备。
+
+Maven Central 已实际下载 `10.1.300_loc6.4.9_sea9.7.4` 到系统临时目录并核验公开类/方法及 SHA256；官方示例 `10.1.200...` 直接请求返回 404，故改用可解析候选。全仓 149 项 Python 测试、30 文件 Android 静态合同、124 文件基础、17 来源/6 报告、pip/compileall/Ruff/diff 均通过。Kotlin 测试源码 21 项未运行；Gradle/APK、真实 Key/路线/GPS/坐标偏移、隐私合规和真机无障碍仍未验收，Phase 6 未完成。

@@ -1,5 +1,13 @@
 # 测试与指标
 
+## 2026-09-05 / Phase 6 高德国内导航源码检查点
+
+- 已运行：pip check；foundation 124 文件；来源审核 17 项/6 报告；Android 静态合同 30 文件；Python 全仓 149 项；compileall；Ruff check/format；diff check，最终均通过。
+- 失败与复测：新增破坏性回归首次 1/10 失败，原因为断言归属错误，修复后 10/10 通过；Ruff format 首次报告 2 文件，格式化后全仓 43 文件通过。
+- 临时依赖核验：Maven Central 高德 10.1.300 JAR 约 33 MB，SHA256 `E135AE1016A463DCDCA6CED385060D52486BAA9FE9076E08181619067176B365`，公开 POI/路线/坐标/隐私类方法存在；不是 Gradle 解析或许可证放行。
+- 已编写未运行：Kotlin 21 项，其中新增高德转向映射 2 项。本机无 JDK/Gradle/Android SDK，故不计入已运行测试。
+- 未测：APK、debug/release SHA1/Key、真实 POI/步行路线、GCJ-02 偏移、GPS、断网/配额、隐私流程人工合规、TalkBack、TTS/震动仲裁、后台、功耗/温升和实机安全指标。
+
 ## 2026-09-05 / Phase 6 地图导航第一检查点
 
 - 已运行：`tools.check_foundation`（124 必需文件）、`tools.check_android_contract`（27 Android 文件）、Python 全仓 148 项、Ruff check/format、compileall、git diff check，均通过。

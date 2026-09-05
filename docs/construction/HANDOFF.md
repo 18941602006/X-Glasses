@@ -1,5 +1,13 @@
 # X-Glasses 交接记录（追加）
 
+## 2026-09-05 / 最新：Phase 6 高德国内导航源码检查点
+
+基线/备份：`868e1ef8adcd865273abe6a88752b6518d96cf19` / `backup/pre-phase6-amap-navigation-20260905-1531`，远端已核验。当前开发分支新增高德 POI、步行路线、GCJ-02 转换、隐私同意/撤回、本机 Key 注入、前端服务状态和团队验收说明；`.workbuddy/` 仍未知且完全排除。
+
+本机最终 149 项 Python、30 文件 Android 静态合同、124 文件基础、17 来源/6 报告、pip/compileall/Ruff/diff 通过；Kotlin 21 项未运行。高德 JAR 临时核验 SHA256 见 Android 运行台账，但没有 Gradle/APK、真实 Key/GPS/路线/坐标/隐私/TalkBack/手机测试，Phase 6 仍未完成。
+
+团队下一步：按 `android/README.md` 在高德控制台配置包名及 debug/release SHA1，把 Android Key 写入用户级 Gradle 属性，完成隐私政策复核后 Sync；执行 `:app:testDebugUnitTest`、`:app:assembleDebug`，再按 `TEAM_ACCEPTANCE.md` 在目标骁龙 8 手机测试拒绝/同意/撤回、POI、步行路线、定位偏移、偏航和弱网。不得把 Key、签名文件或包含 Key 的日志提交/发送。
+
 ## 2026-09-05 / 最新：Phase 6 地图导航第一检查点待交付
 
 基线 `4ec873a796e77a45e421fb1efd20f1af438a9a72`，远端备份 `backup/pre-phase6-map-navigation-20260905` 已核验同值。开发分支工作区包含地图导航 Kotlin 核心、Photon/Valhalla 可配置 provider、前台定位、Compose 导航页、任务/断线降级、19 项 Kotlin 测试源码及文档/静态检查；未知 `.workbuddy/` 未触碰、不得暂存。

@@ -299,3 +299,17 @@ A = 2c45a4839d3fd266d6bb899995601db8d0f15290，30 文件 1013 增/10 删，已 p
 第一检查点 A = a3fc152384cd20a453fd19256468ac039d128de2 已推送远端一致。新增 ControlSession/AndroidHostLink 和 Kotlin 测试，接入随机会话、nonce、必需能力、boot、序号与握手/心跳 deadline；当前固件只有 CLOCK，按设计不能 READY。人工审查修复 HELLO 当场写失败后外层状态覆盖竞态。
 
 重复提示首个补丁因 hunk 分隔格式错误被拒绝、未落盘，拆分两次成功。新增 checker 对 READY 来源、repeat、TalkBack触点和 Python/固件黄金后缀的破坏性测试。最终静态 20 文件、7 项回归、全仓 146 项、Ruff/diff 通过；12 项 Kotlin 测试仍只是源码。
+## 2026-09-05 / Phase 6 高德地图接入开工
+
+- 用户确定国内地图使用高德。本轮采用高德 Android 地图/搜索 SDK，而不是把 Web 服务 Key 直接放入 APK 请求；Android Key 将绑定 applicationId 与 debug/release SHA1，并只由本机 Gradle 属性注入。
+- 基线 `868e1ef8adcd865273abe6a88752b6518d96cf19`，当前分支 `development/continuous-build-20260905`。工作区仅发现未知 `.workbuddy/`，明确排除。
+- 施工范围：隐私授权门、POI/步行路线适配、WGS84/GCJ-02 归一化、导航 provider 延迟配置、Compose 状态与静态合同/文档。
+- 尚未施工或验证；先提交本计划并从安全基线建立远端备份。
+
+## 2026-09-05 / Phase 6 高德地图接入实施与验证
+
+- 备份 `backup/pre-phase6-amap-navigation-20260905-1531` 已 push/ls-remote 核验与 `868e1ef8adcd865273abe6a88752b6518d96cf19` 一致。SSH 账号 18941602006、仓库身份 Trollhunter、指定 origin 正确；未知 `.workbuddy/` 未读取/修改/暂存。
+- 新增高德 POI/步行路线 provider、WGS84→GCJ-02 转换、SDK 隐私同意持久化/拒绝/撤回；MainActivity 在保存同意前不创建 provider。Compose 显示服务提供方、处理目的/信息类型、官方政策入口和服务状态。Key 仅从 `AMAP_ANDROID_KEY` 本机属性注入，Manifest 保留占位符。
+- 构建固定 `10.1.300_loc6.4.9_sea9.7.4`、ARM ABI 和官方混淆范围。官方文档示例 `10.1.200...` 从 Central 请求 404；随后实际下载 10.1.300 JAR 到系统临时目录，SHA256 `E135AE1016A463DCDCA6CED385060D52486BAA9FE9076E08181619067176B365`，并确认路线回调、异步 POI/步行和隐私公开方法存在。临时文件未入库。
+- 首次 Android 破坏性回归 10 项中 1 项失败：新增高德断言被误插入原断链测试方法；生产静态合同当时已通过。移动断言到正确方法后，10/10 复测通过。Ruff format 初检提示 2 个 Python 文件需格式化，执行格式化后复测通过。
+- 最终执行：pip check、124 文件 foundation、17 来源/6 报告、30 文件 Android checker、全仓 149 项 unittest、compileall、Ruff check/format、`git diff --check`，均通过。21 项 Kotlin `@Test` 仅为源码，因本机没有 Java/Gradle/Android SDK 未运行；未构建 APK、未使用真实 Key、未测试 GPS/路线/坐标偏移/TalkBack/弱网/配额/隐私合规或真机安全指标。

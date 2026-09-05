@@ -26,6 +26,8 @@ REQUIRED = (
     "app/src/main/java/com/trollhunter/xglasses/navigation/NavigationContracts.kt",
     "app/src/main/java/com/trollhunter/xglasses/navigation/NavigationEngine.kt",
     "app/src/main/java/com/trollhunter/xglasses/navigation/OpenNavigationProvider.kt",
+    "app/src/main/java/com/trollhunter/xglasses/navigation/AmapNavigationProvider.kt",
+    "app/src/main/java/com/trollhunter/xglasses/navigation/AmapPrivacyConsent.kt",
     "app/src/main/java/com/trollhunter/xglasses/navigation/NavigationProviderFactory.kt",
     "app/src/main/java/com/trollhunter/xglasses/navigation/AndroidLocationSource.kt",
     "app/src/main/java/com/trollhunter/xglasses/navigation/NavigationCoordinator.kt",
@@ -36,6 +38,7 @@ REQUIRED = (
     "app/src/test/java/com/trollhunter/xglasses/protocol/XgProtocolTest.kt",
     "app/src/test/java/com/trollhunter/xglasses/protocol/ControlSessionTest.kt",
     "app/src/test/java/com/trollhunter/xglasses/navigation/NavigationEngineTest.kt",
+    "app/src/test/java/com/trollhunter/xglasses/navigation/AmapNavigationProviderTest.kt",
 )
 
 
@@ -48,12 +51,28 @@ def check(root: Path = ANDROID) -> list[str]:
     manifest = (root / "app/src/main/AndroidManifest.xml").read_text(encoding="utf-8")
     if "android.hardware.usb.host" not in manifest:
         errors.append("USB Host feature missing")
-    for permission in ("INTERNET", "ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"):
+    for permission in (
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "ACCESS_WIFI_STATE",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+    ):
         if f"android.permission.{permission}" not in manifest:
             errors.append(f"required navigation permission missing: {permission}")
     for permission in ("CAMERA", "RECORD_AUDIO", "ACCESS_BACKGROUND_LOCATION"):
         if f"android.permission.{permission}" in manifest:
             errors.append(f"unexpected permission: {permission}")
+    if (
+        'android:name="com.amap.api.v2.apikey"' not in manifest
+        or "${AMAP_ANDROID_KEY}" not in manifest
+    ):
+        errors.append("AMap manifest key placeholder missing")
+    if re.search(r'com\.amap\.api\.v2\.apikey[\s\S]{0,160}android:value="(?!\$\{)[^"]+"', manifest):
+        errors.append("hardcoded AMap key")
+    strings = (root / "app/src/main/res/values/strings.xml").read_text(encoding="utf-8")
+    if "https://lbs.amap.com/pages/privacy/" not in strings:
+        errors.append("AMap privacy policy link missing")
     state = (root / "app/src/main/java/com/trollhunter/xglasses/domain/AppState.kt").read_text(
         encoding="utf-8"
     )
@@ -113,7 +132,9 @@ def check(root: Path = ANDROID) -> list[str]:
         "RequestMultiplePermissions",
         "startNavigation",
         "navigationMustStop",
-        "!navigationState.providerConfigured",
+        "AmapPrivacyConsent.applyStoredConsent",
+        "acceptMapPrivacy",
+        "openMapPrivacyPolicy",
     ):
         if required not in main:
             errors.append(f"navigation activity token missing: {required}")
@@ -127,6 +148,7 @@ def check(root: Path = ANDROID) -> list[str]:
         "搜索目的地",
         "开始步行导航",
         "地图路线不是道路安全证明",
+        "停用高德地图并撤回授权",
     ):
         if required not in ui:
             errors.append(f"accessibility contract token missing: {required}")
@@ -148,6 +170,30 @@ def check(root: Path = ANDROID) -> list[str]:
     ):
         if required not in provider:
             errors.append(f"navigation provider token missing: {required}")
+    amap_provider = (
+        root / "app/src/main/java/com/trollhunter/xglasses/navigation/AmapNavigationProvider.kt"
+    ).read_text(encoding="utf-8")
+    for required in (
+        "CoordinateConverter.CoordType.GPS",
+        "PoiSearch.Query",
+        "searchPOIAsyn",
+        "RouteSearch.WalkRouteQuery",
+        "calculateWalkRouteAsyn",
+        "AMapException.CODE_AMAP_SUCCESS",
+    ):
+        if required not in amap_provider:
+            errors.append(f"AMap provider token missing: {required}")
+    privacy = (
+        root / "app/src/main/java/com/trollhunter/xglasses/navigation/AmapPrivacyConsent.kt"
+    ).read_text(encoding="utf-8")
+    for required in (
+        "MapsInitializer.updatePrivacyShow",
+        "MapsInitializer.updatePrivacyAgree",
+        "ServiceSettings.updatePrivacyShow",
+        "ServiceSettings.updatePrivacyAgree",
+    ):
+        if required not in privacy:
+            errors.append(f"AMap privacy token missing: {required}")
     golden = (
         root / "app/src/test/java/com/trollhunter/xglasses/protocol/XgProtocolTest.kt"
     ).read_text(encoding="utf-8")
@@ -157,6 +203,10 @@ def check(root: Path = ANDROID) -> list[str]:
     gradle += (root / "app/build.gradle.kts").read_text(encoding="utf-8")
     if re.search(r'version\s+"(?:latest|\+)|:[^"\n]*\+"', gradle, re.IGNORECASE):
         errors.append("floating Android dependency")
+    if "com.amap.api:3dmap-location-search:10.1.300_loc6.4.9_sea9.7.4" not in gradle:
+        errors.append("pinned AMap dependency missing")
+    if 'providers.gradleProperty("AMAP_ANDROID_KEY")' not in gradle:
+        errors.append("local AMap key injection missing")
     return errors
 
 

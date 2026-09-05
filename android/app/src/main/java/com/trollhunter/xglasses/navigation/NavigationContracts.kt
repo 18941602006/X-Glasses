@@ -78,6 +78,9 @@ data class GuidanceSnapshot(
 
 data class NavigationUiState(
     val providerConfigured: Boolean = false,
+    val providerName: String = "未配置",
+    val privacyConsentRequired: Boolean = false,
+    val privacyConsentGranted: Boolean = false,
     val locationPermissionGranted: Boolean = false,
     val query: String = "",
     val searching: Boolean = false,

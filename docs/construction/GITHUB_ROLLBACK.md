@@ -1,5 +1,9 @@
 # GitHub 与回滚
 
+## 2026-09-05 / Phase 6 高德接入前备份
+
+`backup/pre-phase6-amap-navigation-20260905-1531` → `868e1ef8adcd865273abe6a88752b6518d96cf19`，已 push 并由 `ls-remote` 核验。覆盖此前地图导航审计 B；不含随后追加的本轮计划与高德代码，也不含未知未跟踪 `.workbuddy/`。始终在 `development/continuous-build-20260905` 施工；如需撤销，先审查本轮 A，再优先普通 `git revert`，不得覆盖用户文件。
+
 最新第二部分备份：backup/pre-phase2a-control-20260905-0200 → a7bb773726bb6ab5a9a22bfbba9c726ee7ae933a，push/ls-remote 已一致。覆盖第一部分 A/B，不含当时两份未提交计划；始终 main 施工。无回滚/删除操作。
 
 指定 origin：git@github.com:18941602006/X-Glasses.git。提交姓名 Trollhunter，邮箱 d.o.n.0907@qq.com（仓库级）；SSH 账号必须为 18941602006。

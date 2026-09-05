@@ -61,6 +61,9 @@ fun XGlassesApp(
     selectDestination: (PlaceCandidate) -> Unit,
     startNavigation: () -> Unit,
     stopNavigation: () -> Unit,
+    acceptMapPrivacy: () -> Unit,
+    declineMapPrivacy: () -> Unit,
+    openMapPrivacyPolicy: () -> Unit,
 ) {
     MaterialTheme(colorScheme = AppColors) {
         Surface(modifier = Modifier.fillMaxSize(), color = Background, contentColor = Foreground) {
@@ -73,6 +76,9 @@ fun XGlassesApp(
                     select = selectDestination,
                     start = startNavigation,
                     stop = stopNavigation,
+                    acceptMapPrivacy = acceptMapPrivacy,
+                    declineMapPrivacy = declineMapPrivacy,
+                    openMapPrivacyPolicy = openMapPrivacyPolicy,
                 )
             } else LazyColumn(
                 modifier = Modifier.fillMaxSize().padding(20.dp),
@@ -209,6 +215,9 @@ private fun NavigationScreen(
     select: (PlaceCandidate) -> Unit,
     start: () -> Unit,
     stop: () -> Unit,
+    acceptMapPrivacy: () -> Unit,
+    declineMapPrivacy: () -> Unit,
+    openMapPrivacyPolicy: () -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize().padding(20.dp),
@@ -234,9 +243,41 @@ private fun NavigationScreen(
         }
         item {
             Text(
-                if (state.providerConfigured) "地图服务：已配置" else "地图服务：未配置，请由团队设置服务地址",
+                when {
+                    state.providerConfigured -> "地图服务：${state.providerName}已启用"
+                    state.privacyConsentRequired -> "地图服务：${state.providerName}等待隐私授权"
+                    else -> "地图服务：未配置，请由团队设置地图服务",
+                },
                 fontSize = 17.sp,
             )
+        }
+        if (state.privacyConsentRequired && !state.privacyConsentGranted) {
+            item {
+                Text(
+                    "第三方服务：高德开放平台地图与搜索 SDK；提供方：北京高德图强科技有限公司。用于地点搜索、坐标转换和步行路线；启用后会处理定位、设备及网络相关信息并传输给高德。你可以拒绝，其他眼镜功能不受影响。",
+                    fontSize = 16.sp,
+                )
+            }
+            item {
+                Button(
+                    onClick = openMapPrivacyPolicy,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp)
+                        .semantics { contentDescription = "查看高德地图开放平台隐私权政策" },
+                ) { Text("查看高德隐私权政策", fontSize = 18.sp) }
+            }
+            item {
+                Button(
+                    onClick = acceptMapPrivacy,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 68.dp)
+                        .semantics { contentDescription = "同意并启用高德地图服务" },
+                ) { Text("同意并启用高德地图", fontSize = 20.sp) }
+            }
+            item {
+                Button(
+                    onClick = declineMapPrivacy,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp),
+                ) { Text("暂不使用地图导航", fontSize = 18.sp) }
+            }
         }
         item {
             OutlinedTextField(
@@ -266,7 +307,7 @@ private fun NavigationScreen(
             item {
                 Button(
                     onClick = start,
-                    enabled = state.locationPermissionGranted && !state.routeLoading,
+                    enabled = state.providerConfigured && state.locationPermissionGranted && !state.routeLoading,
                     modifier = Modifier.fillMaxWidth().heightIn(min = 68.dp),
                 ) { Text(if (state.routeLoading) "正在规划" else "开始步行导航", fontSize = 20.sp) }
             }
@@ -278,13 +319,22 @@ private fun NavigationScreen(
                 modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp),
             ) { Text("结束导航", fontSize = 20.sp) }
         }
+        if (state.privacyConsentRequired && state.privacyConsentGranted) {
+            item {
+                Button(
+                    onClick = declineMapPrivacy,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp)
+                        .semantics { contentDescription = "停用高德地图并撤回隐私授权" },
+                ) { Text("停用高德地图并撤回授权", fontSize = 18.sp) }
+            }
+        }
         item {
             Button(onClick = close, modifier = Modifier.fillMaxWidth().heightIn(min = 64.dp)) {
                 Text("返回首页", fontSize = 20.sp)
             }
         }
         item {
-            Text("地图数据：© OpenStreetMap 贡献者，ODbL", fontSize = 14.sp)
+            Text("地点与路线来源：${state.providerName}", fontSize = 14.sp)
             Text("地图路线不是道路安全证明；行进中继续使用盲杖并听从近距风险提示。", fontSize = 16.sp)
         }
     }
