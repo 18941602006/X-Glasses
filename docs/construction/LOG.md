@@ -1,5 +1,9 @@
 # X-Glasses 施工日志（追加记录）
 
+## 2026-09-05 / 固件协议基线交付 A 审计
+
+A = 47174622f6a42cc818365796bf5851a7156bc9cd，提交信息 feat: add ESP32-S3 protocol firmware baseline；已 push 指定 main 且远端哈希相同，A 后工作区干净。暂存 24 文件均小于 1MiB；显式常见私钥/token 模式复扫无命中，首次扫描脚本错误沿用外部退出码并误报 2，改用结果变量后成功。LF→CRLF 为工作区换行提示，不是测试失败。此追加为审计 B，完成后继续 2B。
+
 ## 2026-09-05 / Phase 2A 固件协议基线
 
 从已核验 B = 5201b13b530350f3e9bf5161cb6cfedd24d7894d 开工，远端备份 backup/pre-phase2a-firmware-20260905-0300 指向同一基线。实现 firmware 下 ESP-IDF 工程、C 协议和控制器，主机增加 capability 拒绝规则；默认固件只声明 CLOCK，相机/ToF/IMU/按键/震动没有伪装为已启用。增加固件静态合同、7 项负面/正面测试、VS Code 和固件说明。
