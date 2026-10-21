@@ -253,3 +253,5 @@ Android 独立工程已创建，入口见 `android/README.md`；UsbManager 用�
 6. 最后恢复手机/高德（用户目前暂缓）；团队Android工具链/APK/骁龙8真机、模型运行、功耗温升和导航服务验收。不能把现有Android源码称成手机可用版本。
 
 最终回归已通过：168项Python、8项React及TypeScript/Vite、52文件Ruff、140文件foundation、来源/Android30/固件静态、compileall、pip/diff；临时真实HTTP测试服务关闭。本轮不宣称浏览器人工、硬件或手机验收。
+
+工作台交付A=a8af257a44ad303459256117406548adbcd0879b已push开发分支并核验远端一致；A后仅.workbuddy/，main未合并。包括上轮数据调研文档，不含Key/模型/环境/图片。此为审计B记录，B自身哈希随后终端核验；下一轮先复核远端与本地后，从真实多图质量/手部跟踪的未完成项继续，不误把当前静态样机称整机完成。

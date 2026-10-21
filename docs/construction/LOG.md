@@ -369,3 +369,7 @@ A = a715a73582865f1a29aad7247a3370cb8cea783b，24文件874增/4删，已push至d
 ### 最终回归
 
 收尾format --check发现取消合同新改的http.py需重排，命令按失败即停止，未把后续未执行项写通过；运行Ruff format该文件后完整复测：Python168项（9.198秒）、Ruff check/format52文件、foundation140文件、来源17项/6报告、Android30文件、固件合同、compileall和diff检查全部通过。前端最终8项及TypeScript/Vite构建通过，JS204.30kB/gzip65.12kB；.venv-pc pip check通过。LF/CRLF仅Git换行提示。无真实硬件、APK或人工浏览器结论；本轮临时HTTP服务已关闭，没有遗留本轮模型进程。
+
+### 工作台交付A核验 / 审计B
+
+A=a8af257a44ad303459256117406548adbcd0879b，24文件1051增/6删，已push到development/continuous-build-20260905并ls-remote核验一致。暂存24文件均小于1MiB，逐字检查本机真实Key与常见凭据模式未命中；未包含配置/权重/环境/图片/结果/未知目录。A后status仅.workbuddy/。main未合并，备份仍459b517；本次4份记录追加为审计B，自身哈希在终端核验、不写进自身提交。下一步与未验收列表见HANDOFF。
