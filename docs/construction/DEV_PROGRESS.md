@@ -341,3 +341,5 @@ A=a715a73582865f1a29aad7247a3370cb8cea783b，已push并核验开发分支一致�
 176项Python与15项前端、TypeScript/Vite、Ruff54文件、foundation144文件、来源/Android30/固件静态、compileall/pip/diff通过。真实前端代理公开两猫图/中文猫→cat：冷任务82.27秒(模型3082.14ms)，热任务2.12秒(模型1763.60ms)，model_reused从false到true；仍漏另一猫，不宣布精度/实时避障通过。测试短句“请帮我找桌子上的黑色眼镜”真实翻译“black glasses on the table”，没有图像外发。
 
 后端确认无活动任务后仅停止本项目旧API PID1456并用新实现重启(会话12579)，Vite22782保留，模型热进程保留供用户。浏览器控制helper失败，未取得真实摄像头权限/画面，不能把mock生命周期测试称相机实机验收；用户刷新原链接后点击开启并允许。初次失败/修复详见LOG。
+
+交付A=3ea7959205b961c026a56a06883f423ec91b2bcd已push并核验开发分支一致；176项Python/15项前端及构建静态通过。A后仅.workbuddy/，main不合并；本次为审计B记录，尚无真实相机验收或实时安全结论。

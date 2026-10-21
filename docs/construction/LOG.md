@@ -416,3 +416,7 @@ A=a8af257a44ad303459256117406548adbcd0879b，24文件1051增/6删，已push到de
 最终验证：Python176项(24.712秒)、前端15项与TypeScript/Vite构建、Ruff54文件、foundation144文件、来源17项/6报告、Android30文件/固件静态、compileall、.venv-pc pip check与diff通过。前端JS209.62kB/gzip66.96kB。USB/硬件/手部/ToF/语音/安卓真机未验收。MDN[getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia)与[track.stop](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/stop)用于核对生命周期，不替代当前浏览器实测。
 
 文档同步协议/操作/README/进度/交接/记忆，早期静态任务描述更新为摄像头扩展，历史诊断保留。暂无回滚需要；服务与热模型按用户测试要求保留，不在收尾主动关闭；若需撤销只对审查后的明确提交revert。Key/模型/图片/环境均不入Git，待A/B审计核验。
+
+### 摄像头中文交付A核验 / 审计B
+
+A=3ea7959205b961c026a56a06883f423ec91b2bcd，25文件905增/81删，已push到development/continuous-build-20260905并ls-remote核验一致。暂存显式25文件均小于1MiB，逐字检查本机真实Key及常见凭据模式无命中；未包含模型/环境/照片/本地配置/未知.workbuddy/。A后仅.workbuddy/；main未合并，备份c9c6975不变。此次4份记录追加构成审计B，自身哈希在终端核验、不写进自身提交。
