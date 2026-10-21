@@ -33,3 +33,6 @@ backup/pre-phase1-audit-20260905-0026 → 34fcde23e9bfa9161ff2c4175bd7c2104ac7cf
 ## 2026-09-05 / Phase 2A 第一部分备份
 
 backup/pre-phase2a-protocol-20260905-0110 → 08aaecc722750e59a5009a19bed8d39a099bf08c（Phase 1 审计 B），已 push 并核验完整哈希。覆盖完整已提交 Phase 0/1；本轮 DEV_PROGRESS 与 02 层开工计划在当时未提交，不被该备份覆盖，随交付 A 保存。始终在 main 开发，无回滚/删除操作。后续如需撤销，先审查本轮 A，再经授权 revert 明确提交，不覆盖用户文件。
+## 2026-10-21 / 电脑真实模型施工前备份
+
+backup/pre-phase4-pc-runtime-20261021-1745 → 8f2602815709067089d1e64b31fb21cbffbfc0dc，push后ls-remote核验一致。仅覆盖原提交，不含此前未提交状态记录、本轮代码、本机忽略密钥/模型/环境/图片或未知.workbuddy/。本轮继续development/continuous-build-20260905，不合并main。需要撤销时先审查交付A后普通revert；不覆盖用户文件。

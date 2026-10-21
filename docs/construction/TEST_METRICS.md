@@ -1,5 +1,14 @@
 # 测试与指标
 
+## 2026-10-21 / 电脑真实模型与对话检查点
+
+- 最终软件验证：Python156项（新增PC7项）、Ruff check/format49文件、compileall、foundation133文件、source audit17项/6报告、Android静态30文件、独立.venv-pc pip check与diff检查均通过。Android仍无编译/真机结论。
+- 实际模型：固定LocateAnything两个权重SHA256均通过，RTX4090Laptop16GB/Python3.11.9/torch2.6cu124/transformers4.57.1；公开640×480图，cat/slow-NTP，n=1，模型1377.51ms（不含冷启动/预处理），CUDA peak allocated7938MiB。输出一只猫框，另一只漏检，不是准确率/召回验收。
+- 实验失败：hybrid产生超过16框，解析器拒绝、退出码1；未交付该模式，只保留已实测slow。不能把此失败标为hybrid修复或通过。
+- 实际云端：DeepSeek官方deepseek-flash短文本成功（系统调用与项目Python3.11入口），公开样图请求返回两只猫；无个人图像/摄像头上传，未测ASR/TTS或实时语音。
+- 环境失败/恢复：torch2.8大包下载停滞后改用既有torch2.6；继承全局包导致OpenCV/NumPy冲突，最终干净.venv-pc仅本机Junction复用CUDA包，其余单独安装并pip check通过；Python3.12 TLS EOF后改Python3.11验证成功，未关闭证书验证。完整过程见LOG。
+- 未验收：实际电脑相机、连续跟踪/手部/ToF/标定/拿取、多物/无目标/遮挡/中文查询评测、真实道路/交通灯/OCR、硬件USB/震动/供电与完整工作台/语音链路。
+
 ## 2026-09-05 / Phase 6 高德国内导航源码检查点
 
 - 已运行：pip check；foundation 124 文件；来源审核 17 项/6 报告；Android 静态合同 30 文件；Python 全仓 149 项；compileall；Ruff check/format；diff check，最终均通过。

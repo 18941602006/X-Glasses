@@ -314,3 +314,32 @@ A = 2c45a4839d3fd266d6bb899995601db8d0f15290，30 文件 1013 增/10 删，已 p
 - 首次 Android 破坏性回归 10 项中 1 项失败：新增高德断言被误插入原断链测试方法；生产静态合同当时已通过。移动断言到正确方法后，10/10 复测通过。Ruff format 初检提示 2 个 Python 文件需格式化，执行格式化后复测通过。
 - 最终执行：pip check、124 文件 foundation、17 来源/6 报告、30 文件 Android checker、全仓 149 项 unittest、compileall、Ruff check/format、`git diff --check`，均通过。21 项 Kotlin `@Test` 仅为源码，因本机没有 Java/Gradle/Android SDK 未运行；未构建 APK、未使用真实 Key、未测试 GPS/路线/坐标偏移/TalkBack/弱网/配额/隐私合规或真机安全指标。
 - 交付 A `bfbd865b7300adb95b6c9aa21fe0af709feeb9aa`（27 文件，570 增/24 删）已推送 `development/continuous-build-20260905`，`ls-remote` 完整哈希一致。A 后状态仅有未知 `.workbuddy/`。本追加进入审计 B，B 自身哈希只在终端核验并向用户报告。
+## 2026-10-08 / 项目状态只读复核
+
+- 用户要求汇报整体进度。本轮未施工代码、未安装依赖、未连接硬件、未运行新测试；依据已提交代码、最新 HANDOFF/TEST_METRICS 与远端引用复核。
+- 当前 `development/continuous-build-20260905` / HEAD `8f2602815709067089d1e64b31fb21cbffbfc0dc` 与远端一致；本地/远端 main 均为 `776a04a6f405b76c6a9d129a3523c3e4264ae640`。工作区复核前仅未知 `.workbuddy/`，不读取、不修改、不暂存。
+- 结论：软件架构和模拟/静态检查点进度较高，但真实模型、固件编译烧录、Android 构建、密钥接入、硬件和整机性能验收尚未完成；不得宣称项目整体完成。
+## 2026-10-21 / GitHub 功能源码可见性排查
+
+实时 `git ls-remote origin HEAD refs/heads/main refs/heads/development/continuous-build-20260905` 确认默认 HEAD/main 为 776a04a6f405b76c6a9d129a3523c3e4264ae640，开发分支为 8f2602815709067089d1e64b31fb21cbffbfc0dc。以本地同哈希提交树对比，main 仅有固件/主机协议源码，frontend 和感知功能目录只有 README；开发分支包含 React、融合/拿取/辅助合同/仲裁和 Android/高德源码。原因候选为另一电脑默认检出 main，尚未读取对方分支状态，故不宣称已确认对方环境。真实模型推理仍缺实现与验收，上传源码不等于功能可运行。提供开发分支链接/检出命令；未执行合并、远端写入或业务修改。保留原有本地文档修改和未知 .workbuddy/。
+## 2026-10-21 / 电脑真实模型开工与阶段验证
+
+用户选择官方 DeepSeek、暂停高德，要求 LocateAnything 前期本电脑运行，并询问训练及无硬件模拟。先记 DEV_PROGRESS/04 层计划，再 push 备份 `backup/pre-phase4-pc-runtime-20261021-1745` 并核验为 `8f2602815709067089d1e64b31fb21cbffbfc0dc`。备份只覆盖已提交内容，不覆盖此前本地状态记录；未知 .workbuddy/ 排除。身份 Trollhunter/指定SSH origin/18941602006复核通过。
+
+已新增电脑真实推理类、固定模型下载/哈希校验、图片/摄像头单次 CLI、DeepSeek 官方文字及显式授权图片调用入口。Key 仅保存到 Git 忽略的 config.local.ai.json，已核验忽略，不输出其内容；所有可提交文件只含空值占位和配置说明。官方 deepseek-flash 对应用户指定1017版本并支持图片，本轮不需要千问API。
+
+真实环境失败与修复：最初独立下载torch2.8/cu128的3.46GB轮子无字节进展，停止本轮进程后复用本机torch2.6/cu124。system-site-packages方案继承全局OpenCV5/NumPy2冲突，改为全新不继承全局的.venv-pc，只对已有torch/torchvision建立本机Junction，补齐torchgen/functorch后真实导入通过。其余固定包本地安装，pip check通过，全局依赖未更改。基础Python3.12对DeepSeek报TLS EOF，Python3.11项目入口实际成功；没有禁用证书校验。系统HTTPS一次、项目Python3.11一次短文本请求成功，无图片上传。
+
+HF默认大文件流无字节进展，1KB Range探测206成功后实现官方CDN分段/重试/恢复下载，严格核对Content-Range、字节数和官方LFS SHA256。图片预处理、配置及模型自定义类已在.venv-pc真实导入，完整权重/单图推理结果待收尾记录。上游processor的URL、LMDB/pickle分支未向项目用户开放，本项目只传PIL图片。
+
+中期验证：新增7项有效框/坏框/无目标/云图授权/对话映射与脱敏/权重分段校验测试，Python全仓156项通过、Ruff49文件、Android30文件、基础126文件通过。上述不能代替LocateAnything真实单图结论。视觉先预训练评测，是否微调根据眼镜视角道路与国内行人灯等实测决定；无硬件距离保持未知。
+## 2026-10-21 / 电脑 LocateAnything 实际结果与质量缺口
+
+官方两个权重分片均完成下载，最终SHA256与固定LFS元数据一致；prepare生成28个顶层文件哈希。使用.venv-pc本地离线推理，公开640×480样图query=cat、slow-NTP成功：框[0.0,0.112,0.494,0.988]、模型推理1377.51ms（不含冷加载/预处理）、CUDA peak allocated7938MiB。图有两只猫，仅定位左侧一只，明确记录另一只漏检。输出保存在忽略的artifacts/locate/coco-cats.png及JSON。
+
+随后hybrid试验产生超过16框，严格解析器拒绝，退出码1；不将其表述为成功，不截断后当合格输出。移除试验CLI选项，交付代码保留首次已实际通过的slow/NTP路径，未修改权重和上游模型源码。下一步需多图、无目标与多物歧义评测，不能以一个例子推断识别质量或抓取完成。
+
+DeepSeek图片调用用同一官方公开样图返回两只猫，接口验证成功；没有上传个人图像或摄像头画面。Key本机忽略配置不进入提交；本机摄像头未主动打开。无TTS/ASR或完整交互前端联调结论。
+## 2026-10-21 / 电脑真实模型最终软件检查
+
+最终执行Python全仓156项、Ruff check/format49文件、compileall、foundation133文件、source audit17项/6报告、Android静态30文件、.venv-pc pip check及git diff检查，均通过。模型/云端实际结果及hybrid失败另见上条，不因软件测试通过改变质量缺口。依赖、模型、照片/结果与真实Key均为本机忽略内容；未知.workbuddy/排除。修正了根README早期状态和源码入口说明；手机和高德本轮暂缓，未改硬件/USB/无SLAM等边界。

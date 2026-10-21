@@ -2,11 +2,22 @@
 
 USB 有线导盲眼镜研究原型：ESP32-S3 采集，电脑验证后迁移骁龙 8 系列 Android。
 
-Phase 0/1 审核已交付，Phase 2A 已有协议/回放、主机握手/心跳/对时/ACK/传感器和可选串口适配；没有连接到实际眼镜，固件/HTTP 服务/App 尚未实现。模型使用、编译和实机验证仍有未通过项，不能把模拟测试当产品验收。
+源码在 `development/continuous-build-20260905` 开发分支；GitHub 默认 main 仍是较早固件/协议基线。团队应明确检出开发分支。现有 USB/固件基线、React 调试台、融合/拿取/辅助合同和 Android/高德源码；尚未完成整机验收。
+
+2026-10-21 当前工作重点转为电脑样机：LocateAnything 在电脑本地运行，DeepSeek 官方 `deepseek-flash` 提供对话；手机迁移和高德联网联调暂缓。见[电脑运行步骤](docs/dependencies/LOCATE_PC_RUNTIME.md)。真实定位结果、依赖与未验收项以[交接记录](docs/construction/HANDOFF.md)为准。
+
+| 源码 | 入口 |
+| --- | --- |
+| 电脑 LocateAnything | `server/perception/locate/pc_runtime.py`、`python -m tools.locate_pc` |
+| DeepSeek 文字/按需图片 | `server/perception/assist/deepseek.py`、`python -m tools.dialogue_pc` |
+| 电脑工作台/API | `frontend/src/App.tsx`、`server/api/` |
+| Android 与高德 | `android/app/src/main/java/com/trollhunter/xglasses/` |
+
+Key、模型权重、环境和测试照片不随 Git 分发。克隆源码后需在本机按说明准备；没有 ToF 时距离明确为未知。
 
 ## 施工入口与基础检查
 
-先读 [AGENTS](AGENTS.md) 和[接续入口](docs/construction/CODEX_START_HERE.md)。server/common 与 server/input 有标准库实现；firmware、frontend 和其他业务层仍仅说明。Android 当前仅迁移文档。
+先读 [AGENTS](AGENTS.md) 和[接续入口](docs/construction/CODEX_START_HERE.md)。基础检查环境与模型环境分开，以下命令只安装开发检查依赖；电脑模型安装使用上述独立运行说明。
 
 Windows PowerShell 使用已有 Python 3.11+ 创建环境（本轮验证 3.12.14）。如果 PATH 无 python，用本机已有解释器绝对路径替换第一条命令的 python，不全局安装依赖。
 
@@ -22,7 +33,7 @@ python -m venv .venv
 git diff --check
 ```
 
-开发依赖 Ruff 0.12.12，核心协议使用标准库；可选 pyserial 3.5 已以 SHA256 wheel 锁在项目 venv 验证。基础检查按 Phase 2A 显式允许 9 个运行文件，不开放其他阶段。未安装模型/固件/前端依赖。逐条命令成功后才进行下一条。
+开发依赖 Ruff 0.12.12，核心协议使用标准库；可选 pyserial 3.5 已以 SHA256 wheel 验证。基础检查显式列出当前各层允许的运行文件；基础环境不安装模型。逐条命令成功后才进行下一条。
 
 ## USB 模拟回放
 

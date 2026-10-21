@@ -82,8 +82,10 @@ RUNTIME_FILES = {
     "server/perception/navigation/worker.py",
     "server/perception/locate/contracts.py",
     "server/perception/locate/grasp.py",
+    "server/perception/locate/pc_runtime.py",
     "server/perception/assist/contracts.py",
     "server/perception/assist/worker.py",
+    "server/perception/assist/deepseek.py",
     "server/arbitration/core.py",
     "server/arbitration/adapters.py",
     "server/output/executor.py",
@@ -121,6 +123,13 @@ REQUIRED += sorted(RUNTIME_FILES) + [
     "docs/dependencies/MAP_NAVIGATION_RUNTIME.md",
     "docs/protocol/MAP_NAVIGATION_V1.md",
     "docs/android-migration/TEAM_ACCEPTANCE.md",
+    "requirements-locate-pc.txt",
+    "requirements-locate-pc.lock.txt",
+    "tools/prepare_locate_pc.py",
+    "tools/locate_pc.py",
+    "tools/dialogue_pc.py",
+    "tests/test_pc_runtime.py",
+    "docs/dependencies/LOCATE_PC_RUNTIME.md",
 ]
 
 

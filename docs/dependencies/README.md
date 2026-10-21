@@ -6,6 +6,8 @@
 
 Phase 6 Android 精确候选及未解析状态见 [ANDROID_RUNTIME](ANDROID_RUNTIME.md)。该台账不是 Gradle lock、许可证放行或 APK 构建记录。
 
+2026-10-21 电脑真实模型运行记录、固定 LocateAnything revision/下载校验、DeepSeek 本机 Key 配置及无硬件范围见 [LOCATE_PC_RUNTIME](LOCATE_PC_RUNTIME.md)。原17项来源台账保留 Phase1 审核历史；实际运行结论按最新 HANDOFF 记录。
+
 - [机器可读快照](sources.audit.json)：17 条来源，记录精确 Git/HF revision 或 PyPI 版本、许可证据、复用状态和未通过项。
 - [底座复用评审](REUSE_REVIEW.md)：具体文件的可复用内容和必须改造处。
 - [环境与许可关卡](ENVIRONMENT_GATES.md)：隔离环境、许可差异和放行边界。

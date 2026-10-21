@@ -1,5 +1,7 @@
 # server/perception/locate
 
+2026-10-21 新增 `pc_runtime.py` 与 `tools.locate_pc` 真实电脑推理入口，准备/运行方法及实际验收边界见 [电脑运行说明](../../../docs/dependencies/LOCATE_PC_RUNTIME.md)。前期只在电脑上运行；下述旧记录保留历史，真实模型是否完成以最新 HANDOFF 为准。
+
 Phase 4 已有 LocateAnything 有界 worker 合同与手/目标/ToF 保守融合核心；权重仍未下载，实际 LocateAnything/手部模型未运行。拿取由用户完成，只有物理按键或明确语音可确认完成。
 
 Phase 4 起：LocateAnything 初次/失跟定位、轻量跟踪、MediaPipe 手部、ToF 标定/归属与遮挡降级、用户确认拿取。独立环境，晚到结果绑定源帧，不阻塞实时风险链路。

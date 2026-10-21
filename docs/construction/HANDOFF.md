@@ -1,5 +1,28 @@
 # X-Glasses 交接记录（追加）
 
+## 2026-10-21 / 最新：电脑真实 LocateAnything 与 DeepSeek
+
+用户新路线：LocateAnything前期仅电脑运行，高德与手机本地迁移暂缓；无眼镜硬件，使用公开样图/后续主动电脑摄像头验证。已新增pc_runtime、prepare_locate_pc、locate_pc、deepseek provider、dialogue_pc及固定依赖/说明。根README明确开发分支和各源码入口，旧目录摘要已修正。
+
+真实结果：.venv-pc/Python3.11.9/RTX4090Laptop16GB/torch2.6+cu124/transformers4.57.1，两个固定权重哈希一致，slow单图cat定位成功，1377.51ms模型时间、7938MiB peak allocated。两猫样图只找到左猫，漏检另一只；hybrid试验超过16框被拒绝，未发布该模式。当前证明电脑推理可运行，不是质量/连续找物/拿取验收。
+
+DeepSeek官方BaseURL与deepseek-flash调用名已核验，文字及公开图像请求真实成功，无需额外千问API。Key仅在Git忽略的config.local.ai.json，禁止暂存/输出；其他电脑自行配置。没有真实ToF时距离保持未知。相机/手部/跟踪/硬件/TTS/ASR和Android仍未验收；下一步多图/无目标/多物歧义评测和电脑工作台集成。
+
+备份backup/pre-phase4-pc-runtime-20261021-1745已核验为8f2602815709067089d1e64b31fb21cbffbfc0dc。开发分支不变，main不合并，未知.workbuddy/不触碰。软件最终验证与本轮A/B以本节随后追加为准。
+
+本轮最终软件验证：156项Python、Ruff49文件、compileall、foundation133文件、来源17项/6报告、Android静态30文件和.venv-pc pip check均通过；git diff无格式错误。无新Android构建/真机数据。
+
+## 2026-10-21 / 最新：团队必须检出开发分支
+
+远端默认 HEAD/main = `776a04a6f405b76c6a9d129a3523c3e4264ae640`，开发分支 `development/continuous-build-20260905` = `8f2602815709067089d1e64b31fb21cbffbfc0dc`，本轮实时核验一致。默认 main 下载只含较早固件/协议，前端与感知目录多为 README；后续功能源码位于开发分支。请团队明确选择开发分支后核对 HEAD。另一电脑的实际检出状态尚未知，模型运行缺口仍然存在。本轮仅追加本地排查记录，无业务修改/合并/推送。
+
+## 2026-10-08 / 最新：整体进度复核
+
+HEAD/远端开发分支均为 `8f2602815709067089d1e64b31fb21cbffbfc0dc`；main 仍为 `776a04a6f405b76c6a9d129a3523c3e4264ae640`。本轮仅状态审计，没有代码施工或新测试。此前最终软件基线仍为 149 项 Python、30 文件 Android 静态合同通过，21 项 Kotlin 未运行。
+
+已完成：工程规范/来源审核、USB 协议与主机会话、固件源码基线、电脑调试前端、道路/拿取/辅助功能的保守合同和模拟测试、Android USB/任务 UI/导航及高德源码适配。未完成：固件编译烧录、真实 USB/ToF/IMU/相机、模型权重与推理、真实 OCR/灯/LocateAnything/分割、AI provider/API Key、Android 构建/APK/骁龙 8 真机、高德真实 Key、TTS/震动和整机受控验收。
+
+
 ## 2026-09-05 / 最新：Phase 6 高德国内导航源码检查点
 
 基线/备份：`868e1ef8adcd865273abe6a88752b6518d96cf19` / `backup/pre-phase6-amap-navigation-20260905-1531`，远端已核验。当前开发分支新增高德 POI、步行路线、GCJ-02 转换、隐私同意/撤回、本机 Key 注入、前端服务状态和团队验收说明；`.workbuddy/` 仍未知且完全排除。

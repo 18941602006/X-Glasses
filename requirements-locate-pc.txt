@@ -1,0 +1,14 @@
+# Python 3.11; install torch/torchvision from the official CUDA index first.
+torch==2.6.0
+torchvision==0.21.0
+transformers==4.57.1
+tokenizers==0.22.1
+accelerate==1.5.2
+peft==0.12.0
+numpy==1.26.4
+Pillow==11.1.0
+opencv-python-headless==4.11.0.86
+decord==0.6.0
+lmdb==1.7.5
+huggingface-hub==0.36.0
+safetensors==0.6.2

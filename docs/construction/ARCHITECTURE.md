@@ -27,3 +27,4 @@ Phase 2B 新增 `server/api` 标准库回环服务和独立 React/TS/Vite 调试
 复用来源候选：OpenAIglasses_for_Navigation 后端通用模块、LocateAnything、PaddleSeg/PP-LiteSeg、MediaPipe、PaddleOCR、usb-serial-for-android。现在没有 vendor 源码或权重；Phase 1 固定来源 commit、代码/模型许可证、依赖兼容、可抽取模块与禁用旧功能耦合清单。
 
 USB 实施合同见 [USB_V1](../protocol/USB_V1.md)，分层约束见 LAYER_CONTRACT；测试记录见 TEST_METRICS。地图/对话可依赖互联网，但绝不进入即时风险判断。消息头/JPEG/XGR1 已冻结主机布局，传感器语义、握手/ACK/对时、告警阈值、固件及供电实测仍待 2A 后续。当前帧未对时/未标定，不进入安全相关融合。
+2026-10-21 当前实施优先级调整：LocateAnything 先在电脑独立进程运行，图片/电脑摄像头为本机输入，未连接 ToF 时距离保持未知；手机端迁移与高德联调暂缓。DeepSeek 官方 deepseek-flash 作为对话服务，默认仅文字，图片必须单次显式授权上传。运行入口与证据见 docs/dependencies/LOCATE_PC_RUNTIME.md；模型 CLI 不得绕过实时风险仲裁成为步行引导。
