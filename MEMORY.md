@@ -347,3 +347,4 @@ Phase 6 第一检查点 A = a3fc152384cd20a453fd19256468ac039d128de2 已推送�
 - 视觉先用预训练权重做真实评测；标注与微调依据道路视角、国内行人信号灯等任务的实测不足决定，不要求全量从零训练。
 - 官方文档确认 deepseek-flash 已支持图片；本轮官方 HTTPS 与项目 Python3.11 对话入口各成功一次，公开测试图视觉请求返回两只猫，暂不需要千问API。密钥仅存Git忽略的 config.local.ai.json，未入可提交文件。基础Python3.12 TLS失败，统一采用.venv-pc，未关闭TLS校验。
 - LocateAnything已在本机真实跑通：固定revision权重SHA256一致，公开640×480/cat/slow单图1377.51ms、CUDA峰值allocated7938MiB，只找到两猫样图中的左猫，另一只漏检。hybrid实验超过16框被拒绝，当前CLI只交付slow，未修改权重；不宣称多物召回/质量验收通过。单次摄像头入口存在但本轮没有主动打开相机，未完成手部/ToF/跟踪和整机闭环。
+- 本轮交付A=a715a73582865f1a29aad7247a3370cb8cea783b，已推送development/continuous-build-20260905并核验一致，main未合并。Key/权重/样图/环境均在本机忽略目录，未上传；未知.workbuddy/未处理。操作说明LOCATE_PC_RUNTIME.md，后续以多图质量评测和电脑工作台集成为主。

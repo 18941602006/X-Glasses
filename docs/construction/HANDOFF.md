@@ -12,6 +12,8 @@ DeepSeek官方BaseURL与deepseek-flash调用名已核验，文字及公开图像
 
 本轮最终软件验证：156项Python、Ruff49文件、compileall、foundation133文件、来源17项/6报告、Android静态30文件和.venv-pc pip check均通过；git diff无格式错误。无新Android构建/真机数据。
 
+交付A=a715a73582865f1a29aad7247a3370cb8cea783b已push并核验开发分支一致；A后仅未知.workbuddy/。本次追加为审计B，不记录自身哈希。运行命令见docs/dependencies/LOCATE_PC_RUNTIME.md；本机模型/Key/测试图不会随克隆分发。
+
 ## 2026-10-21 / 最新：团队必须检出开发分支
 
 远端默认 HEAD/main = `776a04a6f405b76c6a9d129a3523c3e4264ae640`，开发分支 `development/continuous-build-20260905` = `8f2602815709067089d1e64b31fb21cbffbfc0dc`，本轮实时核验一致。默认 main 下载只含较早固件/协议，前端与感知目录多为 README；后续功能源码位于开发分支。请团队明确选择开发分支后核对 HEAD。另一电脑的实际检出状态尚未知，模型运行缺口仍然存在。本轮仅追加本地排查记录，无业务修改/合并/推送。

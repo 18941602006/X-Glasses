@@ -343,3 +343,6 @@ DeepSeek图片调用用同一官方公开样图返回两只猫，接口验证成
 ## 2026-10-21 / 电脑真实模型最终软件检查
 
 最终执行Python全仓156项、Ruff check/format49文件、compileall、foundation133文件、source audit17项/6报告、Android静态30文件、.venv-pc pip check及git diff检查，均通过。模型/云端实际结果及hybrid失败另见上条，不因软件测试通过改变质量缺口。依赖、模型、照片/结果与真实Key均为本机忽略内容；未知.workbuddy/排除。修正了根README早期状态和源码入口说明；手机和高德本轮暂缓，未改硬件/USB/无SLAM等边界。
+## 2026-10-21 / 电脑运行交付 A 审计
+
+A = a715a73582865f1a29aad7247a3370cb8cea783b，24文件874增/4删，已push至development/continuous-build-20260905并ls-remote核验一致。提交前以本机真实Key逐字检查暂存差异无命中，并检查不含模型/环境/图片/结果/本地配置/未知目录。A后工作区仅.workbuddy/，本轮没有遗留模型或下载长跑进程。main未合并。本条为审计B，自身哈希由终端核验，不写入自身提交。
