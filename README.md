@@ -15,7 +15,7 @@ USB 有线导盲眼镜研究原型：ESP32-S3 采集，电脑验证后迁移骁�
 
 Key、模型权重、环境和测试照片不随 Git 分发。克隆源码后需在本机按说明准备；没有 ToF 时距离明确为未知。
 
-电脑页面现可选图调用本地LocateAnything、显示静态框，并显式同意后发送DeepSeek文字：根目录运行`.\.venv\Scripts\python.exe -m server.api --pc-runtime`，另一终端在frontend运行`npm run dev`，打开http://127.0.0.1:5173。需要已准备好的.venv-pc/模型/本机Key；默认API不启用真实任务。支持取消/失败/后台任务查询，不自动打开相机、不把静态框当实时引导。限制及操作见[PC任务合同](docs/protocol/PC_JOBS_V1.md)。
+电脑页面可选图或主动开启摄像头实时预览/连续取帧找物，中文描述经同意只发文字翻译为英语，图片/视频不传云。找物复用常驻隔离模型；框仅显示在对应源图上，不冒充实时避障。根目录运行`.\.venv\Scripts\python.exe -m server.api --pc-runtime`，另一终端在frontend运行`npm run dev`，打开http://127.0.0.1:5173。需要已准备好的.venv-pc/模型/本机Key；默认API不启用真实任务。取消/失败/重启后重新加载；支持后台任务查询。限制及操作见[PC任务合同](docs/protocol/PC_JOBS_V1.md)。
 
 ## 施工入口与基础检查
 

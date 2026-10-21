@@ -42,6 +42,8 @@ export interface PcResult {
   text?: string;
   distance_m?: null;
   grasp_confirmed?: false;
+  query_en?: string;
+  model_reused?: boolean;
 }
 
 export interface PcJob {
@@ -52,7 +54,7 @@ export interface PcJob {
   error: string | null;
 }
 
-export type PcRequest = { kind: "locate"; query: string; image_base64: string }
+export type PcRequest = { kind: "locate"; query: string; image_base64: string; source?: "file" | "pc_camera"; allow_cloud_translation?: boolean }
   | { kind: "dialogue"; question: string; allow_cloud_text: true };
 
 export interface PcClient {

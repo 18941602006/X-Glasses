@@ -373,3 +373,46 @@ A = a715a73582865f1a29aad7247a3370cb8cea783b，24文件874增/4删，已push至d
 ### 工作台交付A核验 / 审计B
 
 A=a8af257a44ad303459256117406548adbcd0879b，24文件1051增/6删，已push到development/continuous-build-20260905并ls-remote核验一致。暂存24文件均小于1MiB，逐字检查本机真实Key与常见凭据模式未命中；未包含配置/权重/环境/图片/结果/未知目录。A后status仅.workbuddy/。main未合并，备份仍459b517；本次4份记录追加为审计B，自身哈希在终端核验、不写进自身提交。下一步与未验收列表见HANDOFF。
+
+## 2026-10-22 / 电脑样机运行测试
+
+用户要求测试并提供链接。本轮运行现有服务，不做功能施工/备份/commit/push。首次只读检查被自动审批连接中断拒绝，未执行；原命令重新走同一受控审批成功，未绕过审批。端口原无监听，环境/依赖已存在；未知.workbuddy/未处理。
+
+启动API--pc-runtime会话57724、Vite会话22782，分别回环8765/5173，前端200和前端代理health=ok。通过5173代理POST既有公开两猫图/cat，202后轮询到succeeded：整任务87.30秒、模型3014.09ms、[0.0,0.112,0.494,0.988]一框，另一猫仍漏检；ToF=null且grasp_confirmed=false。没有相机/云图/数据下载/训练，未做新DeepSeek请求或全仓回归，不宣称整机/所有功能完成。
+
+测试子进程结束，两个服务按用户请求保留供交互；关闭服务/应用或电脑后链接可能失效，不声称公网可访问。上轮B=c9c697510355d1f08cd67f406ef3f6827d64cc44。更新MEMORY/进度/交接与测试记录，本轮文档仅本地保存；无代码回滚需要。
+
+### 同日 / 图片与相机只读诊断
+
+用户问图片不显示/摄像头不打开。核查PcWorkbench：JPEG/PNG且<=1MiB，拒绝前清图；后台任务查询清图，刷新丢内存状态；图片只在PC区域预览，不写设备实时窗口。前端无getUserMedia/相机入口，仅CLI支持单拍；相机未打开不能表述为权限拒绝。HTTP5173为200，无活动任务，HTML未发现CSP阻止图片的证据。用户实际图片/报错未知，未断言具体原因。
+
+已读computer-use技能说明，但未实施原生Windows控制。尝试浏览器读取时cua内核因sandbox helper退出，未能取得页面状态；未绕过限制。未打开摄像头、修改业务或运行新推理/测试；此前HTTP/API/DOM自动测试不代替真实图片预览验收。请用户提供格式/大小或页面错误截图后继续定位。MEMORY/进度/交接已追加，本地未提交/推送，.workbuddy/不处理，已有服务保留。
+
+### 同日 / DeepSeek看不到图片的通道诊断
+
+用户问识别不了是否DeepSeek多模态问题。只读查PcWorkbench/api/pc_worker/deepseek：页面找物调用LocateAnything；网页对话只有文字，worker.ask未传image。执行本地validate_request校验对话携带image_base64被拒绝，确认网页图像没有进入DeepSeek路径，不产生网络调用。当前active=null，不能据此判断用户已完成任务的错误/零框。CLI显式图像授权入口与网页不同，不因此前CLI公开图成功就称网页视觉已接好。未改业务、重启服务或上传用户图片；更新MEMORY/进度/交接，未提交推送。
+
+用户补充实际网页文字回复：只能读文字、无法定位图中眼镜。该反馈支持文字通道诊断，不能视为LocateAnything推理失败或DeepSeek模型故障；网页视觉对话尚未集成是已知缺口。要接图须显式云图同意，不能改变既有本机选图隐私承诺；未在本轮实现/调用云端。更新4份本地记录，无新测试/提交/push。
+
+用户问识别是否如此慢。只读rg及active查询确认无活动任务；ProcessRunner每任务启动新进程，pc_worker每次构造PcLocateRuntime，权重重复冷加载。引用已有公开样图端到端23.75/87.30秒、模型1012.71/3014.09ms（不含加载/预处理），不将单图速度推广。常驻预热/按需重定位/跟踪尚待实现，不能用当前慢链路作即时避障。未改业务/新推理/重启/提交/push；四份诊断记录本地追加。记忆补丁首次因文本“模型故障”与实际“多模态故障”不匹配而未落盘，重新读尾部后按实际文本补记。
+
+## 2026-10-22 / 摄像头中文找物与常驻模型
+
+计划见DEV_PROGRESS/04层。身份Trollhunter/SSH18941602006/指定origin/开发分支复核，backup/pre-phase4-camera-zh-20261022-0030成功push并ls-remote核验c9c697510355d1f08cd67f406ef3f6827d64cc44后施工。此前5份本代理运行/诊断记录保留并并入本轮审查，未被该备份覆盖；未知.workbuddy/不处理，main不合并。
+
+实现CameraInput、WarmProcessRunner/WorkerState，更新PcWorkbench/API字段/DeepSeek翻译/worker/进程树结束和测试。实时视频由用户按钮申请，audio=false，无录像/云视频；关闭/卸载/隐藏/晚到授权释放，逐帧串行无积压。中文描述须明确同意云端文字翻译，颜色/位置保留，query_en可见；缓存最多32条并要求请求仍明确同意，修改描述重新同意，不把图像发DeepSeek。源帧与实时video分开显示，旧框不冒充跟踪。找物首次加载后复用模型，取消/超时/失败终止本worker树、下次重载；单次文字对话不换为图像对话。
+
+### 失败、处理与复测
+
+1. 首轮前端14项中1项失败：DOMException在测试realm中不一定instanceof Error，权限拒绝被归为通用相机错误；改为结构读取name，14项/build复测通过。另补隐藏关闭测试后最终15项/build通过。没有把mock相机当真实画面验收。
+2. warm8项首次5个ERROR(含teardown)，Windows worker.err被占用。定位Windows venv可能派生子Python，只kill父进程不足；按[Microsoft taskkill](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/taskkill)仅对本程序Popen PID执行/T /F并等待，补临时目录最多0.5秒释放重试。第一次修复复测仍1FAIL/6ERROR，查明测试patch整个subprocess.Popen也拦截了taskkill，误启fake worker；修改测试只替换模型进程，taskkill调用透传。最终warm8项、PC12项通过，随后全仓176项通过。只读检查未发现本轮fake worker残留，不终止无关程序。
+3. 常规Ruff导入/格式检查与格式化后复测通过，foundation白名单同步增加4个必需文件；没有新增依赖/权重/数据/训练。
+4. 浏览器控制工具重置后仍因sandbox helper失败，未能实际点击相机或观察真实视频；不使用其他方式绕过浏览器/系统相机授权，保留用户手动开启步骤。实际权限与预览仍待用户确认。
+
+### 真实测试与运行环境
+
+确认旧8765无活动任务并核对PID1456为本项目API后终止该PID，新API--pc-runtime会话12579启动，Vite22782保留。通过5173代理用既有公开640×480两猫图/中文猫执行两次：DeepSeek文字翻译cat，冷任务82.27秒/模型3082.14ms/model_reused=false；热任务2.12秒/模型1763.60ms/model_reused=true。两次均左猫一框，仍漏另一猫；不是多图质量/可靠跟踪或FPS验收。另真实仅文字翻译“请帮我找桌子上的黑色眼镜”→“black glasses on the table”，未发送图片。温度/功耗/真实相机时延未测。
+
+最终验证：Python176项(24.712秒)、前端15项与TypeScript/Vite构建、Ruff54文件、foundation144文件、来源17项/6报告、Android30文件/固件静态、compileall、.venv-pc pip check与diff通过。前端JS209.62kB/gzip66.96kB。USB/硬件/手部/ToF/语音/安卓真机未验收。MDN[getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia)与[track.stop](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack/stop)用于核对生命周期，不替代当前浏览器实测。
+
+文档同步协议/操作/README/进度/交接/记忆，早期静态任务描述更新为摄像头扩展，历史诊断保留。暂无回滚需要；服务与热模型按用户测试要求保留，不在收尾主动关闭；若需撤销只对审查后的明确提交revert。Key/模型/图片/环境均不入Git，待A/B审计核验。

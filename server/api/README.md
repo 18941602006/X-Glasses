@@ -5,3 +5,5 @@ Phase 2B 的电脑调试台边界：只绑定回环地址，输出显式来源/�
 开发入口：`python -m server.api`。接口合同见 `docs/protocol/LOCAL_API_V1.md`。
 
 电脑真实任务需明确使用`python -m server.api --pc-runtime`启用；默认独立.venv-pc进程运行选图找物或用户同意的DeepSeek文字，不开放文件路径/Key接口/云端图片。单活动任务、有界记录、超时、取消和后台查询；与设备状态/控制隔离，设备不因此READY。合同见[PC_JOBS_V1](../../docs/protocol/PC_JOBS_V1.md)，操作见[电脑运行说明](../../docs/dependencies/LOCATE_PC_RUNTIME.md)。
+
+摄像头取帧/中文扩展：找物使用常驻warm_worker复用模型，中文描述须allow_cloud_translation=true且仅文字外发；连续画面只在本机浏览器预览/限频取帧。取消/超时/失败终止本worker进程树，下次重载；既有普通对话仍是文字，不因此接通云端视觉对话。

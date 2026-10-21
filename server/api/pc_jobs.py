@@ -29,12 +29,46 @@ class JobFailure(RuntimeError):
     pass
 
 
+def stop_process_tree(process) -> None:
+    """Windows venv redirectors can own a second Python process; stop our tree."""
+    if process.poll() is None:
+        if os.name == "nt":
+            subprocess.run(
+                ["taskkill.exe", "/PID", str(process.pid), "/T", "/F"],
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                timeout=10,
+                check=False,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+            )
+        if process.poll() is None:
+            process.kill()
+    process.wait(timeout=5)
+
+
 def validate_request(value: object) -> dict:
     if not isinstance(value, dict):
         raise ValueError("invalid job")
     kind = value.get("kind")
-    if kind == "locate" and set(value) == {"kind", "query", "image_base64"}:
+    if kind == "locate" and {"kind", "query", "image_base64"} <= set(value) <= {
+        "kind",
+        "query",
+        "image_base64",
+        "source",
+        "allow_cloud_translation",
+    }:
         text, limit = value["query"], 160
+        if value.get("source", "file") not in {"file", "pc_camera"}:
+            raise ValueError("invalid source")
+        if (
+            "allow_cloud_translation" in value
+            and type(value["allow_cloud_translation"]) is not bool
+        ):
+            raise ValueError("invalid translation consent")
+        if isinstance(text, str) and any("\u3400" <= c <= "\u9fff" for c in text):
+            if value.get("allow_cloud_translation") is not True:
+                raise ValueError("explicit text translation consent required")
         encoded = value["image_base64"]
         if not isinstance(encoded, str) or len(encoded) > (MAX_IMAGE + 2) // 3 * 4:
             raise ValueError("image too large")
@@ -100,6 +134,15 @@ def public_result(kind: str, value: object) -> dict:
         "tof_status": "not_connected",
         "grasp_confirmed": False,
         "observation": "static_image_not_live",
+        **(
+            {"query_en": value["query_en"]}
+            if isinstance(value.get("query_en"), str)
+            and 0 < len(value["query_en"]) <= 160
+            and value["query_en"].isascii()
+            and value["query_en"].isprintable()
+            else {}
+        ),
+        "model_reused": value.get("model_reused") is True,
     }
 
 
@@ -153,9 +196,7 @@ class ProcessRunner:
                         raise JobFailure("worker_output_limit")
                     return json.loads(raw)
                 finally:
-                    if process.poll() is None:
-                        process.kill()
-                    process.wait(timeout=5)
+                    stop_process_tree(process)
 
 
 class PcJobs:
@@ -197,6 +238,8 @@ class PcJobs:
         result, failure = None, None
         try:
             result = public_result(request["kind"], self.runner(request, cancelled))
+            if request["kind"] == "locate":
+                result["source"] = request.get("source", "file")
         except JobFailure as exc:
             failure = (
                 str(exc)
@@ -238,3 +281,6 @@ class PcJobs:
             thread = self.thread
         if thread:
             thread.join(timeout=10)
+        close = getattr(self.runner, "close", None)
+        if close:
+            close()

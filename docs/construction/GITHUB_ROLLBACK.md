@@ -40,3 +40,7 @@ backup/pre-phase4-pc-runtime-20261021-1745 → 8f2602815709067089d1e64b31fb21cbf
 ## 2026-10-21 / 电脑工作台集成前备份
 
 backup/pre-phase4-pc-workbench-20261021-2200 → 459b517fd63313746cd556e0bd3b8335ab283eb5，已push并ls-remote核验一致。覆盖上一电脑模型A/B，不含上轮数据调研的本地文档、本轮计划/施工、忽略的Key/模型/环境或未知.workbuddy/。仍在development/continuous-build-20260905，不合并main，不在备份分支开发。若撤销本轮，先审查实际交付A后优先普通revert，不覆盖用户改动。
+
+## 2026-10-22 / 摄像头与中文找物前备份
+
+backup/pre-phase4-camera-zh-20261022-0030 → c9c697510355d1f08cd67f406ef3f6827d64cc44，push与ls-remote核验一致，SSH18941602006/指定origin/身份保持。只覆盖已提交电脑工作台A/B；不含此前本地5份运行/诊断记录及本轮计划/代码、本机Key/模型/环境/照片或.workbuddy/。开发分支不变，main不合并，未回滚；如需撤销审查本轮明确提交后普通revert。

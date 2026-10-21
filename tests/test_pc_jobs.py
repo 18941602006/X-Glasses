@@ -123,6 +123,8 @@ class PcJobTests(unittest.TestCase):
         processes, inputs = [], []
 
         def launch(command, **kwargs):
+            if command[0] == "taskkill.exe":
+                return original(command, **kwargs)
             inputs.append(Path(command[-1]))
             process = original([sys.executable, "-c", "import time; time.sleep(5)"], **kwargs)
             processes.append(process)
@@ -139,6 +141,8 @@ class PcJobTests(unittest.TestCase):
         processes = []
 
         def launch(command, **kwargs):
+            if command[0] == "taskkill.exe":
+                return original(command, **kwargs)
             process = original([sys.executable, "-c", "import time; time.sleep(5)"], **kwargs)
             processes.append(process)
             return process

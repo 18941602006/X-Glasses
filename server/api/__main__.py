@@ -4,8 +4,9 @@ import argparse
 from pathlib import Path
 
 from server.api.http import create_server
-from server.api.pc_jobs import PcJobs, ProcessRunner
+from server.api.pc_jobs import PcJobs
 from server.api.state import CommandBroker, DashboardStore
+from server.api.warm_worker import WarmProcessRunner
 
 
 def main() -> None:
@@ -15,7 +16,7 @@ def main() -> None:
     args = parser.parse_args()
     store = DashboardStore()
     broker = CommandBroker(store)
-    jobs = PcJobs(ProcessRunner(args.pc_python)) if args.pc_runtime else None
+    jobs = PcJobs(WarmProcessRunner(args.pc_python)) if args.pc_runtime else None
     server = create_server(store, broker, pc_jobs=jobs)
     print("X-Glasses local API: http://127.0.0.1:8765 (device dispatcher not attached)")
     print(
