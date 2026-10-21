@@ -36,3 +36,7 @@ backup/pre-phase2a-protocol-20260905-0110 → 08aaecc722750e59a5009a19bed8d39a09
 ## 2026-10-21 / 电脑真实模型施工前备份
 
 backup/pre-phase4-pc-runtime-20261021-1745 → 8f2602815709067089d1e64b31fb21cbffbfc0dc，push后ls-remote核验一致。仅覆盖原提交，不含此前未提交状态记录、本轮代码、本机忽略密钥/模型/环境/图片或未知.workbuddy/。本轮继续development/continuous-build-20260905，不合并main。需要撤销时先审查交付A后普通revert；不覆盖用户文件。
+
+## 2026-10-21 / 电脑工作台集成前备份
+
+backup/pre-phase4-pc-workbench-20261021-2200 → 459b517fd63313746cd556e0bd3b8335ab283eb5，已push并ls-remote核验一致。覆盖上一电脑模型A/B，不含上轮数据调研的本地文档、本轮计划/施工、忽略的Key/模型/环境或未知.workbuddy/。仍在development/continuous-build-20260905，不合并main，不在备份分支开发。若撤销本轮，先审查实际交付A后优先普通revert，不覆盖用户改动。

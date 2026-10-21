@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
 
 import { api, type DashboardClient } from "./api";
+import { PcWorkbench } from "./PcWorkbench";
 import type { CommandAction, CommandState, StatusSnapshot } from "./types";
 
 const fallback: StatusSnapshot = {
@@ -115,6 +116,7 @@ export function App({ client = api, initial = fallback, polling = true }: AppPro
         {networkError && <div className="alert" role="alert">{networkError}</div>}
         <p className="sr-only" aria-live="polite">{announcement}</p>
 
+        <PcWorkbench />
         <section className="dashboard-grid" aria-label="设备状态面板">
           <article className="panel vision-panel">
             <div className="panel__head"><div><span className="kicker">CAMERA FEED</span><h2>视觉输入</h2></div><span className={`tag tag--${status.frame.state}`}>{status.frame.state}</span></div>
@@ -155,7 +157,7 @@ export function App({ client = api, initial = fallback, polling = true }: AppPro
           </article>
         </section>
       </main>
-      <footer><span>本地回环接口 · 不保存图像</span><span>安全状态：原型 / 需陪同测试</span></footer>
+      <footer><span>本地回环接口 · 图片任务使用临时文件，完成后清理</span><span>安全状态：原型 / 需陪同测试</span></footer>
     </div>
   );
 }

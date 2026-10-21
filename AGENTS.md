@@ -6,7 +6,7 @@
 
 开工依次完整阅读：本文 → 根施工规范 V3 / docs/construction/CODEX_MASTER_REQUIREMENTS.md → docs/product/PRODUCT_REQUIREMENTS.md → DEV_PROGRESS → LOG → GITHUB_ROLLBACK → TEST_METRICS → WORKFLOW → 当前 progress/layers 文件 → HANDOFF（未带路径者均在 docs/construction 下）。按需读 ARCHITECTURE、LAYER_CONTRACT、TOOL_POLICY 和方案 V3。
 
-当前 Phase 2A：协议/回放、主机握手/心跳/对时/ACK/传感器和可选串口适配已有实现；固件/实机未验收。读 docs/protocol/USB_V1.md、CONTROL_V1.md、docs/dependencies/INPUT_RUNTIME.md，阶段以最新 HANDOFF 为准。用户要求连续完成全项目，不在小检查点后停等；仍按权限/备份/测试报备。2B 为新前端；Android 工程仅 Phase 6。
+当前优先 Phase 4/5 电脑样机：LocateAnything 固定权重与 DeepSeek 官方文字/公开图调用已跑通，继续真实质量评测及电脑工作台；高德/手机本地迁移按用户要求暂缓。Phase 0–6 有源码检查点，不等于模型质量、固件/硬件或 Android 实机验收。必读 LOCATE_PC_RUNTIME、PC_JOBS_V1 及最新 HANDOFF；USB/传感器仍按 USB_V1、CONTROL_V1 和 INPUT_RUNTIME。用户要求连续推进，不在小检查点后停等；仍按权限/备份/测试报备。
 
 每轮先记计划，再在安全基线上成功 push 开发前备份并核验，才进入真实施工；明确暂存范围，交付 A/审计 B，不 force push、不覆盖未知改动。测试失败保留原因/修复/复测。记录实际状态、文档漂移和回滚点。
 

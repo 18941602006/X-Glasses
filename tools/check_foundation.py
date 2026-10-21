@@ -64,6 +64,7 @@ RUNTIME_FILES = {
     "server/api/__main__.py",
     "server/api/http.py",
     "server/api/state.py",
+    "server/api/pc_jobs.py",
     "frontend/index.html",
     "frontend/package.json",
     "frontend/package-lock.json",
@@ -77,6 +78,8 @@ RUNTIME_FILES = {
     "frontend/src/vite-env.d.ts",
     "frontend/src/test/setup.ts",
     "frontend/src/App.test.tsx",
+    "frontend/src/PcWorkbench.tsx",
+    "frontend/src/PcWorkbench.test.tsx",
     "server/perception/navigation/contracts.py",
     "server/perception/navigation/fusion.py",
     "server/perception/navigation/worker.py",
@@ -130,6 +133,10 @@ REQUIRED += sorted(RUNTIME_FILES) + [
     "tools/dialogue_pc.py",
     "tests/test_pc_runtime.py",
     "docs/dependencies/LOCATE_PC_RUNTIME.md",
+    "tools/pc_worker.py",
+    "tests/test_pc_jobs.py",
+    "docs/protocol/PC_JOBS_V1.md",
+    "docs/dependencies/VISION_DATASETS_REVIEW.md",
 ]
 
 

@@ -1,5 +1,13 @@
 # 测试与指标
 
+## 2026-10-21 / 电脑工作台真实任务集成
+
+- Python全仓168项（新增PC任务12项）通过，含HTTP启用/Origin/Host/大小/格式/取消/查询、单任务/记录上限/晚到丢弃/脱敏及真实临时子进程超时/取消终止；不等于真实硬件任务。
+- React现8项（原3+新5）通过，覆盖选图、文字单次授权、运行与取消、静态框/未知距离、查询改动清旧框、失败与恢复。TypeScript及Vite构建通过；无人工浏览器/屏幕阅读器验收。
+- 真实HTTP公开单图n=1/query=cat：总任务23.75秒，模型1012.71ms，返回左猫一框，另一只漏检；总时长包括进程与权重冷加载/轮询，不能当FPS。官方文字任务n=1总1.33秒返回中文成功；无云端图像。模型不改为质量完成，设备状态仍未连接。
+- 中期静态：Ruff52文件、foundation140文件、来源17项/6报告、Android30文件、固件合同、compileall、独立模型环境pip及diff通过。最终复测见LOG；Android仍无APK/真机数据。
+- 首次HTTP测试Windows10053、TypeScript2322/2532和Ruff导入错误已保留LOG及复测，未隐瞒。缺ToF/手部/跟踪/分割/OCR/灯/语音/真实USB验收保持未完成。
+
 ## 2026-10-21 / 电脑真实模型与对话检查点
 
 - 最终软件验证：Python156项（新增PC7项）、Ruff check/format49文件、compileall、foundation133文件、source audit17项/6报告、Android静态30文件、独立.venv-pc pip check与diff检查均通过。Android仍无编译/真机结论。

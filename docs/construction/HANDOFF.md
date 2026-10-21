@@ -231,3 +231,25 @@ Android 独立工程已创建，入口见 `android/README.md`；UsbManager 用�
 第一检查点 A = a3fc152384cd20a453fd19256468ac039d128de2。AndroidHostLink 已把 bulk transport、XG03 decoder 和 ControlSession 接通；只有合法 WELCOME/能力/心跳才能 READY，后台/拔线/超时关闭。重复提示不重启任务。当前静态 20 文件、7 回归、全仓 146 项通过。
 
 恢复后的首要外部动作：团队在 Android Studio/JDK17/SDK35 环境按 android/README 解析依赖并运行 `:app:testDebugUnitTest`、`:app:assembleDebug`，返回完整日志和 lock/verification metadata。之后需具体骁龙 8 手机、可声明 CAMERA+TOF+CLOCK 的已编译固件和模型文件。没有这些，Phase 6 不能诚实完成；不要把 Python checker 当 Kotlin 编译。
+
+## 2026-10-21 / 最新追加：视觉数据集调研
+
+用户认可电脑样机路线，要求训练如有必要优先复用现有标注数据，中断后要求继续。已完成docs/dependencies/VISION_DATASETS_REVIEW.md；道路优先sidewalk-semantic、Cityscapes备选，灯优先核查DTLD行人子集并补国内数据；清华数据缺绿色行人独立类，PTL坐标非灯框，不能搬入斑马线能力。100DOH和中文OCR数据为后备，许可未齐不下载；先测现成模型，不立即训练LocateAnything。
+
+本轮仅文档，未新增业务实现/训练/数据/新权重/API调用/摄像头操作。当前HEAD仍459b517fd63313746cd556e0bd3b8335ab283eb5，development/continuous-build-20260905不变；main不合并，.workbuddy/不触碰。六份文档本地未提交/推送，无本轮A/B或新备份；上轮156项软件回归和真实单图结果仅作历史基线。下一步仍按电脑多图/无目标/多物歧义评测、工作台集成推进，高德/手机暂缓，ToF/手部/真实拿取尚未验收。
+
+## 2026-10-21 / 最新追加：电脑工作台真实任务集成
+
+已完成PC API显式启用、单任务隔离子进程、选图框显示、DeepSeek文字本次授权、取消/超时/晚到丢弃、后台任务恢复及临时文件清理。启动`python -m server.api --pc-runtime`，另在frontend运行`npm run dev`，访问http://127.0.0.1:5173；解释器/模型/本机Key见LOCATE_PC_RUNTIME，协议PC_JOBS_V1。默认API仍不启用模型，设备/USB状态不被电脑任务伪造。
+
+实际HTTP已验证公开两猫图只检出左猫：1012.71ms模型、23.75秒整任务；文字1.33秒成功。单图不是质量通过，无摄像头/云图/新权重/训练。Python168项、前端8项/构建及静态检查已通过，初次失败与修复见LOG。备份backup/pre-phase4-pc-workbench-20261021-2200核验为459b517；开发分支不变、main不合并，未知.workbuddy/排除。本节写入时A/B未提交，后续审计记录实际哈希和远端状态。
+
+剩余工作按依赖排序：
+1. 多图片/多物/无物/遮挡/中文查询独立评测，排查LocateAnything漏检；本机模型质量未验收，不立即从零训练。
+2. 连续输入、目标选择/澄清、跟踪、MediaPipe手部真实运行与当前融合合同衔接；当前只有静态图片任务，不自动开相机。
+3. 道路分割、中文OCR和国内行人灯真实模型/许可/固定权重及质量验证；已有合同/数据候选不是实际能力。
+4. TTS/ASR、取消/重复、统一仲裁与真实输出；调试显示不等于语音助手闭环。
+5. 团队固件编译烧录、真实USB/相机/ToF/IMU/供电/震动；标定、时间与ToF距离归属；受控、有陪同拿取/道路评测。无硬件无法验收这部分。
+6. 最后恢复手机/高德（用户目前暂缓）；团队Android工具链/APK/骁龙8真机、模型运行、功耗温升和导航服务验收。不能把现有Android源码称成手机可用版本。
+
+最终回归已通过：168项Python、8项React及TypeScript/Vite、52文件Ruff、140文件foundation、来源/Android30/固件静态、compileall、pip/diff；临时真实HTTP测试服务关闭。本轮不宣称浏览器人工、硬件或手机验收。
