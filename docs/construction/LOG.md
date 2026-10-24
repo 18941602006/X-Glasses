@@ -454,3 +454,6 @@ A=3ea7959205b961c026a56a06883f423ec91b2bcd，25文件905增/81删，已push到de
 备份backup/pre-phase2-reference-fit-20261025-01已push核验cccc5a453f4daea701a278c0903bf122d59203e6，同时确认上轮A已交付；上轮独立B未完成，本轮如实补记。main不合并，未知.workbuddy/排除。新A/B待后续核验。外观由用户评价，不预称完全复刻；到货OV5640、完整干涉/公差/热/佩戴仍未验证，电池未实施。Blender自带拆装可用，XG03视频不用于冒充新轮廓。
 
 最终5张1920×1280图已全部从当前模型渲染完成并查图，包含装配/爆炸/内部/正视/硬件细节；Blender进程正常退出。XG04交付ZIP含模型、图片、清单、校验和复现源码，CRC通过，SHA256见DELIVERY_MANIFEST_XG04.json。当前没有XG04独立视频，原生时间轴可播放拆装。
+
+XG04交付A=24d92d695b2dd7cba9b9ef9cfdd1dd0123b0d6d1已push开发分支并ls-remote核验一致。A后仅原有未跟踪.workbuddy/，main未合并。此为审计B，B自身哈希随后终端核验；本机产物保持Git忽略，不将图片/模型包宣称上传到远端。
+
