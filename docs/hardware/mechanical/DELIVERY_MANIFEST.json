@@ -1,0 +1,76 @@
+{
+  "design": "X-Glasses BLACK / OV5640",
+  "status": "nominal_geometry_checked_not_manufacturing_release",
+  "files": [
+    {
+      "file": "X-Glasses_BLACK_OV5640.blend",
+      "bytes": 1613558,
+      "sha256": "566d75ae3d394a56b4112b837a1315d308f7cc98309f2bf18d0f18ea5f621bd9"
+    },
+    {
+      "file": "assembled.png",
+      "bytes": 2506888,
+      "sha256": "0040439dc1f24af3a62a680e3dcf9462aa346d5f2e5302653f555d142c92cb15"
+    },
+    {
+      "file": "exploded.png",
+      "bytes": 2525968,
+      "sha256": "336c3cf97a9ba6b38df6debe99ffc910d8c3d4b5dcf5041d0e06a483b42f79ed"
+    },
+    {
+      "file": "internal.png",
+      "bytes": 2545144,
+      "sha256": "686ab2375065525d1dc85020202646770e0c5616a2b80752ff9e36b26b188be9"
+    },
+    {
+      "file": "front.png",
+      "bytes": 2349444,
+      "sha256": "b8362df22b89d3217beb9f4d0c3feb8f16babb446267e3471c3e05a84281f623"
+    },
+    {
+      "file": "hardware_detail.png",
+      "bytes": 2755948,
+      "sha256": "0160fb23914baf6cf78ba24642e0fcb9193f8f620c61c560a4bfe3facca55450"
+    },
+    {
+      "file": "mainboard_detail.png",
+      "bytes": 1356819,
+      "sha256": "0dfdb3ca6e5ea4722f8766c6fe9bbbc8a3d74cee2b1d0f4056673c231242ae59"
+    },
+    {
+      "file": "optional_battery_packaging.png",
+      "bytes": 1320820,
+      "sha256": "9d9d18d4631701544911bf1c2146170ae2d9e6872d97c5b6d253563bb5ee5557"
+    },
+    {
+      "file": "assembly_preview.mp4",
+      "bytes": 462716,
+      "sha256": "edfe9a6b4a7b94ac6153d01f9f0f6da255064120f936229f642def20dfa69e29"
+    },
+    {
+      "file": "assembly_preview.gif",
+      "bytes": 3881662,
+      "sha256": "4b8fc1fc8e702d12467570fde005ad1f9fe05c5da6034357b0d3d722f3d4eb6b"
+    },
+    {
+      "file": "parts.csv",
+      "bytes": 29817,
+      "sha256": "f4dd6d851d8b3048f09fb57a6b8d72a7c6bd3359fc576cf4ec794b2572e8ea2c"
+    },
+    {
+      "file": "fit_results.json",
+      "bytes": 1689,
+      "sha256": "a9b479c2be752672229ae079366a21f980e99f52e483dfa06129f0a5fa70e0ac"
+    },
+    {
+      "file": "verification.json",
+      "bytes": 846,
+      "sha256": "d039ce9f71851a7d957a6f69b28ee876ce87e61f97ff131761f7bb80d479f320"
+    },
+    {
+      "file": "video_verification.json",
+      "bytes": 106,
+      "sha256": "50885422b2d414561bc7922022d3881ba0efaa255a67afd55b43b58fe454ee19"
+    }
+  ]
+}

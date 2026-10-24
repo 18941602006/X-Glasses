@@ -44,3 +44,7 @@ backup/pre-phase4-pc-workbench-20261021-2200 → 459b517fd63313746cd556e0bd3b833
 ## 2026-10-22 / 摄像头与中文找物前备份
 
 backup/pre-phase4-camera-zh-20261022-0030 → c9c697510355d1f08cd67f406ef3f6827d64cc44，push与ls-remote核验一致，SSH18941602006/指定origin/身份保持。只覆盖已提交电脑工作台A/B；不含此前本地5份运行/诊断记录及本轮计划/代码、本机Key/模型/环境/照片或.workbuddy/。开发分支不变，main不合并，未回滚；如需撤销审查本轮明确提交后普通revert。
+
+## 2026-10-25 / 黑色结构前备份
+
+backup/pre-phase2-black-final-20261025-01 → 3109dbdf6d4dc86a670906e99b159e5236833b10，首次SSH连接重置失败后同一普通push重试成功，ls-remote核验同值后才写最终模型。前两轮结构备份也保护同一已提交基线；未提交设计/计划、忽略的.blend/渲染/视频/照片/本地配置与.workbuddy/不在远端覆盖内。保持development/continuous-build-20260905，不合并main；最终A/B见LOG/HANDOFF。无已执行回滚，后续仅对审查后的明确提交普通revert。
