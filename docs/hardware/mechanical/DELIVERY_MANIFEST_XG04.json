@@ -1,0 +1,42 @@
+{
+  "X-Glasses_BLACK_OV5640.blend": {
+    "bytes": 1558907,
+    "sha256": "bb00adf45aa92cba2f0615f3a9e586d0a98db71c6f097f0c3650a5bb2fe27dce"
+  },
+  "assembled.png": {
+    "bytes": 2448334,
+    "sha256": "b379509ca528951d874bc851c6577c4271ef030ae12f00c21951462000dc165e"
+  },
+  "exploded.png": {
+    "bytes": 2524842,
+    "sha256": "c729a14666a18e068697df742af5aea0f2b1389b722d153934fa514060b5b014"
+  },
+  "internal.png": {
+    "bytes": 2475325,
+    "sha256": "109b55e0ce39311a31daafa9c9ae6dc00a177f3e2ce1084377633375867265d8"
+  },
+  "front.png": {
+    "bytes": 2356971,
+    "sha256": "e7322cd1c809f98ad46c1ed7670f6ea61791b4a84b156b12916e6d210c58527a"
+  },
+  "hardware_detail.png": {
+    "bytes": 2763792,
+    "sha256": "f0c412db46d2d2b75c097f43b01a6911d1d3322217a8ef26bc8863968decade5"
+  },
+  "parts.csv": {
+    "bytes": 29665,
+    "sha256": "1edbe910622605d39c7820a1d9989654cc195aa96ea70646ad1ca644afe75d11"
+  },
+  "fit_results.json": {
+    "bytes": 1689,
+    "sha256": "a9b479c2be752672229ae079366a21f980e99f52e483dfa06129f0a5fa70e0ac"
+  },
+  "verification.json": {
+    "bytes": 846,
+    "sha256": "7bff82d97b594cd7d5420afc17cbf10641c6c39c0e34a8e6a05abf69d553ae9b"
+  },
+  "build_report.json": {
+    "bytes": 335,
+    "sha256": "c178efee5ce934260c6d57519178c595720d03465b3d27ec4efdfe8cecd16f21"
+  }
+}
