@@ -390,4 +390,3 @@ A=a715a73582865f1a29aad7247a3370cb8cea783b，已push并核验开发分支一致�
 最终5张1920×1280图已全部从当前模型渲染完成并查图，包含装配/爆炸/内部/正视/硬件细节；Blender进程正常退出。XG04交付ZIP含模型、图片、清单、校验和复现源码，CRC通过，SHA256见DELIVERY_MANIFEST_XG04.json。当前没有XG04独立视频，原生时间轴可播放拆装。
 
 XG04交付A=24d92d695b2dd7cba9b9ef9cfdd1dd0123b0d6d1已push开发分支并ls-remote核验一致。A后仅原有未跟踪.workbuddy/，main未合并。此为审计B，B自身哈希随后终端核验；本机产物保持Git忽略，不将图片/模型包宣称上传到远端。
-

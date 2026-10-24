@@ -457,3 +457,4 @@ A=3ea7959205b961c026a56a06883f423ec91b2bcd，25文件905增/81删，已push到de
 
 XG04交付A=24d92d695b2dd7cba9b9ef9cfdd1dd0123b0d6d1已push开发分支并ls-remote核验一致。A后仅原有未跟踪.workbuddy/，main未合并。此为审计B，B自身哈希随后终端核验；本机产物保持Git忽略，不将图片/模型包宣称上传到远端。
 
+审计B bdcdb1225899d9228158d72c73e6ffec4dc5f57c已远端核验；其diff检查发现4份记录EOF多余空行，随后独立格式修正并复测。模型/包络校验结果不变。
